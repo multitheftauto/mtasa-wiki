@@ -1,0 +1,17 @@
+client:
+  name: 'getCursorAlpha'
+  pair: 'setCursorAlpha'
+  description: |
+    This function is used to get the client's cursor alpha (transparency). 
+  returns:
+    description: |
+      Returns a int between 0 and 255, where 255 is fully opaque and 0 is fully transparent. 
+    values:
+      - type: 'int'
+        name: 'alpha'
+  version:
+    added: '1.3.2'
+  examples:
+    - path: 'examples/getCursorAlpha.lua'
+  see_also:
+    - 'category:GUI functions'

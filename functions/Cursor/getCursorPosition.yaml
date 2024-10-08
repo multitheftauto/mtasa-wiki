@@ -1,0 +1,35 @@
+client:
+  name: 'getCursorPosition'
+  pair: 'setCursorPosition'
+  description: |
+    This function gets the current position of the mouse cursor.
+    Note that for performance reasons, the world position returned is always 300 units away.
+    If you want the exact world point (similar to [[onClientClick]]), use [[processLineOfSight]] between the camera position and the worldX/Y/Z result of this function.
+    (See example below) 
+  returns:
+    description: |
+      Returns 5 values: *cursorX*, *cursorY*, *worldX*, *worldY*, *worldZ*.
+      The first two values are the 2D **relative** screen coordinates of the cursor.
+      The 3 values that follow are the 3D world map coordinates that the cursor points at.
+      If the cursor isn't showing, returns *false* as the first value.
+    values:
+      - type: 'float'
+        name: 'cursorX'
+      - type: 'float'
+        name: 'cursorY'
+      - type: 'float'
+        name: 'worldX'
+      - type: 'float'
+        name: 'worldY'
+      - type: 'float'
+        name: 'worldZ'
+  issues:
+    - id: 1166
+      description: 'getCursorPosition() returns false even when cursor is showing due to opened console'
+  examples:
+    - path: 'examples/getCursorPosition-1.lua'
+      description: |
+        This example prints your cursors current world coordinates and relative screen coordinates to chatbox after typing cursorpos.
+    - path: 'examples/getCursorPosition-2.lua'
+      description: |
+        This (untested) example uses processLineOfSight to calculate the exact world location: Warning, using the script down there will cause high CPU usage.

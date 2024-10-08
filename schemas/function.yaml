@@ -1,0 +1,68 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: /schemas/function
+title: Function schema
+type: object
+
+$defs:
+  common_properties:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        description: Name of the function.
+      pair:
+        type: string
+        description: Associates this function with another getter or setter function.
+      description:
+        type: string
+        description: Describes the functionality provided by the function.
+      version:
+        description: Version information when the function got added/deprecated/removed.
+        $ref: '#/$defs/version'
+      examples:
+        $ref: '#/$defs/examples'
+  
+  version:
+    type: object
+    properties:
+      added:
+        type: string
+        description: Version when this item was added to MTA.
+      removed:
+        type: string
+        description: Version when this item was removed from MTA.
+      deprecated:
+        type: string
+        description: Version when this item was deprecated in MTA.
+
+  examples:
+    description: A list of source code examples demonstrating the function.
+    type: array
+    items:
+      type: object
+      required:
+        - path
+      properties:
+        path:
+          type: string
+          description: A relative or repository-absolute path to an example source file.
+        description:
+          type: string
+          description: Description for this source code example.
+        append:
+          type: boolean
+          default: false
+          description: If set to true, this example will be appended to the previous example.
+
+properties:
+  shared:
+    description: A shared specification of a function.
+    $ref: '#/$defs/common_properties'
+  server:
+    description: A server-side specification of a function.
+    $ref: '#/$defs/common_properties'
+  client:
+    description: A client-side specification of a function.
+    $ref: '#/$defs/common_properties'

@@ -1,0 +1,22 @@
+client:
+  name: 'setCursorPosition'
+  pair: 'getCursorPosition'
+  description: 'This function sets the current position of the mouse cursor.'
+  parameters:
+    - name: 'cursorX'
+      type: 'int'
+      description: 'Position over the X axis'
+    - name: 'cursorY'
+      type: 'int'
+      description: 'Position over the Y axis'
+  returns:
+    description: 'Returns *true* if the position has been successfully set, *false* otherwise.'
+    values:
+      - type: 'bool'
+        name: 'result'
+  examples:
+    - path: 'examples/setCursorPosition.lua'
+      description: |
+        This example sets your cursor position to the center of your screen after using the command *cursorpos*.
+  see_also:
+    - 'tag:Client input functions'

@@ -1,0 +1,40 @@
+shared: &shared
+  name: 'showCursor'
+  description: |
+    This function is used to show or hide a [[player]]'s cursor. 
+  notes:
+    - Regardless of the cursor state you set using this function, the cursor will always be visible while the menu, the chatbox input line or the console are active, or if another resource has called this function.
+    - Be aware of that if showCursor enbaled by a resource you can't disabled it from a different ressource showCursor(false) will not works, in order to make it works, disable it from the original resource that enabled it or use export.
+  parameters:
+    - name: 'thePlayer'
+      type: 'player'
+      description: 'The [[player]] you want to show or hide the cursor of.'
+    - name: 'show'
+      type: 'bool'
+      description: 'A boolean value determining whether to show (*true*) or hide (*false*) the cursor.'
+    - name: 'toggleControls'
+      type: 'bool'
+      description: |
+        A boolean value determining whether to disable controls whilst the cursor is showing. *true* implies controls are disabled, *false* implies controls remain enabled.
+  returns:
+    description: |
+      Returns *true* if the player's cursor was shown or hidden successfully, *false* otherwise. 
+    values:
+      - type: 'bool'
+        name: 'result'
+
+server:
+  <<: *shared
+  examples:
+    - path: 'examples/showCursor-1.lua'
+      description: |
+        This example shows the cursor for a player named "Dave", then outputs a message if it was shown successfully. 
+
+client:
+  <<: *shared
+  ignore_parameters:
+    - 'thePlayer'
+  examples:
+    - path: 'examples/showCursor-2.lua'
+      description: |
+        This example shows the cursor all the time 
