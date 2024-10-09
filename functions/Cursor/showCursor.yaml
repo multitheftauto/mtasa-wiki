@@ -16,6 +16,7 @@ shared: &shared
       type: 'bool'
       description: |
         A boolean value determining whether to disable controls whilst the cursor is showing. *true* implies controls are disabled, *false* implies controls remain enabled.
+      default: 'true'
   returns:
     description: |
       Returns *true* if the player's cursor was shown or hidden successfully, *false* otherwise. 

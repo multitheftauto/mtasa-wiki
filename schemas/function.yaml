@@ -100,6 +100,15 @@ $defs:
         description:
           type: string
           description: Describe the usage, contraints and other useful information about the parameter.
+        default:
+          type: string
+          description: |
+            The default value for this parameter, if none was given in the call to the function.
+            This property automatically implicitly marks this parameter as optional.
+        optional:
+          type: boolean
+          default: false
+          description: If set to true, this parameter will be marked as optional.
 
   returns:
     type: object
