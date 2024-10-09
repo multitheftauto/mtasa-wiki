@@ -3,6 +3,17 @@ $id: /schemas/function
 title: Function schema
 type: object
 
+properties:
+  shared:
+    description: A shared specification of a function.
+    $ref: '#/$defs/common_properties'
+  server:
+    description: A server-side specification of a function.
+    $ref: '#/$defs/common_properties'
+  client:
+    description: A client-side specification of a function.
+    $ref: '#/$defs/common_properties'
+
 $defs:
   common_properties:
     type: object
@@ -18,12 +29,103 @@ $defs:
       description:
         type: string
         description: Describes the functionality provided by the function.
+      notes:
+        type: array
+        description: List of noteworthy pieces of information for the function.
+        items:
+          type: string
+      preview:
+        $ref: '#/$defs/preview'
+      parameters:
+        $ref: '#/$defs/parameters'
+      ignore_parameters:
+        type: array
+        description: |
+          A list of parameters to remove from the parameters list.
+          You should only use this for shared functions, for example where the client function is
+          missing a player parameter
+        items:
+          type: string
+          uniqueItems: true
+      returns:
+        $ref: '#/$defs/returns'
       version:
         description: Version information when the function got added/deprecated/removed.
         $ref: '#/$defs/version'
+      issues:
+        $ref: '#/$defs/issues'
       examples:
         $ref: '#/$defs/examples'
+      see_also:
+        type: array
+        description: A list of other items and categories for further reading.
+        items:
+          type: string
+          pattern: "^(item|category|tag):"
+          uniqueItems: true
   
+  preview:
+    type: array
+    description: A list of picture assets demonstrating the function.
+    items:
+      type: object
+      description: A single function preview.
+      required:
+        - path
+      properties:
+        path:
+          type: string
+          description: A relative or repository-absolute path to an asset file.
+        description:
+          type: string
+          description: Brief summary of the content in the picture.
+
+  parameters:
+    type: array
+    description: A list of required and optional parameters for the function.
+    items:
+      type: object
+      description: A single function parameter.
+      required:
+        - name
+        - type
+        - description
+      properties:
+        name:
+          type: string
+          description: Name of the function parameter.
+        type:
+          type: string
+          description: Type of the function parameter.
+        description:
+          type: string
+          description: Describe the usage, contraints and other useful information about the parameter.
+
+  returns:
+    type: object
+    required:
+      - values
+    properties:
+      description:
+        type: string
+        description: A summary for the return values.
+      values:
+        type: array
+        description: A list of named values returned by the function.
+        items:
+          type: object
+          description: A single function return value.
+          required:
+            - type
+            - name
+          properties:
+            type:
+              type: string
+              description: Type of the return value.
+            name:
+              type: string
+              description: Name of the return value.
+
   version:
     type: object
     properties:
@@ -37,11 +139,29 @@ $defs:
         type: string
         description: Version when this item was deprecated in MTA.
 
-  examples:
-    description: A list of source code examples demonstrating the function.
+  issues:
     type: array
+    description: A list of related issues for this function.
     items:
       type: object
+      description: A single function-related issue.
+      required:
+        - id
+        - description
+      properties:
+        id:
+          type: integer
+          description: Numeric identifier of the GitHub issue.
+        description:
+          type: string
+          description: Description or summary for this GitHub issue.
+
+  examples:
+    type: array
+    description: A list of source code examples demonstrating the function.
+    items:
+      type: object
+      description: A single source code example.
       required:
         - path
       properties:
@@ -55,14 +175,3 @@ $defs:
           type: boolean
           default: false
           description: If set to true, this example will be appended to the previous example.
-
-properties:
-  shared:
-    description: A shared specification of a function.
-    $ref: '#/$defs/common_properties'
-  server:
-    description: A server-side specification of a function.
-    $ref: '#/$defs/common_properties'
-  client:
-    description: A client-side specification of a function.
-    $ref: '#/$defs/common_properties'
