@@ -1,0 +1,23 @@
+shared:
+  name: 'setElementPosition'
+  pair: 'getElementPosition'
+  description: |
+    This function sets the position of an element to the specified coordinates.
+  notes:
+    - |
+      Warning: Do not use this function to spawn a [[player]]. It will cause problems with other functions like [[warpPedIntoVehicle]]. Use [[spawnPlayer]] instead.
+    - |
+      If you want to put a vehicle or player out of the water or simulate the position-resetting behaviour if CJ goes below the ground too far, then you need to retrieve a recommended coordinate on ground to place the element at. Take a look at this MTA forums post for steps in the right direction.
+      https://forum.mtasa.com/topic/132891-important-helprespawn-vehicle/?do=findComment&comment=1003198
+  returns:
+    description: |
+      Returns *true* if the function was successful, *false* otherwise.
+    values:
+      - type: 'bool'
+        name: 'result'
+  examples:
+    - path: 'examples/setElementPosition.lua'
+      description: |
+        This example lets you teleport 5 random players to yourself
+  see_also:
+    - 'category:Element functions'

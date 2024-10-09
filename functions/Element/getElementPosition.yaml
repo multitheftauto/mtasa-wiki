@@ -1,0 +1,30 @@
+shared:
+  name: 'getElementPosition'
+  pair: 'setElementPosition'
+  description: |
+    This function allows you to retrieve the position coordinates of an element. This can be any real world element, including:
+    - Players
+    - Vehicles
+    - Objects
+    - Pickups
+    - Markers
+    - Collision shapes
+    - Blips
+    - Radar areas
+    - Syntax
+  returns:
+    description: |
+      Returns three floats indicating the position of the element, x, y and z respectively.
+    values:
+      - type: 'float'
+        name: 'x'
+      - type: 'float'
+        name: 'y'
+      - type: 'float'
+        name: 'z'
+  examples:
+    - path: 'examples/getElementPosition.lua'
+      description: |
+        This example shows how to obtain the position of a player.
+  see_also:
+    - 'category:Element functions'
