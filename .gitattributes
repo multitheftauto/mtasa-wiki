@@ -1,0 +1,7 @@
+*      text=auto
+*.bat  text       eol=crlf
+*.cmd  text       eol=crlf
+*.sh   text       eol=lf
+
+tools/yajsv      filter=lfs diff=lfs merge=lfs -text
+tools/yajsv.exe  filter=lfs diff=lfs merge=lfs -text
