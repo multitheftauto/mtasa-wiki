@@ -2,17 +2,13 @@ name: YAML validation
 
 on:
   push:
-    paths:
+    paths: &filters
       - 'elements/**/*.yaml'
       - 'events/**/*.yaml'
       - 'functions/**/*.yaml'
       - 'schemas/**/*.yaml'
   pull_request:
-    paths:
-      - 'elements/**/*.yaml'
-      - 'events/**/*.yaml'
-      - 'functions/**/*.yaml'
-      - 'schemas/**/*.yaml'
+    paths: *filters
   workflow_dispatch:
 
 jobs:
