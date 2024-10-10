@@ -147,6 +147,9 @@ $defs:
       deprecated:
         type: string
         description: Version when this item was deprecated in MTA.
+      replacement:
+        type: string
+        description: An optional replacement for this item.
 
   issues:
     type: array
