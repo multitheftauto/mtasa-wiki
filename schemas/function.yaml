@@ -31,9 +31,13 @@ $defs:
         description: Associates this function with another getter or setter function.
       oop:
         $ref: '#/$defs/oop'
-      is_disabled:
-          type: string
-          description: Describe why the function was disabled, and if there is an alternative approach.
+      disabled:
+          description: |
+            Describe why the function was disabled, and if there is an alternative approach;
+            or just set the property to "true".
+          anyOf:
+            - type: string
+            - const: true
       meta:
         $ref: '#/$defs/meta'
       description:
