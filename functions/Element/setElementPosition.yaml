@@ -1,5 +1,9 @@
 shared:
   name: 'setElementPosition'
+  oop:
+    entity: player
+    method: setPosition
+    variable: position
   pair: 'getElementPosition'
   description: |
     This function sets the position of an element to the specified coordinates.
@@ -18,11 +22,9 @@ shared:
   examples:
     - path: 'examples/setElementPosition.lua'
       description: |
-        This example lets you teleport 5 random players to yourself
+        This example lets admins teleport 5 random players to themselves
   issues:
     - id: 539
       description: 'Changing player position when they have a jetpack will remove the jetpack and bug when skin is changed'
     - id: 529
       description: 'Player falls from bike when the bike is teleported using setElementPosition'
-  see_also:
-    - 'category:Element functions'

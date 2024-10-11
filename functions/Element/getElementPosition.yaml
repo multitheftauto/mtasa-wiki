@@ -1,17 +1,20 @@
-shared:
+shared: &shared
   name: 'getElementPosition'
+  oop:
+    entity: player
+    method: getPosition
+    variable: position
   pair: 'setElementPosition'
   description: |
     This function allows you to retrieve the position coordinates of an element. This can be any real world element, including:
-    - Players
-    - Vehicles
-    - Objects
-    - Pickups
-    - Markers
-    - Collision shapes
-    - Blips
-    - Radar areas
-    - Syntax
+    - [[player|Players]]
+    - [[vehicle|Vehicles]]
+    - [[object|Objects]]
+    - [[pickup|Pickups]]
+    - [[marker|Markers]]
+    - [[collision shape|Collision shapes]]
+    - [[blip|Blips]]
+    - [[radar area|Radar areas]]
   returns:
     description: |
       Returns three floats indicating the position of the element, x, y and z respectively.
@@ -25,6 +28,10 @@ shared:
   examples:
     - path: 'examples/getElementPosition.lua'
       description: |
-        This example shows how to obtain the position of a player.
-  see_also:
-    - 'category:Element functions'
+        This example attaches a samsite on the player's vehicle.
+
+server:
+  <<: *shared
+
+client:
+  <<: *shared
