@@ -5,7 +5,10 @@ type: object
 
 properties:
   shared:
-    description: A shared specification of a function.
+    description: |
+      A shared specification of a function.
+      You must always create a server and a client property, and merge this into both
+      using a reference.
     $ref: '#/$defs/common_properties'
   server:
     description: A server-side specification of a function.
@@ -26,6 +29,17 @@ $defs:
       pair:
         type: string
         description: Associates this function with another getter or setter function.
+      oop:
+        $ref: '#/$defs/oop'
+      disabled:
+          description: |
+            Describe why the function was disabled, and if there is an alternative approach;
+            or just set the property to "true".
+          anyOf:
+            - type: string
+            - const: true
+      meta:
+        $ref: '#/$defs/meta'
       description:
         type: string
         description: Describes the functionality provided by the function.
@@ -58,18 +72,63 @@ $defs:
         $ref: '#/$defs/examples'
       see_also:
         type: array
-        description: A list of other items and categories for further reading.
+        description: |
+          A list of other items and categories for further reading.
+          Every function will implicitly display it's own category in *See Also*, unless you
+          introduce this property, then you have to be explicit about it.
         items:
           type: string
           pattern: "^(item|category|tag):"
           uniqueItems: true
   
+  oop:
+    type: object
+    description: Object-Oriented Programming (OOP) information block for the function.
+    required:
+      - entity
+    properties:
+      note:
+        type: string
+        description: A piece of information to show alongside OOP syntax.
+      entity:
+        type: string
+        description: Name of the element or userdata.
+    oneOf:
+      - required:
+          - method
+        properties:
+          method:
+            type: string
+            description: Name of the method.
+          static:
+            type: boolean
+            default: false
+            description: If set to true, this method will be marked as static.
+          variable:
+            type: string
+            description: Name of the variable without a leading dot.
+      - required:
+          - constructor
+        properties:
+          constructor:
+            type: string
+            description: Name of the constructor.
+
+  meta:
+    type: array
+    description: A list of meta properties about the function and it's documentation.
+    items:
+      type: object
+      properties:
+        needs_checking:
+          type: string
+          description: Describe why the function needs checking by another person. What's problematic?
+
   preview:
     type: array
     description: A list of picture assets demonstrating the function.
     items:
       type: object
-      description: A single function preview.
       required:
         - path
       properties:
@@ -85,7 +144,6 @@ $defs:
     description: A list of required and optional parameters for the function.
     items:
       type: object
-      description: A single function parameter.
       required:
         - name
         - type
@@ -123,7 +181,6 @@ $defs:
         description: A list of named values returned by the function.
         items:
           type: object
-          description: A single function return value.
           required:
             - type
             - name
@@ -147,13 +204,15 @@ $defs:
       deprecated:
         type: string
         description: Version when this item was deprecated in MTA.
+      replacement:
+        type: string
+        description: An optional replacement for this item.
 
   issues:
     type: array
     description: A list of related issues for this function.
     items:
       type: object
-      description: A single function-related issue.
       required:
         - id
         - description
@@ -170,7 +229,6 @@ $defs:
     description: A list of source code examples demonstrating the function.
     items:
       type: object
-      description: A single source code example.
       required:
         - path
       properties:
