@@ -2,7 +2,10 @@ client:
   name: 'getCursorAlpha'
   pair: 'setCursorAlpha'
   description: |
-    This function is used to get the client's cursor alpha (transparency). 
+    This function is used to get the client's cursor alpha (transparency).
+  preview_images:
+  - path: '/assets/cursor-alpha.jpg'
+    description: 'Visual representation of the cursor alpha'
   returns:
     description: |
       Returns a int between 0 and 255, where 255 is fully opaque and 0 is fully transparent. 
