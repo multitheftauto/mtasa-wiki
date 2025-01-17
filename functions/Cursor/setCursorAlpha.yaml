@@ -4,7 +4,7 @@ client:
   description: |
     This function is used to change alpha (transparency) from the client's cursor.
   preview:
-    - path: '/assets/setCursorAlpha.jpg'
+    - path: '/assets/cursor-alpha.jpg'
       description: 'Example for setCursorAlpha'
   parameters:
     - name: 'alpha'

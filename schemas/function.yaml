@@ -48,7 +48,7 @@ $defs:
         description: List of noteworthy pieces of information for the function.
         items:
           type: string
-      preview:
+      preview_images:
         $ref: '#/$defs/preview'
       parameters:
         $ref: '#/$defs/parameters'
@@ -124,7 +124,7 @@ $defs:
           type: string
           description: Describe why the function needs checking by another person. What's problematic?
 
-  preview:
+  preview_images:
     type: array
     description: A list of picture assets demonstrating the function.
     items:
