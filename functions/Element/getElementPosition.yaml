@@ -1,4 +1,4 @@
-shared:
+shared: &shared
   name: 'getElementPosition'
   oop:
     entity: player
@@ -29,3 +29,9 @@ shared:
     - path: 'examples/getElementPosition.lua'
       description: |
         This example attaches a samsite on the player's vehicle.
+
+server:
+  <<: *shared
+
+client:
+  <<: *shared
