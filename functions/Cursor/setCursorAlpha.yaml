@@ -3,7 +3,7 @@ client:
   pair: 'getCursorAlpha'
   description: |
     This function is used to change alpha (transparency) from the client's cursor.
-  preview:
+  preview_images:
     - path: '/assets/cursor-alpha.jpg'
       description: 'Example for setCursorAlpha'
   parameters:

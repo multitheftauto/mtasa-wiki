@@ -49,7 +49,7 @@ $defs:
         items:
           type: string
       preview_images:
-        $ref: '#/$defs/preview'
+        $ref: '#/$defs/preview_images'
       parameters:
         $ref: '#/$defs/parameters'
       ignore_parameters:
