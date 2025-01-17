@@ -4,6 +4,6 @@
 
 ## License
 
-Copyright (c) 2024 Multi Theft Auto team and contributors.
+Copyright (c) 2025 Multi Theft Auto team and contributors.
 
 Permission is granted to copy, distribute and/or modify this document under the terms of the [GNU Free Documentation License, Version 1.3](https://www.gnu.org/licenses/fdl-1.3.html) or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the [license](LICENSE.md) is included in the root directory of the repository.
