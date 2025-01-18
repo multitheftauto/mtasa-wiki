@@ -33,4 +33,4 @@ $defs:
         type: "array"
         description: "A list of subsections or subcategories."
         items:
-          $ref: "#/$defs/item"
+          $ref: "#/$defs/section"
