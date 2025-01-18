@@ -1,5 +1,5 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
-$id: "/schemas/structure"
+$id: "/schemas/navigation"
 title: "Wiki Article Schema"
 type: "object"
 required:
