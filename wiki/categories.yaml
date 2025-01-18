@@ -1,0 +1,29 @@
+- name: "Official guides"
+  articles: "official-guides"
+
+- name: "Community guides"
+  articles: "community-guides"
+
+# - name: "Server functions"
+
+- name: "Client functions"
+  subcategories:
+    - name: "Cursor functions"
+      functions:
+        path: "Cursor"
+        type: "client"
+    - name: "Element functions"
+      functions:
+        path: "Element"
+        type: "client"
+
+- name: "Shared functions"
+  subcategories:
+    - name: "Cursor functions"
+      functions:
+        path: "Cursor"
+        type: "shared"
+    - name: "Element functions"
+      functions:
+        path: "Element"
+        type: "shared"

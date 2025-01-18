@@ -1,0 +1,27 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "/schemas/categories"
+title: "Wiki Categories Schema"
+type: "array"
+items:
+  $ref: "#/$defs/section"
+
+$defs:
+  section:
+    type: "object"
+    required:
+      - name
+    properties:
+      name:
+        type: "string"
+        description: "The name identifier of the category."
+      articles:
+        type: "string"
+        description: "The identifier of the corresponding articles group."
+      functions:
+        type: "string"
+        description: "The identifier of the corresponding functions group."
+      subcategories:
+        type: "array"
+        description: "A list of subsections or subcategories."
+        items:
+          $ref: "#/$defs/item"

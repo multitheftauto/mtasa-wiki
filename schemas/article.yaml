@@ -1,0 +1,45 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "/schemas/structure"
+title: "Wiki Article Schema"
+type: "object"
+required:
+  - content
+  - author
+  - date
+  - revisions
+  - assets
+properties:
+  content:
+    type: "string"
+    description: "The file path for the article content."
+  author:
+    type: "string"
+    description: "The author of the article."
+  date:
+    type: "string"
+    description: "The date the article was published."
+  revisions:
+    type: "array"
+    description: "A list of revisions made to the article."
+    items:
+      type: "object"
+      required:
+        - date
+        - author
+        - changes
+      properties:
+        date:
+          type: "string"
+          description: "The date the revision was made."
+        author:
+          type: "string"
+          description: "The author of the revision."
+        changes:
+          type: "string"
+          description: "A brief description of the changes made."
+  assets:
+    type: "array"
+    description: "A list of assets used in the article."
+    items:
+      type: "string"
+      description: "The file path for the asset."
