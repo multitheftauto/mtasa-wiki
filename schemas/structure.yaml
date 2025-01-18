@@ -5,7 +5,9 @@ type: "object"
 
 properties:
   wiki:
-    $ref: "#/$defs/section"
+    type: "array"
+    items:
+      $ref: "#/$defs/section"
 
 $defs:
   section:
