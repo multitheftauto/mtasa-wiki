@@ -1,0 +1,36 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "/schemas/structure"
+
+title: "Wiki Navigation Schema"
+type: "array"
+items:
+  $ref: "#/$defs/section"
+
+$defs:
+  section:
+    type: "object"
+    required:
+      - title
+      - path
+    properties:
+      title:
+        type: "string"
+        description: "The title of the section or article."
+      description:
+        type: "string"
+        description: "A brief description of the section or article."
+      path:
+        type: "string"
+        description: "The URL path for this section or article."
+      article:
+        type: "string"
+        description: "The file or identifier of the corresponding article."
+        pattern: "^[a-zA-Z0-9/_-]+$"
+      category:
+        type: "string"
+        description: "The category name for the section."
+      children:
+        type: "array"
+        description: "A list of subsections or subcategories."
+        items:
+          $ref: "#/$defs/section"
