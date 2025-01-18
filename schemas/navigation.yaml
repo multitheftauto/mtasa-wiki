@@ -1,13 +1,9 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "/schemas/navigation"
 title: "Wiki Navigation Schema"
-type: "object"
-
-properties:
-  wiki:
-    type: "array"
-    items:
-      $ref: "#/$defs/section"
+type: "array"
+items:
+  $ref: "#/$defs/section"
 
 $defs:
   section:

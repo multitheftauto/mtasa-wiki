@@ -1,22 +1,21 @@
-wiki:
-  # Homepage
-  - path: "/"
-    title: "Multi Theft Auto: Wiki"
-    article: "introduction"
+# Homepage
+- path: "/"
+  title: "Multi Theft Auto: Wiki"
+  article: "introduction"
 
-  # Guides Index
-  - path: "/guides"
-    title: "Guides"
-    children:
-      - path: "/guides/official"
-        title: "Official Guides"
-        category: "Official guides"
+# Guides Index
+- path: "/guides"
+  title: "Guides"
+  children:
+    - path: "/guides/official"
+      title: "Official Guides"
+      category: "Official guides"
 
-      - path: "/guides/community"
-        title: "Community Guides"
-        category: "Community guides"
+    - path: "/guides/community"
+      title: "Community Guides"
+      category: "Community guides"
 
-  # Reference Index
-  - title: "Lua API Reference"
-    path: "/lua"
-    category: "Lua reference"
+# Reference Index
+- title: "Lua API Reference"
+  path: "/lua"
+  category: "Lua reference"
