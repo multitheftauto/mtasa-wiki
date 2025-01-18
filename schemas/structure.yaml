@@ -1,10 +1,11 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "/schemas/structure"
-
 title: "Wiki Navigation Schema"
-type: "array"
-items:
-  $ref: "#/$defs/section"
+type: "object"
+
+properties:
+  wiki:
+    $ref: "#/$defs/section"
 
 $defs:
   section:

@@ -14,7 +14,7 @@ wiki:
       - title: "Introduction to Scripting"
         path: "/guides/introduction-to-scripting"
         article: "guides/introduction-to-scripting"
-      
+
   # Reference Index
   - title: "Lua API Reference"
     path: "/lua"
