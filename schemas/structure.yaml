@@ -18,22 +18,19 @@ $defs:
     properties:
       title:
         type: "string"
-        description: "The title of the section or article."
-      description:
-        type: "string"
-        description: "A brief description of the section or article."
+        description: "The title of the section."
       path:
         type: "string"
-        description: "The URL path for this section or article."
+        description: "The URL path for this section."
       article:
         type: "string"
-        description: "The file or identifier of the corresponding article."
+        description: "The name of the article."
         pattern: "^[a-zA-Z0-9/_-]+$"
       category:
         type: "string"
-        description: "The category name for the section."
+        description: "The name of the category."
       children:
         type: "array"
-        description: "A list of subsections or subcategories."
+        description: "A list of subsections."
         items:
           $ref: "#/$defs/section"

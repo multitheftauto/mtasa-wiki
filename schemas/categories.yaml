@@ -15,11 +15,20 @@ $defs:
         type: "string"
         description: "The name identifier of the category."
       articles:
-        type: "string"
-        description: "The identifier of the corresponding articles group."
+        type: "object"
+        properties:
+          path:
+            type: "string"
+            description: "The path to the articles."
       functions:
-        type: "string"
-        description: "The identifier of the corresponding functions group."
+        type: "object"
+        properties:
+          path:
+            type: "string"
+            description: "The path to the functions."
+          type:
+            type: "string"
+            description: "The type of functions to include (client/server/shared)."
       subcategories:
         type: "array"
         description: "A list of subsections or subcategories."

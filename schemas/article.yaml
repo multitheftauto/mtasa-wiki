@@ -3,12 +3,16 @@ $id: "/schemas/structure"
 title: "Wiki Article Schema"
 type: "object"
 required:
+  - title
   - content
   - author
   - date
   - revisions
   - assets
 properties:
+  title:
+    type: "string"
+    description: "The title of the article."
   content:
     type: "string"
     description: "The file path for the article content."

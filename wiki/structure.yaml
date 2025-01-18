@@ -1,14 +1,12 @@
 wiki:
   # Homepage
   - path: "/"
-    title: "Introduction"
-    description: "Welcome to the MTA Wiki"
+    title: "Multi Theft Auto: Wiki"
     article: "introduction"
 
   # Guides Index
   - path: "/guides"
     title: "Guides"
-    description: "Guides and tutorials for MTA"
     children:
       - path: "/guides/official"
         title: "Official Guides"
@@ -21,40 +19,4 @@ wiki:
   # Reference Index
   - title: "Lua API Reference"
     path: "/lua"
-    article: "lua-api-reference"
-    children:
-      - path: "/lua/client-functions"
-        title: "Client Functions"
-        category: "Client functions"
-
-      - path: "/lua/client-events"
-        title: "Client Events"
-        category: "Client events"
-
-      - path: "/lua/server-functions"
-        title: "Server Functions"
-        category: "Server functions"
-
-      - path: "/lua/server-events"
-        title: "Server Events"
-        category: "Server events"
-
-      - path: "/lua/shared-functions"
-        title: "Shared Functions"
-        category: "Shared functions"
-
-      - path: "/lua/useful-functions"
-        title: "Useful Functions"
-        category: "Useful functions"
-
-      - path: "/lua/mta-classes"
-        title: "MTA Classes"
-        category: "MTA Classes"
-
-      - path: "/lua/mta-elements"
-        title: "MTA Elements"
-        category: "MTA Elements"
-
-      - path: "/lua/element-tree"
-        title: "Element Tree"
-        category: "Element Tree"
+    category: "Lua reference"
