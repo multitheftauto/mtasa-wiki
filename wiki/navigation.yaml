@@ -7,11 +7,11 @@
 - path: "/guides"
   title: "Guides"
   children:
-    - path: "/guides/official"
+    - path: "/official"
       title: "Official Guides"
       category: "Official guides"
 
-    - path: "/guides/community"
+    - path: "/community"
       title: "Community Guides"
       category: "Community guides"
 
