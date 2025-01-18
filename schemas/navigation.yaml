@@ -9,12 +9,8 @@ $defs:
   section:
     type: "object"
     required:
-      - title
       - path
     properties:
-      title:
-        type: "string"
-        description: "The title of the section."
       path:
         type: "string"
         description: "The URL path for this section."
@@ -25,8 +21,3 @@ $defs:
       category:
         type: "string"
         description: "The name of the category."
-      children:
-        type: "array"
-        description: "A list of subsections."
-        items:
-          $ref: "#/$defs/section"

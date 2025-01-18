@@ -1,10 +1,12 @@
-- name: "Official guides"
-  articles:
-    path: "official-guides"
+- name: "Guides"
+  subcategories:
+    - name: "Official guides"
+      articles:
+        path: "official-guides"
 
-- name: "Community guides"
-  articles:
-    path: "community-guides"
+    - name: "Community guides"
+      articles:
+        path: "community-guides"
 
 - name: "Lua reference"
   subcategories:
