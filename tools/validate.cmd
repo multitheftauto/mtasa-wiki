@@ -1,6 +1,5 @@
 @echo off
 
-.\tools\yajsv.exe -s schemas/navigation.yaml "wiki/navigation.yaml"
 .\tools\yajsv.exe -s schemas/categories.yaml "wiki/categories.yaml"
 
 for /r "functions" %%f in (*.yaml) do (

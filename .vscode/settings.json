@@ -1,7 +1,6 @@
 {
     "yaml.schemas": {
         "schemas/categories.yaml": "/wiki/categories.yaml",
-        "schemas/navigation.yaml": "/wiki/navigation.yaml",
         "schemas/function.yaml": "/functions/**/*",
         "schemas/article.yaml": "/article/**/*",
         "file:///c%3A/Users/froch/Documents/_MTASA/mtasa-wiki/schemas/function.yaml": "file:///c%3A/Users/froch/Documents/_MTASA/mtasa-wiki/schemas/function.yaml",
