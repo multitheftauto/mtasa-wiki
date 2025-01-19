@@ -12,22 +12,22 @@
   subcategories:
     - name: "Client functions"
       subcategories:
-        - name: "Cursor functions"
+        - name: "Client cursor functions"
           functions:
             path: "Cursor"
             type: "client"
-        - name: "Element functions"
+        - name: "Client element functions"
           functions:
             path: "Element"
             type: "client"
 
     - name: "Shared functions"
       subcategories:
-        - name: "Cursor functions"
+        - name: "Client cursor functions"
           functions:
             path: "Cursor"
             type: "shared"
-        - name: "Element functions"
+        - name: "Client element functions"
           functions:
             path: "Element"
             type: "shared"
