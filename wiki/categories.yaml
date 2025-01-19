@@ -19,11 +19,11 @@
 
 - name: "Shared functions"
   subcategories:
-    - name: "Client cursor functions"
+    - name: "Shared cursor functions"
       functions:
         path: "Cursor"
         type: "shared"
-    - name: "Client element functions"
+    - name: "Shared element functions"
       functions:
         path: "Element"
         type: "shared"
