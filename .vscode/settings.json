@@ -3,7 +3,5 @@
         "schemas/categories.yaml": "/wiki/categories.yaml",
         "schemas/function.yaml": "/functions/**/*",
         "schemas/article.yaml": "/article/**/*",
-        "file:///c%3A/Users/froch/Documents/_MTASA/mtasa-wiki/schemas/function.yaml": "file:///c%3A/Users/froch/Documents/_MTASA/mtasa-wiki/schemas/function.yaml",
-        "file:///c%3A/Users/froch/Documents/_MTASA/mtasa-wiki/schemas/categories.yaml": "file:///c%3A/Users/froch/Documents/_MTASA/mtasa-wiki/schemas/categories.yaml"
     }
 }

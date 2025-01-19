@@ -1,33 +1,29 @@
-- name: "Guides"
+- name: "Official guides"
+  articles:
+    path: "official-guides"
+
+- name: "Community guides"
+  articles:
+    path: "community-guides"
+
+- name: "Client functions"
   subcategories:
-    - name: "Official guides"
-      articles:
-        path: "official-guides"
+    - name: "Client cursor functions"
+      functions:
+        path: "Cursor"
+        type: "client"
+    - name: "Client element functions"
+      functions:
+        path: "Element"
+        type: "client"
 
-    - name: "Community guides"
-      articles:
-        path: "community-guides"
-
-- name: "Lua reference"
+- name: "Shared functions"
   subcategories:
-    - name: "Client functions"
-      subcategories:
-        - name: "Client cursor functions"
-          functions:
-            path: "Cursor"
-            type: "client"
-        - name: "Client element functions"
-          functions:
-            path: "Element"
-            type: "client"
-
-    - name: "Shared functions"
-      subcategories:
-        - name: "Client cursor functions"
-          functions:
-            path: "Cursor"
-            type: "shared"
-        - name: "Client element functions"
-          functions:
-            path: "Element"
-            type: "shared"
+    - name: "Client cursor functions"
+      functions:
+        path: "Cursor"
+        type: "shared"
+    - name: "Client element functions"
+      functions:
+        path: "Element"
+        type: "shared"
