@@ -1,0 +1,87 @@
+<!-- Title & Description -->
+{% if function.type_name == 'shared' %}
+    <div class="function-type-title" style="color: #7575ff;">Shared function</div>
+    <h1 style="border-bottom: 3px solid #7575ff; margin-bottom: 0.1em;">{{ function.name }}</h1>
+    <p style="margin-top: 1em;">{{ function['shared'].description }}</p>
+{% elif function.type_name == 'client' %}
+    <div class="function-type-title" style="color: #FF0000;">Client-side function</div>
+    <h1 style="border-bottom: 3px solid #FF0000; margin-bottom: 0.1em;">{{ function.name }}</h1>
+    <p style="margin-top: 1em;">{{ function['client'].description }}</p>
+{% elif function.type_name == 'server' %}
+    <div class="function-type-title" style="color: #FF7F00;">Server-side function</div>
+    <h1 style="border-bottom: 3px solid #FF7F00; margin-bottom: 0.1em;">{{ function.name }}</h1>
+    <p style="margin-top: 1em;">{{ function['server'].description }}</p>
+{% endif %}
+
+<!-- Preview Images -->
+{% for type_name in ['shared', 'client', 'server'] %}
+    {% if function[type_name] %}
+
+        {% if function[type_name].preview_images %}
+            <div>
+                {% for image in function[type_name].preview_images %}
+                    <p style="margin-top: 1em; margin-bottom: 0.5em;"><em>{{ image.description }}</em></p>
+                    <img style="max-height: 150px;" src="{{ image.path_html }}" alt="{{ image.description }}">
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+<!-- Issues -->
+{% if function.has_issue %}
+<h2>Issues</h2>
+{% for type_name in ['shared', 'client', 'server'] %}
+    {% if function[type_name] %}
+    
+        {% if function[type_name].issues %}
+            <div>
+                <ul>
+                {% for issue in function[type_name].issues %}
+                    <li>
+                        <a target="_blank" href="https://github.com/multitheftauto/mtasa-blue/issues/{{ issue.id }}">
+                            mtasa-blue #{{ issue.id }}
+                        </a>: {{  issue.description }}
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+    {% endif %}
+{% endfor %}
+{% endif %}
+
+<!-- Examples -->
+<h2>Examples</h2>
+{% for type_name in ['shared', 'client', 'server'] %}
+    {% if function[type_name] %}
+
+        {% if function[type_name].examples %}
+            {% if type_name == 'client' %}
+            <h3 style="color: #FF0000;">Client-side:</h3>
+            <div style="border: 1px solid #FF0000; padding: 1em; margin-bottom: 0;">
+            {% elif type_name == 'server' %}
+            <h3 style="color: #FF7F00;">Server-side:</h3>
+            <div style="border: 1px solid #FF7F00; padding: 1em; margin-bottom: 0;">
+            {% else %}
+            <h3 style="color: #7575ff;">Shared:</h3>
+            <div style="border: 1px solid #7575ff; padding: 1em; margin-bottom: 0;">
+            {% endif %}
+                <ol>
+                {% for example in function[type_name].examples %}
+                    <li style="margin-bottom: 1em;">
+                        {% if example.description %}
+                            <p>{{ example.description }}</p>
+                        {% endif %}
+                        <pre><code class="language-lua">{{ example.code }}</code></pre>
+                    </li>
+                {% endfor %}
+                </ol>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+{% if not function.has_example %}
+    <p>No examples available.</p>
+{% endif %}

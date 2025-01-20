@@ -1,0 +1,187 @@
+/* inter-regular - vietnamese_latin_greek_cyrillic */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/assets/inter-v11-vietnamese_latin_greek_cyrillic-regular.woff2") format("woff2"),
+       url("/assets/inter-v11-vietnamese_latin_greek_cyrillic-regular.woff") format("woff");
+}
+
+:root {
+  font-size: 14px;
+  font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  image-rendering: -webkit-optimize-contrast;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+body {
+  color: #d1d7e0;
+  background-color: #212830;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+code {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #70a9e4;
+  border: 0;
+  transition: color 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  text-decoration: none;
+}
+
+a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+p {
+  line-height: 1.5em;
+}
+
+hr {
+  margin: 2em 0;
+  color: #394a60;
+}
+
+#mta-global-navbar {
+  align-items: center;
+  background: #0B0B0F;
+  color: #9F9FA2;
+  display: flex;
+  gap: 20px;
+  height: 40px;
+  padding: 0 1em;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#mta-global-navbar::-webkit-scrollbar {
+  display: none;
+}
+
+#mta-global-navbar a {
+  color: #9F9FA2;
+  padding: 7px 0;
+}
+
+#mta-global-navbar a:hover {
+  color: #fff;
+}
+
+#onlinePlayers {
+  margin-left: auto;
+  position: relative;
+}
+
+@keyframes onlinePlayers {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#onlinePlayers:not(:empty)::before {
+  animation: onlinePlayers 1s infinite forwards alternate;
+  background: lightgreen;
+  border-radius: 100px;
+  content: " ";
+  display: inline-block;
+  height: 6px;
+  top: 50%;
+  left: -6px;
+  margin-left: 10px;
+  opacity: 0;
+  position: relative;
+  transform: translate(-50%, -50%);
+  width: 6px;
+}
+
+header {
+  background: #151b23 url(/assets/color-strip.png) no-repeat left bottom / 100% 3px;
+  overflow: hidden;
+}
+
+#logo {
+  max-width: 100%;
+  max-height: 100%;
+}
+#logo:hover {
+  opacity: 0.8;
+}
+#logo-wrapper {
+  max-width: 1080px;
+  padding: 2em;
+  margin: 0 auto;
+}
+
+.function-type-title {
+  float: right;
+  font-size: 1.8em;
+  padding-left: 1em;
+  padding-top: 11px;
+  position: relative;
+  z-index: 1;
+}
+
+
+footer {
+  border-top: 1px solid #394a60;
+  color: #9F9FA2;
+  padding: 1em 0;
+  text-align: center;
+}
+footer p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+
+
+/* Grid container */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  grid-template-rows: auto;
+}
+
+/* Sidebar styles */
+.sidebar-left {
+  padding: 20px;
+  border-right: 1px solid #394a60;
+}
+.sidebar-left ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar-left ul li {
+  margin: 5px 0;
+}
+.sidebar-left ul li a {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+.sidebar-left ul li p {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 0;
+  margin: 0;
+  color: #9F9FA2;
+}
+
+/* Main content styles */
+main {
+  padding: 20px;
+  text-align: left;
+}

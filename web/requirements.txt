@@ -1,0 +1,4 @@
+Jinja2==3.1.4
+PyYAML==6.0.2
+jsonschema==4.23.0
+markdown==3.7

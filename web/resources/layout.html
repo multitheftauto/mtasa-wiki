@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Multi Theft Auto: Wiki</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="og:title" content="{{ title }}" />
+    <meta name="og:description" content="Access the knowledge base of Multi Theft Auto" />
+    <meta name="og:url" content="https://wiki.multitheftauto.com" />
+    <meta name="og:image" content="https://linux.multitheftauto.com/assets/preview.png" />
+    <meta name="theme-color" content="#212830" data-react-helmet="true" />
+    <meta name="description" content="Access the knowledge base of Multi Theft Auto" />
+    <meta name="keywords" content="MTA,GTA,R*,Rockstar,North,Multi,Grand,Theft,Auto,Multiplayer,orange,san,andreas,mp,mod,modification,free,download" />
+    <link rel="canonical" href="https://wiki.multitheftauto.com" />
+    <link rel="shortcut icon" href="/favicon.ico?v=1.1" />
+    <title>{{ title }} - Multi Theft Auto: Wiki</title>
+
+    <!-- PrismJS -->
+    <link rel="stylesheet" href="/assets/prism.css" />
+    <script src="/assets/prism.js"></script>
+
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <nav id="mta-global-navbar">
+        <a href="https://multitheftauto.com" rel="noopener">Home</a>
+        <a class="keepMobile" href="https://discord.com/invite/mtasa" rel="noopener" target="_blank">Discord</a>
+        <a href="https://community.multitheftauto.com" rel="noopener">Community</a>
+        <a href="https://forum.multitheftauto.com" rel="noopener">Forum</a>
+        <a class="keepMobile" href="https://wiki.multitheftauto.com/wiki/Main_Page" rel="noopener">Wiki</a>
+        <a class="keepMobile" href="https://github.com/multitheftauto/mtasa-blue/issues" rel="noopener" target="_blank">Bugs</a>
+        <a href="https://multitheftauto.com/donate/" rel="noopener">Heroes</a>
+        <a href="https://multitheftauto.com/hosters/" rel="noopener">Hosting</a>
+        <a href="https://community.multitheftauto.com/index.php?p=servers">Servers</a>
+        <a href="https://streamlabs.com/mtaqa/merch" rel="noopener" target="_blank">Merch</a>
+        <a href="https://multitheftauto.crowdin.com/multitheftauto" rel="noopener" target="_blank">Crowdin</a>
+        <span id="onlinePlayers"></span>
+        <script>
+            function updateOnlinePlayers() {
+                var onlinePlayersEl = document.getElementById("onlinePlayers");
+                if (onlinePlayersEl) {
+                    fetch("https://multitheftauto.com/count/")
+                        .then(function(r) {
+                            return r.text();
+                        })
+                        .then(function(r) {
+                            var info = r.split(",");
+                            if (info[0] && info[1]) {
+                                onlinePlayersEl.innerHTML = new Intl.NumberFormat("en-US").format(info[0]) + " players online on " + new Intl.NumberFormat("en-US").format(info[1]) + " public servers";
+                            }
+                        });
+                }
+            }
+            updateOnlinePlayers();
+            setInterval(updateOnlinePlayers, 300000);
+        </script>
+    </nav>
+
+    <header>
+        <div id="logo-wrapper">
+            <a href="/"><img id="logo" src="/assets/wikilogo.png" alt="Multi Theft Auto" /></a>
+        </div>
+    </header>
+
+    <div class="grid-container">
+        <nav class="sidebar-left">
+          <ul>
+            {% for item in navigation %}
+                {% if item.path_html %}
+                    <li><a href="{{ item.path_html }}">{{ item.name }}</a></li>
+                {% else %}
+                    <li><p>{{ item.name }}</p></li>
+                    <ul>
+                        {% for subitem in item.subitems %}
+                            <li><a href="{{ subitem.path_html }}">{{ subitem.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endfor %}
+          </ul>
+        </nav>
+        <main>
+          {{ content }}
+        </main>
+      </div>
+
+    <footer>
+        <div class="inner">
+            <p>Copyright &copy; {{ year }} Multi Theft Auto team and contributors</p>
+            <p><i class="fab fa-github"></i> <a href="https://github.com/multitheftauto/mtasa-wiki" rel="noopener" target="_blank">Wiki on GitHub</a></p>
+        </div>
+    </footer>
+    
+    <script>
+        function dropdownFunc(btn) {
+            var dropdown = btn.nextElementSibling;
+            // Close other dropdowns
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var d = 0; d < dropdowns.length; d++) {
+                var openDropdown = dropdowns[d];
+                if (openDropdown !== dropdown && openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+            // Toggle current dropdown
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            } else {
+                dropdown.classList.add('show');
+            }
+        }
+
+        window.onclick = function(e) {
+            if (!e.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var d = 0; d < dropdowns.length; d++) {
+                    var openDropdown = dropdowns[d];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
