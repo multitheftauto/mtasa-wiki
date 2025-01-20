@@ -20,10 +20,12 @@ pip install -r requirements.txt
 
 ### Usage
 
-```bash
-# Build the Wiki
-python wikigen.py build
+The `wikigen.py` script is intended to be executed from the root of the repository.
 
-# Serve the Wiki locally
-python -m http.server -b 127.0.0.1 --directory output/html
+To build the repository, run `tools/build_web.sh` or `tools/build_web.cmd` depending on your operating system.
+
+To serve the repository locally, run the following command:
+
+```bash
+python -m http.server -b 127.0.0.1 --directory web/output/html
 ```
