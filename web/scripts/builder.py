@@ -11,11 +11,9 @@ import markdown
 
 import scripts.utils as utils
 
-DOCS_REPO_PATH = os.path.abspath(os.path.join(os.getcwd(), "../"))
-
-INPUT_RESOURCES_PATH = os.path.join(os.getcwd(), "resources/")
-OUTPUT_HTML_FOLDER = "output/html"
-OUTPUT_HTML_PATH = os.path.join(os.getcwd(), OUTPUT_HTML_FOLDER)
+DOCS_REPO_PATH = os.getcwd() # Repository root
+INPUT_RESOURCES_PATH = os.path.join(DOCS_REPO_PATH, "web/resources")
+OUTPUT_HTML_PATH = os.path.join(DOCS_REPO_PATH, "web/output/html")
 
 class WikiBuilderError(Exception):
     def __init__(self, message):
@@ -26,6 +24,10 @@ class WikiBuilder:
     def __init__(self, logger):
         self.logger = logger
         self.logger.info('Initializing WikiBuilder')
+
+        parent_folder = os.path.basename(os.path.dirname(DOCS_REPO_PATH))
+        if parent_folder == 'web' or parent_folder == 'tools':
+            raise WikiBuilderError('ABORTING! Script must be executed from the root directory of the repository!')
 
     def build(self):
         self.clear()
