@@ -455,6 +455,12 @@ class WikiBuilder:
 
         self.logger.info("Copied favicon.ico")
 
+        # Copy _redirects
+
+        shutil.copyfile(os.path.join(INPUT_RESOURCES_PATH, '_redirects'), os.path.join(OUTPUT_HTML_PATH, '_redirects'))
+
+        self.logger.info("Copied _redirects")
+
         # Clear output assets folder
         output_assets_folder = os.path.join(OUTPUT_HTML_PATH, 'assets')
         if os.path.exists(output_assets_folder):
