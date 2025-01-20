@@ -322,6 +322,9 @@ class WikiBuilder:
 
     def create_misc_pages(self):
 
+        # Predefined articles
+        self.create_article('privacy')
+
         other_pages = [
             {
                 'path_html': '404.html',
