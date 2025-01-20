@@ -450,26 +450,20 @@ class WikiBuilder:
         
     def copy_assets(self):
 
-        # Copy favicon.ico
-        shutil.copyfile(os.path.join(INPUT_RESOURCES_PATH, 'favicon.ico'), os.path.join(OUTPUT_HTML_PATH, 'favicon.ico'))
+        copy_files = [
+            'favicon.ico', '_redirects',
+        ]
+        copy_folders = [
+            'assets'
+        ]
 
-        self.logger.info("Copied favicon.ico")
+        for file in copy_files:
+            shutil.copyfile(os.path.join(INPUT_RESOURCES_PATH, file), os.path.join(OUTPUT_HTML_PATH, file))
+            self.logger.info(f"Copied file {file}")  
 
-        # Copy _redirects
-
-        shutil.copyfile(os.path.join(INPUT_RESOURCES_PATH, '_redirects'), os.path.join(OUTPUT_HTML_PATH, '_redirects'))
-
-        self.logger.info("Copied _redirects")
-
-        # Clear output assets folder
-        output_assets_folder = os.path.join(OUTPUT_HTML_PATH, 'assets')
-        if os.path.exists(output_assets_folder):
-            shutil.rmtree(output_assets_folder)
-
-        # Copy all assets
-        shutil.copytree(os.path.join(INPUT_RESOURCES_PATH, 'assets'), output_assets_folder)
-
-        self.logger.info("Copied assets folder")
+        for folder in copy_folders:
+            shutil.copytree(os.path.join(INPUT_RESOURCES_PATH, folder), os.path.join(OUTPUT_HTML_PATH, folder))
+            self.logger.info(f"Copied folder {folder}")
     
     def generate_wiki(self):
         self.load_schemas()
