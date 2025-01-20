@@ -96,37 +96,5 @@
             <p><i class="fab fa-github"></i> <a href="https://github.com/multitheftauto/mtasa-wiki" rel="noopener" target="_blank">Wiki on GitHub</a></p>
         </div>
     </footer>
-    
-    <script>
-        function dropdownFunc(btn) {
-            var dropdown = btn.nextElementSibling;
-            // Close other dropdowns
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            for (var d = 0; d < dropdowns.length; d++) {
-                var openDropdown = dropdowns[d];
-                if (openDropdown !== dropdown && openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-            }
-            // Toggle current dropdown
-            if (dropdown.classList.contains('show')) {
-                dropdown.classList.remove('show');
-            } else {
-                dropdown.classList.add('show');
-            }
-        }
-
-        window.onclick = function(e) {
-            if (!e.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                for (var d = 0; d < dropdowns.length; d++) {
-                    var openDropdown = dropdowns[d];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-    </script>
 </body>
 </html>
