@@ -1,6 +1,5 @@
 {
     "yaml.schemas": {
-        "schemas/categories.yaml": "/wiki/categories.yaml",
         "schemas/function.yaml": "/functions/**/*",
         "schemas/article.yaml": "/article/**/*",
     }
