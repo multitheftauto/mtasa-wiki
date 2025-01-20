@@ -4,9 +4,9 @@
 
 The source code in this directory [(/web)](/web) is licensed under the GPLv3 license. See the [LICENSE](./LICENSE) file for more details.
 
-### Development
+## Development
 
-## Prerequisites
+### Prerequisites
 
 - Python 3.5+
 
