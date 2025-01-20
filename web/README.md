@@ -8,7 +8,7 @@ The source code in this directory [(/web)](/web) is licensed under the GPLv3 lic
 
 This static site is served with CloudFlare pages (this is not managed on this repository).
 
-CloudFlare Pages handles custom error pages. For example, it serves `404.html`, when a page is not found.
+CloudFlare Pages handles custom error pages. it serves `404.html` when a page is not found. CloudFlare Pages also has a custom redirections system defined via [_redirects](./resources/_redirects).
 
 ## Development
 
