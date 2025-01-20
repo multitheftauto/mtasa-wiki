@@ -3,14 +3,12 @@ name: YAML validation
 on:
   push:
     paths:
-      - 'wiki/**/*.yaml'
       - 'elements/**/*.yaml'
       - 'events/**/*.yaml'
       - 'functions/**/*.yaml'
       - 'schemas/**/*.yaml'
   pull_request:
     paths:
-      - 'wiki/**/*.yaml'
       - 'elements/**/*.yaml'
       - 'events/**/*.yaml'
       - 'functions/**/*.yaml'
