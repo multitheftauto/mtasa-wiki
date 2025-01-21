@@ -2,6 +2,10 @@
 
 **Multi Theft Auto** *(MTA)* is a multiplayer modification for the Microsoft Windows version of Rockstar North games Grand Theft Auto III, Grand Theft Auto: Vice City and Grand Theft Auto: San Andreas that adds online multiplayer functionality, find out more at [wikipedia.org](https://en.wikipedia.org/wiki/Multi_Theft_Auto).
 
+## Contributing
+
+Read the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information on how to contribute to the Multi Theft Auto: Wiki.
+
 ## License
 
 Copyright (c) 2025 Multi Theft Auto team and contributors.
