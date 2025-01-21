@@ -216,8 +216,8 @@ class WikiBuilder:
 
         return function
 
-    def create_article(self, article_name, article_parent_path='', custom_web_path=False):
-        article_real_path = os.path.join(DOCS_REPO_PATH, 'articles', article_parent_path, article_name, f"article.yaml")
+    def create_article(self, article_name, articles_folder='', custom_web_path=False):
+        article_real_path = os.path.join(DOCS_REPO_PATH, 'articles', articles_folder, article_name, f"article.yaml")
         article = utils.load_and_validate_yaml(article_real_path, self.schema_article)
         
         content_path = article.get('content')
