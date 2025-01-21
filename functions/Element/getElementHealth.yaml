@@ -1,0 +1,35 @@
+shared: &shared
+  name: 'getElementHealth'
+  oop:
+    entity: player
+    method: getHealth
+    variable: health
+  pair: 'setElementHealth'
+  description: |
+    This function returns the current health for the specified element. This can be a [[player]], [[ped]], [[vehicle]], or [[object]]. 
+  returns:
+    description: |
+      Returns a *float* indicating the element's health, *false* otherwise.
+    values:
+      - type: 'float'
+        name: 'health'
+  examples:
+    - path: 'examples/getElementHealth-1.lua'
+      description: |
+        This example outputs the player and vehicle health (if player is in a vehicle) to chatbox using /health command:
+    - path: 'examples/getElementHealth-2.lua'
+      description: |
+        This example heals the player to 100 HP using /healme command if he's at 50 HP or lower:
+  issues:
+    - id: 3791
+      description: 'setPedArmor and setElementHealth synchronization problems from Client to Server'
+    - id: 2223
+      description: 'setElementHealth in onClientPlayerDamage bug'
+    - id: 1423
+      description: 'When you setElementHealth under onClientPlayerDamage, the local (hit) player rotates automatically'
+
+server:
+  <<: *shared
+
+client:
+  <<: *shared

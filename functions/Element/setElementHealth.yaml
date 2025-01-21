@@ -1,0 +1,47 @@
+shared: &shared
+  name: 'setElementHealth'
+  oop:
+    entity: player
+    method: setHealth
+    variable: health
+  pair: 'getElementHealth'
+  description: |
+    This function sets the health of a [[player]], [[ped]], [[vehicle]] or [[object]] element.
+  notes:
+    - |
+      info: In the case of the [[vehicle]] element, the following effects appear, depending on the health value: 
+    - |
+      - *650:* white steam 0%, black smoke 0%
+      - *450:* white steam 100%, black smoke 50%
+      - *250:* white steam 0%, black smoke 100%
+      - *249:* fire with big black smoke
+  returns:
+    description: |
+      Returns *true* if the new health was set successfully, *false* otherwise.
+    values:
+      - type: 'bool'
+        name: 'result'
+  examples:
+    - path: 'examples/setElementHealth-1.lua'
+      description: |
+        This example changes the player health to new specified value using /sethealth <value> command:
+    - path: 'examples/setElementHealth-2.lua'
+      description: |
+        This example heals the player vehicle using the command /repairvehicle if it's below 1000 HP:
+  issues:
+    - id: 3807
+      description: 'hpbar on hud is not compatible visually with MAX_HEALTH stat'
+    - id: 3791
+      description: 'setPedArmor and setElementHealth synchronization problems from Client to Server'
+    - id: 2223
+      description: 'setElementHealth in onClientPlayerDamage bug'
+    - id: 1423
+      description: 'When you setElementHealth under onClientPlayerDamage, the local (hit) player rotates automatically'
+    - id: 448
+      description: 'Crash when plane explode'
+
+server:
+  <<: *shared
+
+client:
+  <<: *shared
