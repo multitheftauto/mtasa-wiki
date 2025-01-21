@@ -26,7 +26,9 @@ pip install -r requirements.txt
 
 ### Usage
 
-Depending on your operating system, you can run the following commands:
+Depending on your operating system, you can run the following commands to build and serve the wiki website.
+
+You may keep `server_web` running in the background (in another terminal) and rebuild the website with `build_web` whenever you make changes.
 
 #### Linux
 

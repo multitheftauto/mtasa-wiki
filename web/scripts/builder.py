@@ -181,6 +181,7 @@ class WikiBuilder:
 
     def render_page(self, title, content):
         return self.layout_template.render(
+            preview_mode = os.environ.get('CI_PREVIEW', True),
             year = date.today().year,
             title = title,
             navigation = self.navigation,

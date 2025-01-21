@@ -64,7 +64,11 @@
 
     <header>
         <div id="logo-wrapper">
-            <a href="/"><img id="logo" src="/assets/wikilogo.png" alt="Multi Theft Auto" /></a>
+            <a href="/"><img id="logo" src="/assets/wikilogo.png" alt="Multi Theft Auto"/></a>
+            {% if preview_mode %}
+            <div class="preview-badge">Preview</div>
+            {% endif %}
+            
         </div>
     </header>
 
