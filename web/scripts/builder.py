@@ -216,7 +216,7 @@ class WikiBuilder:
 
         return function
 
-    def create_article(self, article_name, article_parent_path='', custom_web_path=False, custom_web_title=False):
+    def create_article(self, article_name, article_parent_path='', custom_web_path=False):
         article_real_path = os.path.join(DOCS_REPO_PATH, 'articles', article_parent_path, article_name, f"article.yaml")
         article = utils.load_and_validate_yaml(article_real_path, self.schema_article)
         
@@ -228,7 +228,7 @@ class WikiBuilder:
         article_template = self.input_env.get_template('article.html')
         article["html_content"] = markdown.markdown(article['content'])
         html_content = self.render_page(
-            custom_web_title or article['title'],
+            article['title'],
             article_template.render(article=article)
         )
         if custom_web_path:
@@ -346,24 +346,12 @@ class WikiBuilder:
     def create_pages(self):
         self.navigation = [
             {
-                'name': 'Home',
+                'name': 'Introduction',
                 'path_html': '/',
                 'article': {
                     'name': 'introduction',
                     'folder': '',
                 },
-            },
-            {
-                'name': 'How you can help',
-                'path_html': '/How_you_can_help',
-            },
-            {
-                'name': 'Recent changes',
-                'path_html': '/Recent_changes',
-            },
-            {
-                'name': 'Random page',
-                'path_html': '/Random_page',
             },
             {
                 'name': 'Guides',
@@ -438,7 +426,7 @@ class WikiBuilder:
 
         def create_item(item):
             if 'article' in item:
-                self.create_article(item['article']['name'], item['article']['folder'], item['path_html'], item["name"])
+                self.create_article(item['article']['name'], item['article']['folder'], item['path_html'])
             elif 'category' in item:
                 self.create_category(item['path_html'], item['category'])
         

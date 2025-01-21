@@ -68,12 +68,15 @@
             {% if preview_mode %}
             <div class="preview-badge">Preview</div>
             {% endif %}
-            
+            <!-- Add a menu button for mobile -->
+            <button id="menu-toggle" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
     </header>
 
     <div class="grid-container">
-        <nav class="sidebar-left">
+        <nav class="sidebar-left" id="sidebar">
           <ul>
             {% for item in navigation %}
                 {% if item.path_html %}
@@ -101,5 +104,16 @@
             <p><a href="/privacy">Privacy policy</a></p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        });
+    </script>
 </body>
 </html>

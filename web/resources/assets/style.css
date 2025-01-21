@@ -110,35 +110,6 @@ hr {
   width: 6px;
 }
 
-header {
-  background: #151b23 url(/assets/color-strip.png) no-repeat left bottom / 100% 3px;
-  overflow: hidden;
-}
-
-#logo {
-  max-width: 100%;
-  max-height: 100%;
-}
-#logo:hover {
-  opacity: 0.8;
-}
-#logo-wrapper {
-  height: 64px;
-  position: relative;
-  padding: 16px;
-  margin: 0 auto;
-}
-.preview-badge {
-    position: absolute;
-    top: 10px;
-    left: 16px;
-    color: #fff;
-    padding: 0.25em 0.5em;
-    font-size: 0.75em;
-    font-weight: bold;
-    background-color: rgba(255, 115, 0, 0.8);
-    border-radius: 0.25em;
-}
 
 .function-type-title {
   float: right;
@@ -163,6 +134,37 @@ footer p {
 
 
 
+header {
+  background: #151b23 url(/assets/color-strip.png) no-repeat left bottom / 100% 3px;
+  overflow: hidden;
+}
+
+#logo {
+  max-width: 80vw;
+  max-height: 100%;
+}
+#logo:hover {
+  opacity: 0.8;
+}
+#logo-wrapper {
+  height: 64px;
+  position: relative;
+  padding: 16px;
+  margin: 0 auto;
+}
+.preview-badge {
+    position: absolute;
+    top: 10px;
+    left: 16px;
+    color: #fff;
+    padding: 0.25em 0.5em;
+    font-size: 0.75em;
+    font-weight: bold;
+    background-color: rgba(255, 115, 0, 0.8);
+    border-radius: 0.25em;
+}
+
+
 /* Grid container */
 .grid-container {
   display: grid;
@@ -170,7 +172,53 @@ footer p {
   grid-template-rows: auto;
 }
 
+
+
 /* Sidebar styles */
+
+
+/* Ensure #menu-toggle is hidden on larger screens */
+#menu-toggle {
+  display: none;
+}
+
+/* Hide sidebar on smaller screens */
+@media (max-width: 768px) {
+  .grid-container {
+      grid-template-columns: 1fr;
+  }
+
+  .sidebar-left {
+      display: none;
+      position: fixed;
+      top: 40px;
+      left: 0;
+      height: 100%;
+      width: 250px;
+      background: #151b23;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+      z-index: 1000;
+  }
+
+  .sidebar-left.open {
+      display: block;
+  }
+
+  #menu-toggle {
+      display: inline-block;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+      margin-left: auto;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+  }
+}
+
 .sidebar-left {
   padding: 20px;
   border-right: 1px solid #394a60;
