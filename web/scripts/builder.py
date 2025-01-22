@@ -88,7 +88,8 @@ class WikiBuilder:
                                     for issue in type_info['issues']:
                                         issue['description_html'] = markdown.markdown(issue['description'])
 
-                                type_info['description_html'] = markdown.markdown(type_info['description'])
+                                if 'description' in type_info:
+                                    type_info['description_html'] = markdown.markdown(type_info['description'])
 
                                 if ('returns' in type_info) and ('description' in type_info['returns']):
                                     type_info['returns']['description_html'] = markdown.markdown(type_info['returns']['description'])
