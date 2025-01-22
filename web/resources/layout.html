@@ -92,15 +92,16 @@
             {% endfor %}
           </ul>
         </nav>
-        <main>
+        <div id="main-content">
           {{ content }}
-        </main>
+        </div>
       </div>
 
     <footer>
         <div class="inner">
             <p>Copyright &copy; {{ year }} Multi Theft Auto team and contributors</p>
             <p><i class="fab fa-github"></i> <a href="https://github.com/multitheftauto/mtasa-wiki" rel="noopener" target="_blank">Wiki on GitHub</a> | <a href="/privacy">Privacy policy</a></p>
+            <p><small>{{ wiki_version }}</small></p>
         </div>
     </footer>
 

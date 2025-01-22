@@ -181,6 +181,7 @@ class WikiBuilder:
 
     def render_page(self, title, content):
         return self.layout_template.render(
+            wiki_version = self.wiki_version,
             preview_mode = os.environ.get('CI_PREVIEW', True),
             year = date.today().year,
             title = title,
@@ -423,6 +424,9 @@ class WikiBuilder:
                 ]
             }
         ]
+
+        with open(os.path.join(DOCS_REPO_PATH, 'VERSION'), 'r') as file:
+            self.wiki_version = file.read().strip()
 
         def create_item(item):
             if 'article' in item:

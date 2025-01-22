@@ -170,8 +170,17 @@ header {
   display: grid;
   grid-template-columns: 1fr 6fr;
   grid-template-rows: auto;
+  max-width: 100%; /* Prevents the grid container from exceeding the page width */
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+  box-sizing: border-box; /* Ensures padding is included in width calculations */
 }
 
+/* Main content styles */
+#main-content {
+  padding: 20px;
+  max-width: 100%; /* Limits the width of the inner divs */
+  box-sizing: border-box;
+}
 
 
 /* Sidebar styles */
@@ -185,7 +194,12 @@ header {
 /* Hide sidebar on smaller screens */
 @media (max-width: 768px) {
   .grid-container {
-      grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    max-width: 100%; /* Prevents the grid container from exceeding the page width */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    box-sizing: border-box; /* Ensures padding is included in width calculations */
   }
 
   .sidebar-left {
@@ -239,11 +253,4 @@ header {
   padding-bottom: 0;
   margin: 0;
   color: #9F9FA2;
-}
-
-/* Main content styles */
-main {
-  padding: 20px;
-  text-align: left;
-  position: relative;
 }
