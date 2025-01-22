@@ -22,15 +22,29 @@
     {% else %}
         {% set return_type = 'void' %}
     {% endif %}
+
     {% if function[type_name].parameters %}
-        <pre><code class="language-lua">{{ return_type }} {{ function[type_name].name }} ( {% for item in function[type_name].parameters %}{{ item.type }} {{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %} )</code></pre>
-        <ul>
-        {% for item in function[type_name].parameters %}
-            <li>{{ item.type }} <strong>{{ item.name }}</strong> : {{ item.description_html }}</li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <pre><code class="language-lua">{{ return_type }} {{ function[type_name].name }} ( )</code></pre>
+        <pre><code class="language-lua">{{ return_type }} {{ function[type_name].name }} ( {% set first_optional = true %}{% for item in function[type_name].parameters %}{% if item.default is defined %}{% if first_optional %}[ {% set first_optional = false %}{% endif %}{{ item.type }} {{ item.name }}{% if item.default is defined %} = {{ item.default }}{% endif %}{% if not loop.last %}, {% endif %}{% if loop.last %} ]{% endif %}{% else %}{{ item.type }} {{ item.name }}{% if not loop.last %}, {% endif %}{% endif %}{% endfor %} )</code></pre>
+            {% set required_arguments = function[type_name].parameters | selectattr('default', 'equalto', undefined) | list %}
+            {% set optional_arguments = function[type_name].parameters | selectattr('default', 'ne', undefined) | list %}
+
+            {% if required_arguments %}
+                <h3>Required arguments:</h3>
+                <ul>
+                {% for item in required_arguments %}
+                    <li>{{ item.type }} <strong>{{ item.name }}</strong> : {{ item.description_html }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if optional_arguments %}
+                <h3>Optional arguments:</h3>
+                <ul>
+                    {% for item in optional_arguments %}
+                    <li>{{ item.type }} <strong>{{ item.name }}</strong> (default: <em>{{ item.default }}</em>) : {{ item.description_html }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
     {% endif %}
 
 {% endif %}

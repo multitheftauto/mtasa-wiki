@@ -18,11 +18,4 @@ def to_html(markdown_text, single_paragraph=False):
     html = markdown.markdown(markdown_text)
     if single_paragraph:
         html = re.sub(r'<p>(.*?)</p>', r'\1', html)
-
-    # Custom link syntax
-    # Replace all [[string|text]] with <a href="/string_with_underscores">text</a>
-    html = re.sub(r'\[\[(.*?)\|(.*?)\]\]', lambda m: f'<a href="/{m.group(1).replace(" ", "_")}">{m.group(2)}</a>', html)
-    # Replace all [[string]] with <a href="/string_with_underscores">string</a>
-    html = re.sub(r'\[\[(.*?)\]\]', lambda m: f'<a href="/{m.group(1).replace(" ", "_")}">{m.group(1)}</a>', html)
-
     return html
