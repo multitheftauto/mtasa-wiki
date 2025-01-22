@@ -21,13 +21,6 @@ shared: &shared
     values:
       - type: 'bool'
         name: 'result'
-  examples:
-    - path: 'examples/setElementHealth-1.lua'
-      description: |
-        This example changes the player health to new specified value using /sethealth <value> command:
-    - path: 'examples/setElementHealth-2.lua'
-      description: |
-        This example heals the player vehicle using the command /repairvehicle if it's below 1000 HP:
   issues:
     - id: 3807
       description: 'hpbar on hud is not compatible visually with MAX_HEALTH stat'
@@ -42,6 +35,14 @@ shared: &shared
 
 server:
   <<: *shared
+  examples:
+    - path: 'examples/setElementHealth-1.lua'
+      description: |
+        This example changes the player health to new specified value using /sethealth <value> command:
 
 client:
   <<: *shared
+  examples:
+    - path: 'examples/setElementHealth-2.lua'
+      description: |
+        This example heals the player vehicle using the command /repairvehicle if it's below 1000 HP:
