@@ -7,7 +7,6 @@ import subprocess
 import signal
 from datetime import date
 from pathlib import Path
-import markdown
 
 import scripts.utils as utils
 
@@ -67,48 +66,52 @@ class WikiBuilder:
                     try:
                         function = utils.load_and_validate_yaml(file_path, self.schema_function)
                         if function:
-                            self.remove_function_repeated_defs(function)
+                            function = self.remove_function_repeated_defs(function)
                             
                             function['real_path'] = file_path
                             # Get name of parent folder
                             function["folder"] = os.path.basename(os.path.dirname(file_path))
-
-                            for type_name in ['shared', 'client', 'server']:
-                                type_info = function.get(type_name, {})
-                                if not type_info:
-                                    continue
-                                if 'examples' in type_info:
-                                    function["has_example"] = True
-                                    for example in type_info['examples']:
-                                        if 'description' in example:
-                                            example['description_html'] = markdown.markdown(example['description'])
-
-                                if 'issues' in type_info:
-                                    function["has_issue"] = True
-                                    for issue in type_info['issues']:
-                                        issue['description_html'] = markdown.markdown(issue['description'])
-
-                                if 'description' in type_info:
-                                    type_info['description_html'] = markdown.markdown(type_info['description'])
-
-                                if ('returns' in type_info) and ('description' in type_info['returns']):
-                                    type_info['returns']['description_html'] = markdown.markdown(type_info['returns']['description'])
-
-                                if 'parameters' in type_info:
-                                    for parameter in type_info['parameters']:
-                                        parameter['description_html'] = markdown.markdown(parameter['description'])
-
+                            
                             function_name = self.get_function_name(function)
                             function["name"] = function_name
                             function_type_name = self.get_function_type_name(function)
                             function["type_name"] = function_type_name
 
-                            self.parse_function_examples(function)
-                            self.parse_function_preview_images(function)
+                            function = self.parse_function_examples(function)
+                            function = self.parse_function_preview_images(function)
+
+                            example_number = 1
+                            for type_name in ['shared', 'client', 'server']:
+                                type_info = function.get(type_name, {})
+                                if not type_info:
+                                    continue
+                                    
+                                if 'description' in type_info:
+                                    type_info['description_html'] = utils.to_html(type_info['description'])
+
+                                if 'examples' in type_info:
+                                    for example in type_info['examples']:
+                                        example["number"] = example_number
+                                        example_number += 1
+                                        if 'description' in example:
+                                            example['description_html'] = utils.to_html(example['description'])
+
+                                if 'issues' in type_info:
+                                    function["has_issue"] = True
+                                    for issue in type_info['issues']:
+                                        issue['description_html'] = utils.to_html(issue['description'], single_paragraph=True)
+
+                                if ('returns' in type_info) and ('description' in type_info['returns']):
+                                    type_info['returns']['description_html'] = utils.to_html(type_info['returns']['description'], single_paragraph=True)
+
+                                if 'parameters' in type_info:
+                                    for parameter in type_info['parameters']:
+                                        parameter['description_html'] = utils.to_html(parameter['description'], single_paragraph=True)
 
                             self.functions.append(function)
                     except Exception as e:
-                        raise WikiBuilderError(f'Error loading function {file_path}: {e}')
+                        self.logger.exception(e)
+                        raise WikiBuilderError(f'Error loading function {file_path}')
 
     def get_function_type(self, function):
         return function.get('shared') or function.get('client') or function.get('server')
@@ -122,16 +125,16 @@ class WikiBuilder:
     def remove_function_repeated_defs(self, function):
         # If a function is shared, remove client/server definitions that are the same as the shared one
         shared = function.get('shared')
-        if not shared:
-            return
-        
-        for type_name in ['client', 'server']:
-            type_info = function.get(type_name)
-            if not type_info:
-                continue
-            for key in shared.keys():
-                if key in type_info and shared[key] == type_info[key]:
-                    del type_info[key]
+        if shared:
+            for type_name in ['client', 'server']:
+                type_info = function.get(type_name)
+                if not type_info:
+                    continue
+                for key in shared.keys():
+                    if key in type_info and shared[key] == type_info[key]:
+                        del type_info[key]
+
+        return function
 
     def resolve_relative_or_repo_absolute_path(self, folder, path):
         if path.startswith('/'):
@@ -144,8 +147,12 @@ class WikiBuilder:
             type_info = function.get(type_name, {})
             if not type_info:
                 continue
-            examples[type_name] = []
-            for example in type_info.get('examples', []):
+            type_examples = type_info.get('examples')
+            if not type_examples:
+                continue
+            function["has_example"] = True
+            examples = []
+            for example in type_examples:
                 example_path = example.get('path')
                 real_path = self.resolve_relative_or_repo_absolute_path(os.path.dirname(function.get('real_path')), example_path)
                 if not os.path.exists(real_path):
@@ -154,12 +161,14 @@ class WikiBuilder:
                 with open(real_path, 'r') as file:
                     example_code = file.read()
                 
-                examples[type_name].append({
+                examples.append({
                     'path': example_path,
-                    'description': example.get('description'),
+                    'description': example.get('description', ''),
                     'code': example_code
                 })
-                type_info['examples'] = examples[type_name]
+                type_info['examples'] = examples
+        
+        return function
 
     def parse_function_preview_images(self, function):
         preview_images = {}
@@ -194,6 +203,8 @@ class WikiBuilder:
                     'description': preview_img.get('description'),
                 })
                 type_info['preview_images'] = preview_images[type_name]
+
+        return function
 
     def render_page(self, title, content):
         return self.layout_template.render(
@@ -243,7 +254,7 @@ class WikiBuilder:
             article['content'] = content_file.read()
         
         article_template = self.input_env.get_template('article.html')
-        article["content_html"] = markdown.markdown(article['content'])
+        article["content_html"] = utils.to_html(article['content'])
         html_content = self.render_page(
             article['title'],
             article_template.render(article=article)

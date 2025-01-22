@@ -2,48 +2,43 @@
 {% if function.type_name == 'shared' %}
     <div class="function-type-title" style="color: #7575ff;">Shared function</div>
     <h1 style="border-bottom: 3px solid #7575ff; margin-bottom: 0.1em;">{{ function.name }}</h1>
-    <p style="margin-top: 1em;">{{ function['shared'].description }}</p>
+    <p style="margin-top: 1em;">{{ function['shared'].description_html }}</p>
 {% elif function.type_name == 'client' %}
     <div class="function-type-title" style="color: #FF0000;">Client-side function</div>
     <h1 style="border-bottom: 3px solid #FF0000; margin-bottom: 0.1em;">{{ function.name }}</h1>
-    <p style="margin-top: 1em;">{{ function['client'].description }}</p>
+    <p style="margin-top: 1em;">{{ function['client'].description_html }}</p>
 {% elif function.type_name == 'server' %}
     <div class="function-type-title" style="color: #FF7F00;">Server-side function</div>
     <h1 style="border-bottom: 3px solid #FF7F00; margin-bottom: 0.1em;">{{ function.name }}</h1>
-    <p style="margin-top: 1em;">{{ function['server'].description }}</p>
+    <p style="margin-top: 1em;">{{ function['server'].description_html }}</p>
 {% endif %}
 
 <!-- Syntax -->
+<h2>Syntax</h2>
 {% for type_name in ['shared', 'client', 'server'] %}
 {% if function[type_name] %}
     {% if function[type_name].parameters %}
-        <h2>Syntax</h2>
-        <p>{{ function[type_name].parameters.description }}</p>
-
-        <pre><code class="language-lua"> {{ function[type_name].name }}(todo :mreow:)</code></pre>
-
+        <pre><code class="language-lua">{{ function[type_name].name }}( {% for item in function[type_name].parameters %}{{ item.type }} {{ item.name }}, {% endfor %} )</code></pre>
         <ul>
-            {% for item in function[type_name].parameters %}
-                <li style="margin-bottom: 1em;">
-                    <p>{{ item.name }} : {{ item.description }}</p>
-                </li>
-            {% endfor %}
+        {% for item in function[type_name].parameters %}
+            <li>{{ item.type }} <strong>{{ item.name }}</strong> : {{ item.description_html }}</li>
+        {% endfor %}
         </ul>
     {% endif %}
+
 {% endif %}
 {% endfor %}
 
-<!-- Returns -->
 {% for type_name in ['shared', 'client', 'server'] %}
 {% if function[type_name] %}
     {% if function[type_name].returns %}
         <h2>Returns</h2>
-        <p>{{ function[type_name].returns.description }}</p>
+        {% if function[type_name].returns.description_html %}
+            <p>{{ function[type_name].returns.description_html }}</p>
+        {% endif %}
         <ul>
             {% for item in function[type_name].returns["values"] %}
-                <li style="margin-bottom: 1em;">
-                    <p>{{ item.type }} {{ item.name }}</p>
-                </li>
+                <li style="margin-bottom: 1em;">{{ item.type }} {{ item.name }}</li>
             {% endfor %}
         </ul>
     {% endif %}
@@ -76,9 +71,9 @@
                 <ul>
                 {% for issue in function[type_name].issues %}
                     <li>
-                        <a target="_blank" href="https://github.com/multitheftauto/mtasa-blue/issues/{{ issue.id }}">
+                        <p><a target="_blank" href="https://github.com/multitheftauto/mtasa-blue/issues/{{ issue.id }}">
                             mtasa-blue #{{ issue.id }}
-                        </a>: {{  issue.description }}
+                        </a>: {{  issue.description_html }}</p>
                     </li>
                 {% endfor %}
                 </ul>
@@ -95,27 +90,25 @@
     {% if function[type_name] %}
 
         {% if function[type_name].examples %}
-            {% if type_name == 'client' %}
-            <h3 style="color: #FF0000;">Client-side:</h3>
-            <div style="border: 1px solid #FF0000; padding: 1em; margin-bottom: 0;">
-            {% elif type_name == 'server' %}
-            <h3 style="color: #FF7F00;">Server-side:</h3>
-            <div style="border: 1px solid #FF7F00; padding: 1em; margin-bottom: 0;">
-            {% else %}
-            <h3 style="color: #7575ff;">Shared:</h3>
-            <div style="border: 1px solid #7575ff; padding: 1em; margin-bottom: 0;">
-            {% endif %}
-                <ol>
-                {% for example in function[type_name].examples %}
-                    <li style="margin-bottom: 1em;">
-                        {% if example.description %}
-                            <p>{{ example.description }}</p>
-                        {% endif %}
-                        <pre><code class="language-lua">{{ example.code }}</code></pre>
-                    </li>
-                {% endfor %}
-                </ol>
-            </div>
+        <ul>
+            {% for example in function[type_name].examples %}
+                <li><h3>Example {{ example.number }}
+                    {% if type_name == 'client' %}
+                    <span style="color: #FF0000;">(Client-side)</span>
+                    {% elif type_name == 'server' %}
+                    <span style="color: #FF7F00;">(Server-side)</span>
+                    {% else %}
+                    <span style="color: #7575ff;">(Shared)</span>
+                    {% endif %}
+                </h3></li>
+                <div style="margin-left: 1em;">
+                    {% if example.description_html %}
+                        {{ example.description_html }}
+                    {% endif %}
+                    <pre><code class="language-lua">{{ example.code }}</code></pre>
+                </div>
+            {% endfor %}
+        </ul>
         {% endif %}
     {% endif %}
 {% endfor %}
