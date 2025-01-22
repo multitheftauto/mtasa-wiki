@@ -7,6 +7,10 @@ shared: &shared
   pair: 'setElementHealth'
   description: |
     This function returns the current health for the specified element. This can be a [[player]], [[ped]], [[vehicle]], or [[object]]. 
+  parameters:
+    - name: 'theElement'
+      type: 'element'
+      description: "The [[player]] or [[vehicle]] whose health you want to check."
   returns:
     description: |
       Returns a *float* indicating the element's health, *false* otherwise.

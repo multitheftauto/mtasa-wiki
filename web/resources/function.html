@@ -17,18 +17,26 @@
 <h2>Syntax</h2>
 {% for type_name in ['shared', 'client', 'server'] %}
 {% if function[type_name] %}
+    {% if function[type_name].returns %}
+        {% set return_type = function[type_name].returns["values"][0].type %}
+    {% else %}
+        {% set return_type = 'void' %}
+    {% endif %}
     {% if function[type_name].parameters %}
-        <pre><code class="language-lua">{{ function[type_name].name }}( {% for item in function[type_name].parameters %}{{ item.type }} {{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %} )</code></pre>
+        <pre><code class="language-lua">{{ return_type }} {{ function[type_name].name }} ( {% for item in function[type_name].parameters %}{{ item.type }} {{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %} )</code></pre>
         <ul>
         {% for item in function[type_name].parameters %}
             <li>{{ item.type }} <strong>{{ item.name }}</strong> : {{ item.description_html }}</li>
         {% endfor %}
         </ul>
+    {% else %}
+        <pre><code class="language-lua">{{ return_type }} {{ function[type_name].name }} ( )</code></pre>
     {% endif %}
 
 {% endif %}
 {% endfor %}
 
+<!-- Returns -->
 {% for type_name in ['shared', 'client', 'server'] %}
 {% if function[type_name] %}
     {% if function[type_name].returns %}

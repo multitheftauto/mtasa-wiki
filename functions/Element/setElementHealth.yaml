@@ -18,7 +18,7 @@ shared: &shared
   parameters:
     - name: 'theElement'
       type: 'element'
-      description: 'The player, ped, vehicle or object element whose health you want to set.'
+      description: 'The [[player]], [[ped]], [[vehicle]] or [[object]] element whose health you want to set.'
     - name: 'newHealth'
       type: 'float'
       description: 'A float indicating the new health to set for the element.'

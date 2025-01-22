@@ -13,6 +13,23 @@ shared: &shared
     - |
       If you want to put a vehicle or player out of the water or simulate the position-resetting behaviour if CJ goes below the ground too far, then you need to retrieve a recommended coordinate on ground to place the element at. Take a look at this MTA forums post for steps in the right direction.
       https://forum.mtasa.com/topic/132891-important-helprespawn-vehicle/?do=findComment&comment=1003198
+  parameters:
+    - name: 'theElement'
+      type: 'element'
+      description: 'A valid [[element]] to be moved.'
+    - name: 'x'
+      type: 'float'
+      description: 'The x coordinate of the destination.'
+    - name: 'y'
+      type: 'float'
+      description: 'The y coordinate of the destination.'
+    - name: 'y'
+      type: 'float'
+      description: 'The z coordinate of the destination.'
+    - name: 'warp'
+      type: 'bool'
+      default: 'false'
+      description: 'teleports players, resetting any animations they were doing. Setting this to false preserves the current animation.'
   returns:
     description: |
       Returns *true* if the function was successful, *false* otherwise.

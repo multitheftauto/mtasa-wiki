@@ -16,6 +16,10 @@ shared: &shared
     - [[collision shape|Collision shapes]]
     - [[blip|Blips]]
     - [[radar area|Radar areas]]
+  parameters:
+    - name: 'theElement'
+      type: 'element'
+      description: "The element which you'd like to retrieve the location of"
   returns:
     description: |
       Returns three floats indicating the position of the element, x, y and z respectively.
