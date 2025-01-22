@@ -13,6 +13,43 @@
     <p style="margin-top: 1em;">{{ function['server'].description }}</p>
 {% endif %}
 
+<!-- Syntax -->
+{% for type_name in ['shared', 'client', 'server'] %}
+{% if function[type_name] %}
+    {% if function[type_name].parameters %}
+        <h2>Syntax</h2>
+        <p>{{ function[type_name].parameters.description }}</p>
+
+        <pre><code class="language-lua"> {{ function[type_name].name }}(todo :mreow:)</code></pre>
+
+        <ul>
+            {% for item in function[type_name].parameters %}
+                <li style="margin-bottom: 1em;">
+                    <p>{{ item.name }} : {{ item.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endif %}
+{% endfor %}
+
+<!-- Returns -->
+{% for type_name in ['shared', 'client', 'server'] %}
+{% if function[type_name] %}
+    {% if function[type_name].returns %}
+        <h2>Returns</h2>
+        <p>{{ function[type_name].returns.description }}</p>
+        <ul>
+            {% for item in function[type_name].returns["values"] %}
+                <li style="margin-bottom: 1em;">
+                    <p>{{ item.type }} {{ item.name }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endif %}
+{% endfor %}
+
 <!-- Preview Images -->
 {% for type_name in ['shared', 'client', 'server'] %}
     {% if function[type_name] %}

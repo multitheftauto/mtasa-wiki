@@ -15,6 +15,13 @@ shared: &shared
       - *450:* white steam 100%, black smoke 50%
       - *250:* white steam 0%, black smoke 100%
       - *249:* fire with big black smoke
+  parameters:
+    - name: 'theElement'
+      type: 'element'
+      description: 'The player, ped, vehicle or object element whose health you want to set.'
+    - name: 'newHealth'
+      type: 'float'
+      description: 'A float indicating the new health to set for the element.'
   returns:
     description: |
       Returns *true* if the new health was set successfully, *false* otherwise.
