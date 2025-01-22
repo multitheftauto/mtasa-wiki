@@ -79,8 +79,23 @@ class WikiBuilder:
                                     continue
                                 if 'examples' in type_info:
                                     function["has_example"] = True
+                                    for example in type_info['examples']:
+                                        if 'description' in example:
+                                            example['description_html'] = markdown.markdown(example['description'])
+
                                 if 'issues' in type_info:
                                     function["has_issue"] = True
+                                    for issue in type_info['issues']:
+                                        issue['description_html'] = markdown.markdown(issue['description'])
+
+                                type_info['description_html'] = markdown.markdown(type_info['description'])
+
+                                if ('returns' in type_info) and ('description' in type_info['returns']):
+                                    type_info['returns']['description_html'] = markdown.markdown(type_info['returns']['description'])
+
+                                if 'parameters' in type_info:
+                                    for parameter in type_info['parameters']:
+                                        parameter['description_html'] = markdown.markdown(parameter['description'])
 
                             function_name = self.get_function_name(function)
                             function["name"] = function_name
@@ -227,7 +242,7 @@ class WikiBuilder:
             article['content'] = content_file.read()
         
         article_template = self.input_env.get_template('article.html')
-        article["html_content"] = markdown.markdown(article['content'])
+        article["content_html"] = markdown.markdown(article['content'])
         html_content = self.render_page(
             article['title'],
             article_template.render(article=article)
