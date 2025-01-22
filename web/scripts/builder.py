@@ -101,6 +101,12 @@ class WikiBuilder:
                                     for issue in type_info['issues']:
                                         issue['description_html'] = utils.to_html(issue['description'], single_paragraph=True)
 
+                                if 'preview_images' in type_info:
+                                    function["has_preview_image"] = True
+                                    for preview_img in type_info['preview_images']:
+                                        if 'description' in preview_img:
+                                            preview_img['description_html'] = utils.to_html(preview_img['description'], single_paragraph=True)
+
                                 if ('returns' in type_info) and ('description' in type_info['returns']):
                                     type_info['returns']['description_html'] = utils.to_html(type_info['returns']['description'], single_paragraph=True)
 
@@ -190,17 +196,15 @@ class WikiBuilder:
                 base_name = os.path.basename(real_path)
                 output_path = os.path.join(preview_images_folder, base_name)
                 
-                # Ignore if destination file already exists
-                if os.path.exists(output_path):
-                    continue
-
-                shutil.copyfile(real_path, output_path)
-                self.logger.info(f"Created function preview image {output_path}")
+                # Copy only if not already copied
+                if not os.path.exists(output_path):
+                    shutil.copyfile(real_path, output_path)
+                    self.logger.info(f"Created function preview image {output_path}")
 
                 preview_images[type_name].append({
                     'real_path': real_path,
                     'path_html': f"/function_images/{base_name}",
-                    'description': preview_img.get('description'),
+                    'description': preview_img.get('description', ''),
                 })
                 type_info['preview_images'] = preview_images[type_name]
 

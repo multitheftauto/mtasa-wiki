@@ -60,7 +60,7 @@
         {% endif %}
         <ul>
             {% for item in function[type_name].returns["values"] %}
-                <li style="margin-bottom: 1em;">{{ item.type }} {{ item.name }}</li>
+                <li>{{ item.type }} {{ item.name }}</li>
             {% endfor %}
         </ul>
     {% endif %}
@@ -68,19 +68,28 @@
 {% endfor %}
 
 <!-- Preview Images -->
+{% if function.has_preview_image %}
+<h2>Images</h2>
 {% for type_name in ['shared', 'client', 'server'] %}
     {% if function[type_name] %}
 
         {% if function[type_name].preview_images %}
             <div>
+                <ul>
                 {% for image in function[type_name].preview_images %}
-                    <p style="margin-top: 1em; margin-bottom: 0.5em;"><em>{{ image.description }}</em></p>
-                    <img style="max-height: 150px;" src="{{ image.path_html }}" alt="{{ image.description }}">
+                    <li>
+                        {% if image.description_html %}
+                            <p>{{ image.description_html }}</p>
+                        {% endif %}
+                        <img style="max-height: 150px;" src="{{ image.path_html }}">
+                    </li>
                 {% endfor %}
+                </ul>
             </div>
         {% endif %}
     {% endif %}
 {% endfor %}
+{% endif %}
 
 <!-- Issues -->
 {% if function.has_issue %}
