@@ -15,19 +15,19 @@ shared: &shared
       - *450:* white steam 100%, black smoke 50%
       - *250:* white steam 0%, black smoke 100%
       - *249:* fire with big black smoke
+  parameters:
+    - name: 'theElement'
+      type: 'element'
+      description: 'The player, ped, vehicle or object element whose health you want to set.'
+    - name: 'newHealth'
+      type: 'float'
+      description: 'A float indicating the new health to set for the element.'
   returns:
     description: |
       Returns *true* if the new health was set successfully, *false* otherwise.
     values:
       - type: 'bool'
         name: 'result'
-  examples:
-    - path: 'examples/setElementHealth-1.lua'
-      description: |
-        This example changes the player health to new specified value using /sethealth <value> command:
-    - path: 'examples/setElementHealth-2.lua'
-      description: |
-        This example heals the player vehicle using the command /repairvehicle if it's below 1000 HP:
   issues:
     - id: 3807
       description: 'hpbar on hud is not compatible visually with MAX_HEALTH stat'
@@ -42,6 +42,14 @@ shared: &shared
 
 server:
   <<: *shared
+  examples:
+    - path: 'examples/setElementHealth-1.lua'
+      description: |
+        This example changes the player health to new specified value using /sethealth <value> command:
 
 client:
   <<: *shared
+  examples:
+    - path: 'examples/setElementHealth-2.lua'
+      description: |
+        This example heals the player vehicle using the command /repairvehicle if it's below 1000 HP:
