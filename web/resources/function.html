@@ -2,15 +2,15 @@
 {% if function.type_name == 'shared' %}
     <div class="function-type-title" style="color: #7575ff;">Shared function</div>
     <h1 style="border-bottom: 3px solid #7575ff; padding-bottom: 0.1em;">{{ function.name }}</h1>
-    <p style="margin-top: 1em;">{{ function['shared'].description_html }}</p>
+    {{ function['shared'].description_html }}
 {% elif function.type_name == 'client' %}
     <div class="function-type-title" style="color: #FF0000;">Client-side function</div>
     <h1 style="border-bottom: 3px solid #FF0000;">{{ function.name }}</h1>
-    <p style="margin-top: 1em;">{{ function['client'].description_html }}</p>
+    {{ function['client'].description_html }}
 {% elif function.type_name == 'server' %}
     <div class="function-type-title" style="color: #FF7F00;">Server-side function</div>
     <h1 style="border-bottom: 3px solid #FF7F00;">{{ function.name }}</h1>
-    <p style="margin-top: 1em;">{{ function['server'].description_html }}</p>
+    {{ function['server'].description_html }}
 {% endif %}
 
 <!-- Syntax -->

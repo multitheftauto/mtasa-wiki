@@ -7,6 +7,7 @@ shared: &shared
   pair: 'setElementPosition'
   description: |
     This function allows you to retrieve the position coordinates of an element. This can be any real world element, including:
+    
     - [[player|Players]]
     - [[vehicle|Vehicles]]
     - [[object|Objects]]
