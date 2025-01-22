@@ -1,15 +1,15 @@
 <!-- Title & Description -->
 {% if function.type_name == 'shared' %}
     <div class="function-type-title" style="color: #7575ff;">Shared function</div>
-    <h1 style="border-bottom: 3px solid #7575ff; margin-bottom: 0.1em;">{{ function.name }}</h1>
+    <h1 style="border-bottom: 3px solid #7575ff; padding-bottom: 0.1em;">{{ function.name }}</h1>
     <p style="margin-top: 1em;">{{ function['shared'].description_html }}</p>
 {% elif function.type_name == 'client' %}
     <div class="function-type-title" style="color: #FF0000;">Client-side function</div>
-    <h1 style="border-bottom: 3px solid #FF0000; margin-bottom: 0.1em;">{{ function.name }}</h1>
+    <h1 style="border-bottom: 3px solid #FF0000;">{{ function.name }}</h1>
     <p style="margin-top: 1em;">{{ function['client'].description_html }}</p>
 {% elif function.type_name == 'server' %}
     <div class="function-type-title" style="color: #FF7F00;">Server-side function</div>
-    <h1 style="border-bottom: 3px solid #FF7F00; margin-bottom: 0.1em;">{{ function.name }}</h1>
+    <h1 style="border-bottom: 3px solid #FF7F00;">{{ function.name }}</h1>
     <p style="margin-top: 1em;">{{ function['server'].description_html }}</p>
 {% endif %}
 
@@ -18,7 +18,7 @@
 {% for type_name in ['shared', 'client', 'server'] %}
 {% if function[type_name] %}
     {% if function[type_name].parameters %}
-        <pre><code class="language-lua">{{ function[type_name].name }}( {% for item in function[type_name].parameters %}{{ item.type }} {{ item.name }}, {% endfor %} )</code></pre>
+        <pre><code class="language-lua">{{ function[type_name].name }}( {% for item in function[type_name].parameters %}{{ item.type }} {{ item.name }}{% if not loop.last %}, {% endif %}{% endfor %} )</code></pre>
         <ul>
         {% for item in function[type_name].parameters %}
             <li>{{ item.type }} <strong>{{ item.name }}</strong> : {{ item.description_html }}</li>
@@ -71,9 +71,9 @@
                 <ul>
                 {% for issue in function[type_name].issues %}
                     <li>
-                        <p><a target="_blank" href="https://github.com/multitheftauto/mtasa-blue/issues/{{ issue.id }}">
+                        <a target="_blank" href="https://github.com/multitheftauto/mtasa-blue/issues/{{ issue.id }}">
                             mtasa-blue #{{ issue.id }}
-                        </a>: {{  issue.description_html }}</p>
+                        </a>: {{  issue.description_html }}
                     </li>
                 {% endfor %}
                 </ul>

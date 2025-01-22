@@ -17,6 +17,12 @@ def load_and_validate_yaml(file_path, schema):
 def to_html(markdown_text, single_paragraph=False):
     html = markdown.markdown(markdown_text)
     if single_paragraph:
-        # Remove <p> tags
         html = re.sub(r'<p>(.*?)</p>', r'\1', html)
+
+    # Custom link syntax
+    # Replace all [[string|text]] with <a href="/string">text</a>
+    html = re.sub(r'\[\[(.*?)\|(.*?)\]\]', r'<a href="/\1">\2</a>', html)
+    # Replace all [[string]] with <a href="/string">string</a>
+    html = re.sub(r'\[\[(.*?)\]\]', r'<a href="/\1">\1</a>', html)
+
     return html

@@ -47,7 +47,7 @@ h1 {
   padding: 0;
   margin: 0;
 }
-p {
+li, p {
   line-height: 1.5em;
 }
 
@@ -114,8 +114,7 @@ hr {
 .function-type-title {
   float: right;
   font-size: 1.8em;
-  padding-left: 1em;
-  padding-top: 11px;
+  padding-top: 2px;
   position: relative;
   z-index: 1;
 }
