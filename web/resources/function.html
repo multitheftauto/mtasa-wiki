@@ -7,8 +7,20 @@
 
 <!-- Title -->
 <div class="function-type-title" style="color: {{type_colors[function.type_name]}};">{{ function.type_name|capitalize }} function</div>
-<h1 style="border-bottom: 3px solid {{type_colors[function.type_name]}}; padding-bottom: 0.2em;">{{ function.name }} <a class="small-fs" href="#" onclick="copyText('{{ function.name }}', 'copy-{{ function.name }}')"><i class="fa-solid fa-copy"></i> <span id="copy-{{ function.name }}">Copy</span> </a></h1>
+<h1 style="border-bottom: 3px solid {{type_colors[function.type_name]}}; padding-bottom: 0.2em;">
+    <span {% if function.disabled %}style="text-decoration: line-through;"{% endif %}>{{ function.name }}</span>
+    <a class="small-fs" href="#" onclick="copyText('{{ function.name }}', 'copy-{{ function.name }}')"><i class="fa-solid fa-copy"></i> <span id="copy-{{ function.name }}">Copy</span> </a>
+</h1>
 
+<!-- Disabled Warning -->
+{% if function.disabled %}
+    <div style="padding-left: 1em; margin-top: 1em; border: 1px solid #FF0000; border-radius: 5px; background-color: rgba(255, 0, 0, 0.1);">
+        <h2>This function is disabled!</h2>
+        {% if function.disabled != true %}
+            <h3>{{ function.disabled }}</h3>
+        {% endif %}
+    </div>
+{% endif %}
 
 <!-- Pair -->
 {% for type_name in ['shared', 'server', 'client'] %}
@@ -19,6 +31,67 @@
 
 <!-- Description -->
 {{ function[function.type_name].description_html }}
+
+<!-- Version -->
+{% for type_name in ['shared', 'client', 'server'] %}
+    {% if function[type_name] %}
+        {% if function[type_name].version %}
+            {% set version = function[type_name].version %}
+            <div style="display:inline-block; padding: 0.5em; margin-bottom: 0.5em; border: 1px solid {{ info_color }}; border-radius: 5px;">
+            {% if version.added %}
+                Added in <strong>{{ version.added }}</strong>
+            {% endif %}
+            {% if version.removed %}
+                Removed in <strong>{{ version.removed }}</strong>
+            {% endif %}
+            {% if version.deprecated %}
+                Deprecated in <strong>{{ version.deprecated }}</strong>
+            {% endif %}
+            {% if version.replacement %}
+                Replaced by <a href="/{{ version.replacement }}">{{ version.replacement }}</a>
+            {% endif %}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+<!-- Issues -->
+{% for type_name in ['shared', 'client', 'server'] %}
+    {% if function[type_name] %}
+    
+        {% if function[type_name].issues %}
+            <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px; background-color: rgba(255, 255, 0, 0.1);">
+                <ul>
+                {% for issue in function[type_name].issues %}
+                    <li>
+                        <a target="_blank" href="https://github.com/multitheftauto/mtasa-blue/issues/{{ issue.id }}">
+                            Issue mtasa-blue #{{ issue.id }}
+                        </a>: {{  issue.description_html }}
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+    {% endif %}
+{% endfor %}
+
+<!-- Notes -->
+{% for type_name in ['shared', 'client', 'server'] %}
+    {% if function[type_name] %}
+    
+        {% if function[type_name].notes %}
+            <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px; background-color: rgba(0, 255, 0, 0.1);">
+                <ul>
+                {% for note in function[type_name].notes %}
+                    <li>{{ note }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+    {% endif %}
+{% endfor %}
 
 <!-- Syntax -->
 <h2 id="syntax">Syntax <a href="#syntax"><i class="fa-solid fa-link"></i></a></h2>
@@ -99,8 +172,6 @@
 {% endif %}
 
 <!-- Preview Images -->
-{% if function.has_preview_image %}
-<h2 id="images">Preview images <a href="#images"><i class="fa-solid fa-link"></i></a></h2>
 {% for type_name in ['shared', 'client', 'server'] %}
     {% if function[type_name] %}
 
@@ -117,31 +188,6 @@
         {% endif %}
     {% endif %}
 {% endfor %}
-{% endif %}
-
-<!-- Issues -->
-{% if function.has_issue %}
-<h2 id="issues">Issues <a href="#issues"><i class="fa-solid fa-link"></i></a></h2>
-{% for type_name in ['shared', 'client', 'server'] %}
-    {% if function[type_name] %}
-    
-        {% if function[type_name].issues %}
-            <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
-                <ul>
-                {% for issue in function[type_name].issues %}
-                    <li>
-                        <a target="_blank" href="https://github.com/multitheftauto/mtasa-blue/issues/{{ issue.id }}">
-                            mtasa-blue #{{ issue.id }}
-                        </a>: {{  issue.description_html }}
-                    </li>
-                {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-
-    {% endif %}
-{% endfor %}
-{% endif %}
 
 <!-- Examples -->
 <h2 id="examples">Examples <a href="#examples"><i class="fa-solid fa-link"></i></a></h2>

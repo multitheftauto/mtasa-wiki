@@ -81,11 +81,15 @@ class WikiBuilder:
 
                             function = self.parse_function_preview_images(function)
 
-                            # Parse markdown to HTML in function
                             for type_name in ['shared', 'client', 'server']:
                                 type_info = function.get(type_name, {})
                                 if not type_info:
                                     continue
+                                
+                                # Is disabled? May be string message
+                                function["disabled"] = type_info.get('disabled', False)
+
+                                # Parse markdown to HTML in function
                                     
                                 if 'description' in type_info:
                                     type_info['description_html'] = utils.to_html(type_info['description'])
@@ -96,12 +100,14 @@ class WikiBuilder:
                                             example['description_html'] = utils.to_html(example['description'])
 
                                 if 'issues' in type_info:
-                                    function["has_issue"] = True
                                     for issue in type_info['issues']:
                                         issue['description_html'] = utils.to_html(issue['description'], single_paragraph=True)
 
+                                if 'notes' in type_info:
+                                    for note in type_info['notes']:
+                                        note = utils.to_html(note, single_paragraph=True)
+
                                 if 'preview_images' in type_info:
-                                    function["has_preview_image"] = True
                                     for preview_img in type_info['preview_images']:
                                         if 'description' in preview_img:
                                             preview_img['description_html'] = utils.to_html(preview_img['description'], single_paragraph=True)
