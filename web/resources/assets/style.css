@@ -16,6 +16,10 @@
   box-sizing: border-box;
 }
 
+.small-fs {
+  font-size: 0.8em;
+}
+
 body {
   color: #d1d7e0;
   background-color: #212830;

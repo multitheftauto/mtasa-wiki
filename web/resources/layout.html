@@ -114,6 +114,21 @@
                 sidebar.classList.toggle('open');
             });
         });
+
+        async function copyText(text, spanCopyText) {
+            event.preventDefault()
+            const type = "text/plain";
+            const blob = new Blob([text], { type });
+            const data = [new ClipboardItem({ [type]: blob })];
+            await navigator.clipboard.write(data);
+            if (spanCopyText) {
+                spanCopyText = document.getElementById(spanCopyText);
+                spanCopyText.innerText = "Copied!";
+                setTimeout(() => {
+                    spanCopyText.innerText = "Copy";
+                }, 2000);
+            }
+        }
     </script>
 </body>
 </html>

@@ -7,12 +7,12 @@
 
 <!-- Title & Description -->
 <div class="function-type-title" style="color: {{type_colors[function.type_name]}};">{{ function.type_name|capitalize }} function</div>
-<h1 style="border-bottom: 3px solid {{type_colors[function.type_name]}}; padding-bottom: 0.1em;">{{ function.name }}</h1>
+<h1 style="border-bottom: 3px solid {{type_colors[function.type_name]}}; padding-bottom: 0.1em;">{{ function.name }} <a class="small-fs" href="#" onclick="copyText('{{ function.name }}', 'copy-{{ function.name }}')"><i class="fa-solid fa-copy"></i> <span id="copy-{{ function.name }}">Copy</span> </a></h1>
 
 {{ function[function.type_name].description_html }}
 
 <!-- Syntax -->
-<h2>Syntax</h2>
+<h2 id="syntax">Syntax <a href="#syntax"><i class="fa-solid fa-link"></i></a></h2>
 {% if function.syntaxes.single %}
     {% set syntax = function.syntaxes.single %}
     <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
@@ -91,11 +91,12 @@
 
 <!-- Preview Images -->
 {% if function.has_preview_image %}
+<h2 id="images">Preview images <a href="#images"><i class="fa-solid fa-link"></i></a></h2>
 {% for type_name in ['shared', 'client', 'server'] %}
     {% if function[type_name] %}
 
         {% if function[type_name].preview_images %}
-            <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
+            <div style="padding-left: 1em; padding-bottom: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
                 {% for image in function[type_name].preview_images %}
                     {% if image.description_html %}
                         <p>{{ image.description_html }}</p>
@@ -111,7 +112,7 @@
 
 <!-- Issues -->
 {% if function.has_issue %}
-<h2>Issues</h2>
+<h2 id="issues">Issues <a href="#issues"><i class="fa-solid fa-link"></i></a></h2>
 {% for type_name in ['shared', 'client', 'server'] %}
     {% if function[type_name] %}
     
@@ -134,14 +135,14 @@
 {% endif %}
 
 <!-- Examples -->
-<h2>Examples</h2>
+<h2 id="examples">Examples <a href="#examples"><i class="fa-solid fa-link"></i></a></h2>
 {% for type_name in ['shared', 'client', 'server'] %}
     {% if function[type_name] %}
 
         {% if function[type_name].examples %}
             {% for example in function[type_name].examples %}
                 <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ type_colors[type_name] }}; border-radius: 5px;">
-                    <h3>Example {{ example.number }} <span style="color: {{ type_colors[type_name] }};">({{ type_name|capitalize }})</span></h3>
+                    <h3 id="example-{{ example.number }}">Example {{ example.number }} <span style="color: {{ type_colors[type_name] }};">({{ type_name|capitalize }})</span> <a href="#example-{{ example.number }}"><i class="fa-solid fa-link"></i></a></h3>
                     {% if example.description_html %}
                         {{ example.description_html }}
                     {% endif %}
