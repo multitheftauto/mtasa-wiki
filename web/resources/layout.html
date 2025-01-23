@@ -115,6 +115,7 @@
             });
         });
 
+        var copyTextTimer = null;
         async function copyText(text, spanCopyText) {
             event.preventDefault()
             const type = "text/plain";
@@ -124,7 +125,8 @@
             if (spanCopyText) {
                 spanCopyText = document.getElementById(spanCopyText);
                 spanCopyText.innerText = "Copied!";
-                setTimeout(() => {
+                clearTimeout(copyTextTimer);
+                copyTextTimer = setTimeout(() => {
                     spanCopyText.innerText = "Copy";
                 }, 2000);
             }

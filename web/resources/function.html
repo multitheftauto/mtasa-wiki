@@ -5,10 +5,19 @@
 } %}
 {% set info_color = '#ccc' %}
 
-<!-- Title & Description -->
+<!-- Title -->
 <div class="function-type-title" style="color: {{type_colors[function.type_name]}};">{{ function.type_name|capitalize }} function</div>
-<h1 style="border-bottom: 3px solid {{type_colors[function.type_name]}}; padding-bottom: 0.1em;">{{ function.name }} <a class="small-fs" href="#" onclick="copyText('{{ function.name }}', 'copy-{{ function.name }}')"><i class="fa-solid fa-copy"></i> <span id="copy-{{ function.name }}">Copy</span> </a></h1>
+<h1 style="border-bottom: 3px solid {{type_colors[function.type_name]}}; padding-bottom: 0.2em;">{{ function.name }} <a class="small-fs" href="#" onclick="copyText('{{ function.name }}', 'copy-{{ function.name }}')"><i class="fa-solid fa-copy"></i> <span id="copy-{{ function.name }}">Copy</span> </a></h1>
 
+
+<!-- Pair -->
+{% for type_name in ['shared', 'server', 'client'] %}
+    {% if function[type_name] and function[type_name].pair %}
+        <h3>Pair: <a href="/{{ function[type_name].pair }}">{{ function[type_name].pair }}</a></h3>
+    {% endif %}
+{% endfor %}
+
+<!-- Description -->
 {{ function[function.type_name].description_html }}
 
 <!-- Syntax -->
