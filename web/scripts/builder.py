@@ -78,9 +78,10 @@ class WikiBuilder:
                             function["type_name"] = function_type_name
 
                             function = self.parse_function_examples(function)
+
                             function = self.parse_function_preview_images(function)
 
-                            example_number = 1
+                            # Parse markdown to HTML in function
                             for type_name in ['shared', 'client', 'server']:
                                 type_info = function.get(type_name, {})
                                 if not type_info:
@@ -91,8 +92,6 @@ class WikiBuilder:
 
                                 if 'examples' in type_info:
                                     for example in type_info['examples']:
-                                        example["number"] = example_number
-                                        example_number += 1
                                         if 'description' in example:
                                             example['description_html'] = utils.to_html(example['description'])
 
@@ -113,6 +112,83 @@ class WikiBuilder:
                                 if 'parameters' in type_info:
                                     for parameter in type_info['parameters']:
                                         parameter['description_html'] = utils.to_html(parameter['description'], single_paragraph=True)
+
+                            # Prepare parameters & returns for syntax display
+                            syntaxes = {
+                                'single': None,
+                                'server': None,
+                                'client': None,
+                            }
+
+                            parameters = []
+                            returns = None
+                            has_single_syntax = True
+
+                            if function.get('shared'):
+                                # Function may have different syntax for client/server
+                                last_syntax_type = None
+                                for type_name in ['shared', 'client', 'server']:
+                                    type_info = function.get(type_name)
+                                    if type_info and (type_info.get('parameters') or type_info.get('returns')):
+                                        if last_syntax_type and last_syntax_type != type_name:
+                                            has_single_syntax = False
+                                            break
+                                        last_syntax_type = type_name
+                            else:
+                                has_single_syntax = True
+
+                            def parse_parameters_and_returns(parameters, returns):
+                                syntax = {
+                                    'arguments': {
+                                        'required': [],
+                                        'optional': []
+                                    },
+                                    'returns': {
+                                        'values_type': None,
+                                        'description': None,
+                                        'values': []
+                                    }
+                                }
+                                for parameter in parameters:
+                                    if parameter.get('default'):
+                                        syntax['arguments']['optional'].append(parameter)
+                                    else:
+                                        syntax['arguments']['required'].append(parameter)
+                                if returns:
+                                    syntax['returns']['description'] = returns.get('description', None)
+                                    for value in returns.get('values'):
+                                        syntax['returns']['values'].append(value)
+                                    syntax['returns']['values_type'] = syntax['returns']['values'][0].get('type')
+
+                                return syntax
+                            
+                            if has_single_syntax:
+                                # Function has one single syntax defined in shared/client/server
+                                type_info = function.get('shared') or function.get('client') or function.get('server')
+                                parameters = type_info.get('parameters', [])
+                                returns = type_info.get('returns', None)
+                            
+                                syntaxes['single'] = parse_parameters_and_returns(parameters, returns)
+                            else:
+                                # Get shared parameters and returns
+                                shared = function.get('shared')
+                                shared_parameters = shared.get('parameters', [])
+                                shared_returns = shared.get('returns', None)
+
+                                # Get client parameters and returns, complete missing with shared
+                                client = function.get('client')
+                                client_parameters = client.get('parameters') or shared_parameters
+                                client_returns = client.get('returns') or shared_returns
+
+                                # Get server parameters and returns, complete missing with shared
+                                server = function.get('server')
+                                server_parameters = server.get('parameters') or shared_parameters
+                                server_returns = server.get('returns') or shared_returns
+
+                                syntaxes['client'] = parse_parameters_and_returns(client_parameters, client_returns)
+                                syntaxes['server'] = parse_parameters_and_returns(server_parameters, server_returns)
+
+                            function['syntaxes'] = syntaxes
 
                             self.functions.append(function)
                     except Exception as e:
@@ -149,6 +225,7 @@ class WikiBuilder:
 
     def parse_function_examples(self, function):
         examples = {}
+        example_number = 1
         for type_name in ['shared', 'client', 'server']:
             type_info = function.get(type_name, {})
             if not type_info:
@@ -168,10 +245,12 @@ class WikiBuilder:
                     example_code = file.read()
                 
                 examples.append({
+                    'number': example_number,
                     'path': example_path,
                     'description': example.get('description', ''),
                     'code': example_code
                 })
+                example_number += 1
                 type_info['examples'] = examples
         
         return function
