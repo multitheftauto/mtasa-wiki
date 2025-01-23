@@ -106,13 +106,6 @@ class WikiBuilder:
                                         if 'description' in preview_img:
                                             preview_img['description_html'] = utils.to_html(preview_img['description'], single_paragraph=True)
 
-                                if ('returns' in type_info) and ('description' in type_info['returns']):
-                                    type_info['returns']['description_html'] = utils.to_html(type_info['returns']['description'], single_paragraph=True)
-
-                                if 'parameters' in type_info:
-                                    for parameter in type_info['parameters']:
-                                        parameter['description_html'] = utils.to_html(parameter['description'], single_paragraph=True)
-
                             # Prepare parameters & returns for syntax display
                             syntaxes = {
                                 'single': None,
@@ -123,6 +116,10 @@ class WikiBuilder:
                             parameters = []
                             returns = None
                             has_single_syntax = True
+                            ignore_parameters = {
+                                'client': None,
+                                'server': None,
+                            }
 
                             if function.get('shared'):
                                 # Function may have different syntax for client/server
@@ -134,6 +131,13 @@ class WikiBuilder:
                                             has_single_syntax = False
                                             break
                                         last_syntax_type = type_name
+                                # Check if client or server defs have ignore_parameters
+                                for type_name in ['client', 'server']:
+                                    type_info = function.get(type_name)
+                                    if type_info:
+                                        if type_info.get('ignore_parameters'):
+                                            ignore_parameters[type_name] = type_info['ignore_parameters']
+                                            has_single_syntax = False
                             else:
                                 has_single_syntax = True
 
@@ -150,12 +154,18 @@ class WikiBuilder:
                                     }
                                 }
                                 for parameter in parameters:
+                                    parameter_custom = {
+                                        'name': parameter.get('name'),
+                                        'type': parameter.get('type'),
+                                        'description_html': utils.to_html(parameter.get('description'), single_paragraph=True),
+                                        'default': parameter.get('default'),
+                                    }
                                     if parameter.get('default'):
-                                        syntax['arguments']['optional'].append(parameter)
+                                        syntax['arguments']['optional'].append(parameter_custom)
                                     else:
-                                        syntax['arguments']['required'].append(parameter)
+                                        syntax['arguments']['required'].append(parameter_custom)
                                 if returns:
-                                    syntax['returns']['description'] = returns.get('description', None)
+                                    syntax['returns']['description_html'] = utils.to_html(returns.get('description'), single_paragraph=True)
                                     for value in returns.get('values'):
                                         syntax['returns']['values'].append(value)
                                     syntax['returns']['values_type'] = syntax['returns']['values'][0].get('type')
@@ -178,11 +188,17 @@ class WikiBuilder:
                                 # Get client parameters and returns, complete missing with shared
                                 client = function.get('client')
                                 client_parameters = client.get('parameters') or shared_parameters
+                                # Exclude ignore_parameters['client'] from client parameters
+                                if ignore_parameters['client']:
+                                    client_parameters = [p for p in client_parameters if p['name'] not in ignore_parameters['client']]
                                 client_returns = client.get('returns') or shared_returns
 
                                 # Get server parameters and returns, complete missing with shared
                                 server = function.get('server')
                                 server_parameters = server.get('parameters') or shared_parameters
+                                # Exclude ignore_parameters['server'] from server parameters
+                                if ignore_parameters['server']:
+                                    server_parameters = [p for p in server_parameters if p['name'] not in ignore_parameters['server']]
                                 server_returns = server.get('returns') or shared_returns
 
                                 syntaxes['client'] = parse_parameters_and_returns(client_parameters, client_returns)
