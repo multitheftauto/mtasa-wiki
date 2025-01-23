@@ -5,4 +5,4 @@ local x, y, z = getElementPosition(myElegy)
 -- Create the samsite
 local samsite = createObject(3267, x, y, z + 3)
 -- Attach the samsite to the elegy
-attachElementToElement(samsite, myElegy, 0, 0, 0)
+attachElements(samsite, myElegy)
