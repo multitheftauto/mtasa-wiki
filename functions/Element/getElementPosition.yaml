@@ -1,7 +1,7 @@
 shared: &shared
   name: 'getElementPosition'
   oop:
-    entity: player
+    entity: element
     method: getPosition
     variable: position
   pair: 'setElementPosition'

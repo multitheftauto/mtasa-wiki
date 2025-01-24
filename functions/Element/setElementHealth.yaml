@@ -1,7 +1,7 @@
 shared: &shared
   name: 'setElementHealth'
   oop:
-    entity: player
+    entity: element
     method: setHealth
     variable: health
   pair: 'getElementHealth'

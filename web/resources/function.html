@@ -9,7 +9,7 @@
 <div class="function-type-title" style="color: {{type_colors[function.type_name]}};">{{ function.type_name|capitalize }} function</div>
 <h1 style="border-bottom: 3px solid {{type_colors[function.type_name]}}; padding-bottom: 0.2em;">
     <span {% if function.disabled %}style="text-decoration: line-through;"{% endif %}>{{ function.name }}</span>
-    <a class="small-fs" href="#" onclick="copyText('{{ function.name }}', 'copy-{{ function.name }}')"><i class="fa-solid fa-copy"></i> <span id="copy-{{ function.name }}">Copy</span> </a>
+    <a class="small-fs" href="#" onclick="copyText('{{ function.name }}', 'copy-{{ function.name }}')"><i class="fa-regular fa-copy"></i> <span id="copy-{{ function.name }}">Copy</span> </a>
 </h1>
 
 <!-- Disabled Warning -->
@@ -97,7 +97,7 @@
 <h2 id="syntax">Syntax <a href="#syntax"><i class="fa-solid fa-link"></i></a></h2>
 {% if function.syntaxes.single %}
     {% set syntax = function.syntaxes.single %}
-    <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
+<div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
 
     <pre><code class="language-lua">{{ syntax.returns.values_type or 'void' }} {{ function.name }} ( {% for parameter in syntax.arguments.required %}{{ parameter.type }} {{ parameter.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% for parameter in syntax.arguments.optional %}{% if syntax.arguments.required %}, {% endif %}{% if loop.first %}[ {% endif %}{{ parameter.type }} {{ parameter.name }} = {{ parameter.default }}{% if loop.last %} ]{% endif %}{% endfor %} )</code></pre>
 
@@ -129,12 +129,11 @@
         {% endfor %}
     </ul>
 
-    </div>
 {% else %}
     {% for type_name in ['server', 'client'] %}
         {% set syntax = function.syntaxes[type_name] %}
         {% if syntax %}
-            <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ type_colors[type_name] }}; border-radius: 5px;">
+<div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ type_colors[type_name] }}; border-radius: 5px;">
             <h3 style="color: {{ type_colors[type_name] }};">{{ type_name|capitalize }}:</h3>
 
             <pre><code class="language-lua">{{ syntax.returns.values_type or 'void' }} {{ function.name }} ( {% for parameter in syntax.arguments.required %}{{ parameter.type }} {{ parameter.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% for parameter in syntax.arguments.optional %}{% if syntax.arguments.required %}, {% endif %}{% if loop.first %}[ {% endif %}{{ parameter.type }} {{ parameter.name }} = {{ parameter.default }}{% if loop.last %} ]{% endif %}{% endfor %} )</code></pre>
@@ -166,10 +165,36 @@
                     <li>{{ item.type }} {{ item.name }}</li>
                 {% endfor %}
             </ul>
-            </div>
         {% endif %}
     {% endfor %}
 {% endif %}
+    <!-- OOP Syntax -->
+    {% for type_name in ['shared', 'client', 'server'] %}
+        {% if function[type_name] %}
+            {% if function[type_name].oop %}
+                <h3>OOP syntax: <a href="/OOP_Introduction" ><i class="fa-regular fa-circle-question"></i></a></h3>
+                {% if function[type_name].oop.note %}
+                    <p>{{ function[type_name].oop.note }}</p>
+                {% endif %}
+                <!-- Method or constructor -->
+                <ul>
+                    {% if function[type_name].oop.constructor %}
+                        <li><strong>Constructor:</strong> <a href="/{{ function[type_name].oop.constructor|lower }}">{{ function[type_name].oop.constructor|capitalize }}</a>(...)</li>
+                    {% else %}
+                        {% if function[type_name].oop.static %}
+                            <li><strong>Method:</strong> <a href="/{{ function[type_name].oop.entity|capitalize }}">{{ function[type_name].oop.entity|capitalize }}</a>.{{ function[type_name].oop.method }}(...)</li>
+                        {% else %}
+                            <li><strong>Method:</strong>  <a href="/{{ function[type_name].oop.entity|lower }}">{{ function[type_name].oop.entity }}</a>:{{ function[type_name].oop.method }}(...)</li>
+                        {% endif %}
+                        {% if function[type_name].oop.variable %}
+                            <li><strong>Variable:</strong> <a href="/{{ function[type_name].oop.entity|lower }}">{{ function[type_name].oop.entity }}</a>.{{ function[type_name].oop.variable }}</li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>
 
 <!-- Preview Images -->
 {% for type_name in ['shared', 'client', 'server'] %}
