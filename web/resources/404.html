@@ -3,15 +3,20 @@
     <p>Error 404: The page you are looking for does not exist.</p>
 </div>
 <script>
-    // Did we land on a page that doesn't exist
-    // that starts with a uppercase letter?
-    // Send to a path with the first letter lowercase
+    // Get the current path
     const path = window.location.pathname;
 
-    if (path.length > 1 && /[A-Z]/.test(path[1])) {
-        const newPath = path[0] + path[1].toLowerCase() + path.slice(2);
+    // Transform the path: lowercase the first letter of each segment
+    const newPath = path
+        .split('/')
+        .map(segment => segment ? segment[0].toLowerCase() + segment.slice(1) : '')
+        .join('/');
+
+    // Redirect only if the transformed path is different from the current path
+    if (newPath !== path) {
         window.location.replace(newPath);
     } else {
+        // Show the 'not-found' element if no redirect is needed
         document.getElementById('not-found').style.display = 'block';
     }
 </script>
