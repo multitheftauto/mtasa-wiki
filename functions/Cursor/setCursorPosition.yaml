@@ -19,4 +19,4 @@ client:
       description: |
         This example sets your cursor position to the center of your screen after using the command *cursorpos*.
   see_also:
-    - 'tag:Client input functions'
+    - 'category:Client input functions'

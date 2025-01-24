@@ -73,12 +73,12 @@ $defs:
       see_also:
         type: array
         description: |
-          A list of other items and categories for further reading.
+          A list of other categories for further reading.
           Every function will implicitly display it's own category in *See Also*, unless you
           introduce this property, then you have to be explicit about it.
         items:
           type: string
-          pattern: "^(item|category|tag):"
+          pattern: "^(category):"
           uniqueItems: true
   
   oop:

@@ -212,6 +212,8 @@ class WikiBuilder:
 
                             function['syntaxes'] = syntaxes
 
+                            function['path_html'] = f"/{function['name']}/"
+
                             self.functions.append(function)
                     except Exception as e:
                         self.logger.exception(e)
@@ -321,20 +323,11 @@ class WikiBuilder:
             content = content
         )
     
-    def create_function(self, function_name):
-
-        for function2 in self.functions:
-            if function2['name'] == function_name:
-                function = function2
-                break
-        if not function:
-            raise WikiBuilderError(f'Function not found: {function_name}')
-            return
-
+    def create_function_page(self, function):
         function_template = self.input_env.get_template('function.html')
         html_content = self.render_page(function['name'], function_template.render(function=function))
 
-        web_path = f"/{function['name']}/"
+        web_path = function["path_html"]
         function_folder = OUTPUT_HTML_PATH + web_path
 
         Path(function_folder).mkdir(parents=True, exist_ok=True)
@@ -343,11 +336,7 @@ class WikiBuilder:
         with open(output_path, 'w') as html_file:
             html_file.write(html_content)
 
-        function["path_html"] = web_path
-
         self.logger.info(f"Generated {output_path}")
-
-        return function
 
     def create_article(self, article_name, articles_folder='', custom_web_path=False):
         article_real_path = os.path.join(DOCS_REPO_PATH, 'articles', articles_folder, article_name, f"article.yaml")
@@ -423,7 +412,7 @@ class WikiBuilder:
             functions_folder_path = os.path.join(DOCS_REPO_PATH, 'functions', functions_folder)
             for function in self.functions:
                 if function['type_name'] == functions_type and function['folder'] == functions_folder:
-                    function = self.create_function(function['name'])
+                    function["category"] = category_name
                     items.append({
                         'name': function['name'],
                         'path_html': function['path_html']
@@ -439,6 +428,8 @@ class WikiBuilder:
                         'name': subcat_name,
                         'path_html': f"/lua/functions/{functions_type}/{functions_folder}"
                     })
+
+        self.categories[category_name] = items
 
         category_template = self.input_env.get_template('category.html')
         html_content = self.render_page(category_name, category_template.render(
@@ -560,6 +551,8 @@ class WikiBuilder:
         with open(os.path.join(DOCS_REPO_PATH, 'VERSION'), 'r') as file:
             self.wiki_version = file.read().strip()
 
+        self.categories = {}
+
         def create_item(item):
             if 'article' in item:
                 self.create_article(item['article']['name'], item['article']['folder'], item['path_html'])
@@ -572,10 +565,45 @@ class WikiBuilder:
                     create_item(subitem)
             else:
                 create_item(item)
+            
+        # Generate related pages for each function
+        for function in self.functions:
+            function['related'] = []
+
+            # Fill with the function's category items
+            function_category = function.get('category')
+            if function_category:
+                category_items = self.categories.get(function_category)
+                function['related'].append({
+                    'category': function_category,
+                    'items': category_items
+                })
+
+            # Fill with other see_also entries
+            for type_name in ['shared', 'client', 'server']:
+                type_info = function.get(type_name, {})
+                if not type_info:
+                    continue
+                for see_also in type_info.get('see_also', []):
+                    parts = see_also.split(':')
+                    if len(parts) != 2:
+                        continue
+                    entry_type = parts[0]
+                    entry_name = parts[1]
+                    if entry_type == 'category':
+                        category_items = self.categories.get(entry_name)
+                        if category_items:
+                            function['related'].append({
+                                'category': entry_name,
+                                'items': category_items
+                            })
+
+        # Create function pages
+        for function in self.functions:
+            self.create_function_page(function)
 
         self.create_misc_pages()
-            
-        
+
     def copy_assets(self):
 
         copy_files = [

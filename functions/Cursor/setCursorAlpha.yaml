@@ -21,4 +21,4 @@ client:
   examples:
     - path: 'examples/setCursorAlpha.lua'
   see_also:
-    - 'category:GUI functions'
+    - 'category:Client GUI functions'

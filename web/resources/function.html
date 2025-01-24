@@ -254,3 +254,21 @@
 {% if not function.has_example %}
     <p>No examples available.</p>
 {% endif %}
+
+{% if function.related %}
+    <h2 id="see_also">See also <a href="#see_also"><i class="fa-solid fa-link"></i></a></h2>
+    {% for related in function.related %}
+        {% if related.category %}
+            <h3 style="margin-left: 1em;">{{ related.category }}:</h3>
+            <ul style="margin-bottom: 1em;">
+            {% for item in related['items'] %}
+                {% if item.name == function.name %}
+                    <li><strong>{{ item.name }}</strong></li>
+                {% else %}
+                    <li><a href="{{ item.path_html }}">{{ item.name }}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endfor %}
+{% endif %}

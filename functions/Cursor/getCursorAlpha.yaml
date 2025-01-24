@@ -17,4 +17,4 @@ client:
   examples:
     - path: 'examples/getCursorAlpha.lua'
   see_also:
-    - 'category:GUI functions'
+    - 'category:Client element functions'
