@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/assets/style.css?v=1.6">
+    <link rel="stylesheet" href="/assets/style.css?v=1.7">
 </head>
 <body>
     <nav id="mta-global-navbar">
@@ -68,15 +68,15 @@
             {% if preview_mode %}
             <div class="preview-badge">Preview</div>
             {% endif %}
-            <!-- Add a menu button for mobile -->
-            <button id="menu-toggle" aria-label="Toggle navigation">
+
+            <button class="toggle-sidebar" aria-label="Toggle navigation">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </header>
 
-    <div class="grid-container">
-        <nav class="sidebar-left" id="sidebar">
+    <div class="container">
+        <aside class="sidebar">
           <ul>
             {% for item in navigation %}
                 {% if item.path_html %}
@@ -91,10 +91,10 @@
                 {% endif %}
             {% endfor %}
           </ul>
-        </nav>
-        <div id="main-content">
+        </aside>
+        <main class="content">
           {{ content }}
-        </div>
+        </main>
       </div>
 
     <footer>
@@ -106,13 +106,9 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.getElementById('menu-toggle');
-            const sidebar = document.getElementById('sidebar');
-
-            menuToggle.addEventListener('click', () => {
-                sidebar.classList.toggle('open');
-            });
+        document.querySelector('.toggle-sidebar').addEventListener('click', () => {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
         });
 
         var copyTexts = {};

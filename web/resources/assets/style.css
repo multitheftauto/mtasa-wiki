@@ -119,8 +119,6 @@ hr {
   float: right;
   font-size: 1.8em;
   padding-top: 2px;
-  position: relative;
-  z-index: 1;
 }
 
 
@@ -150,7 +148,7 @@ header {
   opacity: 0.8;
 }
 #logo-wrapper {
-  height: 64px;
+  height: 52px;
   position: relative;
   padding: 16px;
   margin: 0 auto;
@@ -168,89 +166,79 @@ header {
 }
 
 
-/* Grid container */
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 6fr;
-  grid-template-rows: auto;
-  max-width: 100%; /* Prevents the grid container from exceeding the page width */
-  overflow-x: hidden; /* Prevents horizontal scrolling */
-  box-sizing: border-box; /* Ensures padding is included in width calculations */
+.container {
+  display: flex;
 }
 
-/* Main content styles */
-#main-content {
-  padding: 20px;
-  max-width: 100%; /* Limits the width of the inner divs */
-  box-sizing: border-box;
-}
-
-
-/* Sidebar styles */
-
-
-/* Ensure #menu-toggle is hidden on larger screens */
-#menu-toggle {
-  display: none;
-}
-
-/* Hide sidebar on smaller screens */
-@media (max-width: 768px) {
-  .grid-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    max-width: 100%; /* Prevents the grid container from exceeding the page width */
-    overflow-x: hidden; /* Prevents horizontal scrolling */
-    box-sizing: border-box; /* Ensures padding is included in width calculations */
-  }
-
-  .sidebar-left {
-      display: none;
-      position: fixed;
-      left: 0;
-      width: 100%;
-      background: #151b23;
-      overflow-y: auto;
-      z-index: 1000;
-  }
-
-  .sidebar-left.open {
-      display: block;
-  }
-
-  #menu-toggle {
-      display: inline-block;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: white;
-      cursor: pointer;
-      margin-left: auto;
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-  }
-}
-
-.sidebar-left {
-  padding: 20px;
+.sidebar {
+  padding: 1em;
   border-right: 1px solid #394a60;
+  display: block;
+  width: 150px;
 }
-.sidebar-left ul {
+.toggle-sidebar {
+  display: none;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 0.5em;
+  cursor: pointer;
+  font-size: 1.6em;
+  margin-left: auto;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    display: none;
+    background-color: #333;
+    border: none;
+    border: 2px solid #394a60;
+    position: absolute;
+    right: 0;
+  }
+
+  .sidebar.active {
+    display: block;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .toggle-sidebar {
+    display: block;
+  }
+}
+
+.sidebar ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-.sidebar-left ul li {
+.sidebar ul li {
   margin: 5px 0;
 }
-.sidebar-left ul li a {
+.sidebar ul li a {
   padding-top: 10px;
   padding-left: 10px;
   padding-bottom: 10px;
 }
-.sidebar-left ul li p {
+.sidebar ul li p {
   padding-top: 10px;
   padding-left: 10px;
   padding-bottom: 0;
