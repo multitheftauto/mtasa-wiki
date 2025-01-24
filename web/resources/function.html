@@ -114,7 +114,7 @@
 <h2 id="syntax">Syntax <a href="#syntax"><i class="fa-solid fa-link"></i></a></h2>
 {% if function.syntaxes.single %}
     {% set syntax = function.syntaxes.single %}
-<div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
+    <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
 
     <pre><code class="language-lua">{{ syntax.returns.values_type or 'void' }} {{ function.name }} ( {% for parameter in syntax.arguments.required %}{{ parameter.type }} {{ parameter.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% for parameter in syntax.arguments.optional %}{% if syntax.arguments.required %}, {% endif %}{% if loop.first %}[ {% endif %}{{ parameter.type }} {{ parameter.name }} = {{ parameter.default }}{% if loop.last %} ]{% endif %}{% endfor %} )</code></pre>
 
@@ -145,12 +145,11 @@
             <li>{{ item.type }} {{ item.name }}</li>
         {% endfor %}
     </ul>
-
 {% else %}
     {% for type_name in ['server', 'client'] %}
         {% set syntax = function.syntaxes[type_name] %}
         {% if syntax %}
-<div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ type_colors[type_name] }}; border-radius: 5px;">
+        <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ type_colors[type_name] }}; border-radius: 5px;">
             <h3 style="color: {{ type_colors[type_name] }};">{{ type_name|capitalize }}:</h3>
 
             <pre><code class="language-lua">{{ syntax.returns.values_type or 'void' }} {{ function.name }} ( {% for parameter in syntax.arguments.required %}{{ parameter.type }} {{ parameter.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% for parameter in syntax.arguments.optional %}{% if syntax.arguments.required %}, {% endif %}{% if loop.first %}[ {% endif %}{{ parameter.type }} {{ parameter.name }} = {{ parameter.default }}{% if loop.last %} ]{% endif %}{% endfor %} )</code></pre>
@@ -182,6 +181,7 @@
                     <li>{{ item.type }} {{ item.name }}</li>
                 {% endfor %}
             </ul>
+        </div>
         {% endif %}
     {% endfor %}
 {% endif %}
@@ -211,7 +211,9 @@
             {% endif %}
         {% endif %}
     {% endfor %}
+{% if function.syntaxes.single %}
 </div>
+{% endif %}
 
 <!-- Preview Images -->
 {% for type_name in ['shared', 'client', 'server'] %}
