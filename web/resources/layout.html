@@ -115,7 +115,7 @@
             });
         });
 
-        var copyTextTimer = null;
+        var copyTexts = {};
         async function copyText(text, spanCopyText) {
             event.preventDefault()
             const type = "text/plain";
@@ -124,10 +124,16 @@
             await navigator.clipboard.write(data);
             if (spanCopyText) {
                 spanCopyText = document.getElementById(spanCopyText);
+                if (copyTexts[spanCopyText]) {
+                    clearTimeout(copyTexts[spanCopyText]["timer"]);
+                } else {
+                    copyTexts[spanCopyText] = {};
+                }
+                copyTexts[spanCopyText]["oldText"] = spanCopyText.innerText;
                 spanCopyText.innerText = "Copied!";
-                clearTimeout(copyTextTimer);
-                copyTextTimer = setTimeout(() => {
-                    spanCopyText.innerText = "Copy";
+                copyTexts[spanCopyText]["timer"] = setTimeout(() => {
+                    spanCopyText.innerText = copyTexts[spanCopyText]["oldText"];
+                    delete copyTexts[spanCopyText];
                 }, 2000);
             }
         }
