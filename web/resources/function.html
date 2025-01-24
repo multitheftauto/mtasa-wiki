@@ -55,6 +55,23 @@
     {% endif %}
 {% endfor %}
 
+<!-- Meta Properties -->
+{% for type_name in ['shared', 'server', 'client'] %}
+{% if function[type_name] and function[type_name].meta %}
+    {% if function[type_name].meta %}
+        <div style="padding-left: 1em; margin-top: 1em; border: 1px solid #aaa; border-radius: 5px; background-color: rgba(255, 255, 255, 0.1);">
+            <ul>
+            {% for meta_item in function[type_name].meta %}
+                {% if meta_item.needs_checking %}
+                    <li><p><strong>Needs checking:</strong> {{ meta_item.needs_checking }}</p></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endif %}
+{% endfor %}
+
 <!-- Issues -->
 {% for type_name in ['shared', 'client', 'server'] %}
     {% if function[type_name] %}
