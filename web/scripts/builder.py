@@ -580,12 +580,8 @@ class WikiBuilder:
         for function in self.functions:
             self.create_function_page(function)
 
-        
-        # Other types of articles
+        # Other articles
         self.create_article('privacy')
-
-        # Official articles
-        self.create_article('OOP_Introduction', 'official')
 
         other_pages = [
             {
