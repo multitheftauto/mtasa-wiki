@@ -8,18 +8,18 @@ shared: &shared
   description: |
     This function allows you to retrieve the position coordinates of an element. This can be any real world element, including:
     
-    - [[player|Players]]
-    - [[vehicle|Vehicles]]
-    - [[object|Objects]]
-    - [[pickup|Pickups]]
-    - [[marker|Markers]]
-    - [[collision shape|Collision shapes]]
-    - [[blip|Blips]]
-    - [[radar area|Radar areas]]
+    - [player](/player)
+    - [vehicle](/vehicle)
+    - [object](/object)
+    - [pickup](/pickup)
+    - [marker](/marker)
+    - [collision shapes](/collision shapes)
+    - [blip](/blip)
+    - [radar areas](/radar areas)
   parameters:
     - name: 'theElement'
       type: 'element'
-      description: "The element which you'd like to retrieve the location of"
+      description: "The element which you'd like to retrieve the position of."
   returns:
     description: |
       Returns three floats indicating the position of the element, x, y and z respectively.
@@ -30,13 +30,20 @@ shared: &shared
         name: 'y'
       - type: 'float'
         name: 'z'
-  examples:
-    - path: 'examples/getElementPosition.lua'
-      description: |
-        This example attaches a samsite on the player's vehicle.
+  issues:
+    - id: 928
+      description: 'Position desync with dead players'
 
 server:
   <<: *shared
+  examples:
+    - path: 'examples/getElementPosition-2.lua'
+      description: |
+        This example will teleport the player 50 units above current position using */tpme* command.
 
 client:
   <<: *shared
+  examples:
+    - path: 'examples/getElementPosition-1.lua'
+      description: |
+        This example will print the player position to chat using */pos* command.

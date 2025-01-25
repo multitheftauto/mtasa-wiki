@@ -5,10 +5,10 @@ client:
     This function is used to get the client's cursor alpha (transparency).
   preview_images:
   - path: '/assets/cursor-alpha.jpg'
-    description: 'Visual representation of the cursor alpha'
+    description: 'Visual representation of the cursor alpha:'
   returns:
     description: |
-      Returns a int between 0 and 255, where 255 is fully opaque and 0 is fully transparent. 
+      Returns a number between 0 and 255, where 255 is fully opaque and 0 is fully transparent. 
     values:
       - type: 'int'
         name: 'alpha'
@@ -16,5 +16,7 @@ client:
     added: '1.3.2'
   examples:
     - path: 'examples/getCursorAlpha.lua'
+      description: |
+        This example prints the cursor alpha to chatbox using */cursoralpha* command:
   see_also:
     - 'category:Client element functions'

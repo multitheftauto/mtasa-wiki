@@ -6,11 +6,11 @@ shared: &shared
     variable: health
   pair: 'setElementHealth'
   description: |
-    This function returns the current health for the specified element. This can be a [[player]], [[ped]], [[vehicle]], or [[object]]. 
+    This function returns the current health for the specified element. This can be a [player](/player), [ped](/ped), [vehicle](/vehicle), or [object](/object). 
   parameters:
     - name: 'theElement'
       type: 'element'
-      description: "The [[player]] or [[vehicle]] whose health you want to check."
+      description: "The [player](/player), [ped](/ped), [vehicle](/vehicle), or [object](/object) whose health you want to get."
   returns:
     description: |
       Returns a *float* indicating the element's health, *false* otherwise.
@@ -33,7 +33,7 @@ client:
   examples:
     - path: 'examples/getElementHealth-1.lua'
       description: |
-        This example outputs the player and vehicle health (if player is in a vehicle) to chatbox using /health command:
+        This example outputs the player and vehicle health (if player is in a vehicle) to chatbox using */health* command:
     - path: 'examples/getElementHealth-2.lua'
       description: |
-        This example heals the player to 100 HP using /healme command if he's at 50 HP or lower:
+        This example heals the player to 100 HP using */healme* command if he's at 50 HP or lower:

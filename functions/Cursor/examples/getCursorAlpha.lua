@@ -1,6 +1,6 @@
--- Simple command to test the getCursorAlpha function
-addCommandHandler( "cursorAlpha", 
+addCommandHandler( "cursoralpha", 
     function ()
+        -- check if cursor is showing
         if ( isCursorShowing ( ) ) then
             outputChatBox( "The cursor alpha: "..getCursorAlpha( ) )
         else

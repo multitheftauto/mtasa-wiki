@@ -6,19 +6,24 @@ shared: &shared
     variable: health
   pair: 'getElementHealth'
   description: |
-    This function sets the health of a [[player]], [[ped]], [[vehicle]] or [[object]] element.
+    This function sets the health of a [player](/player), [ped](/ped), [vehicle](/vehicle), or [object](/object) element.
   notes:
     - |
-      info: In the case of the [[vehicle]] element, the following effects appear, depending on the health value: 
+      info: In the case of the [vehicle](/vehicle) element, the health ranges from 0 to 1000.
+    - |
+      - *1000:* no damage at all
     - |
       - *650:* white steam 0%, black smoke 0%
+    - |
       - *450:* white steam 100%, black smoke 50%
+    - |
       - *250:* white steam 0%, black smoke 100%
-      - *249:* fire with big black smoke
+    - |
+      - *249:* fire with big black smoke (blowing up)
   parameters:
     - name: 'theElement'
       type: 'element'
-      description: 'The [[player]], [[ped]], [[vehicle]] or [[object]] element whose health you want to set.'
+      description: 'The [player](/player), [ped](/ped), [vehicle](/vehicle), or [object](/object) element whose health you want to set.'
     - name: 'newHealth'
       type: 'float'
       description: 'A float indicating the new health to set for the element.'
@@ -45,11 +50,11 @@ server:
   examples:
     - path: 'examples/setElementHealth-1.lua'
       description: |
-        This example changes the player health to new specified value using /sethealth <value> command:
+        This example changes the player health to new specified value using */sethealth <value>* command:
 
 client:
   <<: *shared
   examples:
     - path: 'examples/setElementHealth-2.lua'
       description: |
-        This example heals the player vehicle using the command /repairvehicle if it's below 1000 HP:
+        This example heals the player vehicle using the command */repairvehicle* if it's below 1000 HP:

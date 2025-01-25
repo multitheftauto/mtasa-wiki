@@ -5,10 +5,10 @@ client:
   parameters:
     - name: 'cursorX'
       type: 'int'
-      description: 'Position over the X axis'
+      description: 'Position for the X axis'
     - name: 'cursorY'
       type: 'int'
-      description: 'Position over the Y axis'
+      description: 'Position for the Y axis'
   returns:
     description: 'Returns *true* if the position has been successfully set, *false* otherwise.'
     values:
@@ -17,6 +17,6 @@ client:
   examples:
     - path: 'examples/setCursorPosition.lua'
       description: |
-        This example sets your cursor position to the center of your screen after using the command *cursorpos*.
+        This example sets your cursor position to the center of your screen after using the */cursorpos* command.
   see_also:
     - 'category:Client input functions'
