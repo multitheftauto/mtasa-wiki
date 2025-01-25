@@ -445,28 +445,6 @@ class WikiBuilder:
         
         self.logger.info(f"Generated {output_path} for category {category_name}")
 
-    def create_misc_pages(self):
-
-        # Predefined articles
-        self.create_article('privacy')
-
-        other_pages = [
-            {
-                'path_html': '404.html',
-                'template': '404.html',
-            },
-        ]
-
-        for page in other_pages:
-            template = self.input_env.get_template(page['template'])
-            html_content = self.render_page(page['path_html'], template.render())
-
-            output_path = os.path.join(OUTPUT_HTML_PATH, page['path_html'])
-            with open(output_path, 'w') as html_file:
-                html_file.write(html_content)
-
-            self.logger.info(f"Generated {output_path} for {page['path_html']}")
-        
     def create_pages(self):
         self.navigation = [
             {
@@ -478,25 +456,25 @@ class WikiBuilder:
                 },
             },
             {
-                'name': 'Guides',
+                'name': 'Articles',
                 'subitems': [
                     {
-                        'name': 'Official guides',
-                        'path_html': '/guides/official',
+                        'name': 'Official articles',
+                        'path_html': '/official',
                         'category': {
-                            'name': 'Official guides',
+                            'name': 'Official articles',
                             'articles': {
-                                'path': 'official-guides',
+                                'path': 'official',
                             },
                         },
                     },
                     {
-                        'name': 'Community guides',
-                        'path_html': '/guides/community',
+                        'name': 'Community articles',
+                        'path_html': '/community',
                         'category': {
-                            'name': 'Community guides',
+                            'name': 'Community articles',
                             'articles': {
-                                'path': 'community-guides',
+                                'path': 'community',
                             },
                         },
                     },
@@ -602,7 +580,28 @@ class WikiBuilder:
         for function in self.functions:
             self.create_function_page(function)
 
-        self.create_misc_pages()
+        
+        # Other types of articles
+        self.create_article('privacy')
+
+        # Official articles
+        self.create_article('OOP_Introduction', 'official')
+
+        other_pages = [
+            {
+                'path_html': '404.html',
+                'template': '404.html',
+            },
+        ]
+        for page in other_pages:
+            template = self.input_env.get_template(page['template'])
+            html_content = self.render_page(page['path_html'], template.render())
+
+            output_path = os.path.join(OUTPUT_HTML_PATH, page['path_html'])
+            with open(output_path, 'w') as html_file:
+                html_file.write(html_content)
+
+            self.logger.info(f"Generated {output_path} for {page['path_html']}")
 
     def copy_assets(self):
 
