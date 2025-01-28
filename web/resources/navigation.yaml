@@ -41,3 +41,5 @@
         functions:
           path: Element
           type: shared
+- name: MTA Elements
+  path_html: "/element"

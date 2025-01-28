@@ -55,11 +55,31 @@ class WikiBuilder:
         except Exception as e:
             raise WikiBuilderError(f'Error loading schemas: {e}')
 
+    def parse_elements(self):
+        self.elements = []
+        
+        for root, _, files in os.walk(os.path.join(DOCS_REPO_PATH, 'elements')):
+            for filename in files:
+                if filename.endswith('.yaml'):
+                    file_path = os.path.join(root, filename)
+                    try:
+                        element = utils.load_yaml(file_path)
+
+                        element['real_path'] = file_path
+                        element['description_html'] = utils.to_html(element['description'])
+
+                        self.elements.append(element)
+                    except Exception as e:
+                        self.logger.exception(e)
+                        raise WikiBuilderError(f'Error loading element {file_path}')
+
+    def parse_events(self):
+        pass
+
     def parse_functions(self):
-        doc_folder = os.path.join(DOCS_REPO_PATH, 'functions')
         self.functions = []
 
-        for root, _, files in os.walk(doc_folder):
+        for root, _, files in os.walk(os.path.join(DOCS_REPO_PATH, 'functions')):
             for filename in files:
                 if filename.endswith('.yaml'):
                     file_path = os.path.join(root, filename)
@@ -320,6 +340,23 @@ class WikiBuilder:
             navigation = self.navigation,
             content = content
         )
+
+    def create_element_page(self, element):
+        element_template = self.input_env.get_template('element.html')
+        html_content = self.render_page(element['name'], element_template.render(element=element))
+
+        web_path = f"/{element['name']}/"
+        element_folder = OUTPUT_HTML_PATH + web_path
+
+        Path(element_folder).mkdir(parents=True, exist_ok=True)
+
+        output_path = os.path.join(element_folder, 'index.html')
+        with open(output_path, 'w') as html_file:
+            html_file.write(html_content)
+
+        element["path_html"] = web_path
+
+        self.logger.info(f"Generated {output_path} for element {element['name']}")
     
     def create_function_page(self, function):
         function_template = self.input_env.get_template('function.html')
@@ -507,10 +544,20 @@ class WikiBuilder:
                     create_item(subitem)
             else:
                 create_item(item)
+
+        # Populate see_also for functions
+        self.generate_function_relations()
+
+        # Populate see_also for elements
+        # self.generate_element_relations()
             
         # Create function pages
         for function in self.functions:
             self.create_function_page(function)
+
+        # Create element pages
+        for element in self.elements:
+            self.create_element_page(element)
 
         # Other articles
         self.create_article('privacy')
@@ -541,6 +588,8 @@ class WikiBuilder:
         self.load_schemas()
         
         self.parse_functions()
+        self.parse_events()
+        self.parse_elements()
         self.parse_version()
         
         self.create_pages()

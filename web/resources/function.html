@@ -6,7 +6,7 @@
 {% set info_color = '#ccc' %}
 
 <!-- Title -->
-<div class="function-type-title" style="color: {{type_colors[function.type_name]}};">{{ function.type_name|capitalize }} function</div>
+<div class="floating-right1" style="color: {{type_colors[function.type_name]}};">{{ function.type_name|capitalize }} function</div>
 <h1 style="border-bottom: 3px solid {{type_colors[function.type_name]}}; padding-bottom: 0.2em;">
     <span {% if function.disabled %}style="text-decoration: line-through;"{% endif %}>{{ function.name }}</span>
     <a class="small-fs" href="#" onclick="copyText('{{ function.name }}', 'copy-{{ function.name }}')"><i class="fa-regular fa-copy"></i> <span id="copy-{{ function.name }}"></span> </a>
