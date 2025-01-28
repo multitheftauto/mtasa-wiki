@@ -87,12 +87,19 @@ class WikiBuilder:
                         article = utils.load_and_validate_yaml(file_path, self.schema_article)
                         article_content_path = article['content']
                         article["name"] = os.path.basename(os.path.dirname(file_path))
+                        article["parent_folder"] = os.path.basename(os.path.dirname(os.path.dirname(file_path)))
                         
                         content_real_path = self.resolve_relative_or_repo_absolute_path(
                             os.path.dirname(file_path), article_content_path)
                         with open(content_real_path, 'r') as content_file:
                             article_content = content_file.read()
                         article['content_html'] = utils.to_html(article_content)
+
+                        if article['name'] == 'introduction':
+                            article["path_html"] = '/'
+                        else:
+                            article["path_html"] = f"/{article['name']}/"
+
                         self.articles.append(article)
                     except Exception as e:
                         self.logger.exception(e)
@@ -411,11 +418,7 @@ class WikiBuilder:
         article["content_html"] = self.process_special_article_content(article["content_html"])
         html_content = self.render_page(article['title'], article_template.render(article=article))
         
-        if article['name'] == 'introduction':
-            web_path = '/'
-        else:
-            web_path = f"/{article['name']}/"
-        article_folder = OUTPUT_HTML_PATH + web_path
+        article_folder = OUTPUT_HTML_PATH + article["path_html"]
 
         Path(article_folder).mkdir(parents=True, exist_ok=True)
 
@@ -423,8 +426,6 @@ class WikiBuilder:
         with open(output_path, 'w') as html_file:
             html_file.write(html_content)
 
-        article["path_html"] = web_path
-        
         self.logger.info(f"Generated {output_path} for article {article['name']}")
 
     def create_category(self, web_path, category_data):
@@ -450,7 +451,28 @@ class WikiBuilder:
         else:
             category_folder = OUTPUT_HTML_PATH + web_path
 
-        if 'subcategories' in category_data:
+        if 'articles' in category_data:
+            articles_folder = category_data['articles']['path']
+            # List folders in articles/folder_name
+            articles_folder_path = os.path.join(DOCS_REPO_PATH, 'articles', articles_folder)
+            for article in self.articles:
+                if article['parent_folder'] == articles_folder:
+                    items.append({
+                        'name': article['title'],
+                        'path_html': article['path_html']
+                    })
+        elif 'functions' in category_data:
+            functions_folder = category_data['functions']['path']
+            functions_type = category_data['functions']['type']
+            functions_folder_path = os.path.join(DOCS_REPO_PATH, 'functions', functions_folder)
+            for function in self.functions:
+                if function['type_name'] == functions_type and function['folder'] == functions_folder:
+                    function["category"] = category_name
+                    items.append({
+                        'name': function['name'],
+                        'path_html': function['path_html']
+                    })
+        elif 'subcategories' in category_data:
             # List subcategories
             for subcategory in category_data['subcategories']:
                 subcat_name = subcategory['name']
