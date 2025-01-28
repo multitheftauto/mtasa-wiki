@@ -5,6 +5,7 @@ import jinja2
 import http
 import subprocess
 import signal
+import re
 from datetime import date
 from pathlib import Path
 
@@ -388,14 +389,15 @@ class WikiBuilder:
         self.logger.info(f"Generated {output_path} for element {element['name']}")
 
     def process_special_article_content(self, content):
-        specials = utils.get_special_strings(content)
+        specials = re.findall(r'\{\{.*?\}\}', content)
+        specials = [s[2:-2] for s in specials]
         for special in specials:
             if special == 'elements_list':
                 html_list = "<ul>"
                 for element in self.elements:
                     html_list += f"<li><a href='{element['path_html']}'>{element['name'].capitalize()}</a></li>"
                 html_list += "</ul>"
-                content = content.replace(f"$$special:{special}$$", html_list)
+                content = content.replace(f"{{{{elements_list}}}}", html_list)
 
         return content
     

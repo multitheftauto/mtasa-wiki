@@ -24,7 +24,3 @@ def to_html(markdown_text, single_paragraph=False):
     if single_paragraph:
         html = re.sub(r'<p>(.*?)</p>', r'\1', html)
     return html
-
-def get_special_strings(str):
-    # Find all instances of $$special:ANY_TEXT$$ in the string
-    return re.findall(r'\$\$special:(.*?)\$\$', str)
