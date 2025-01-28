@@ -37,7 +37,7 @@
     {% if function[type_name] %}
         {% if function[type_name].version %}
             {% set version = function[type_name].version %}
-            <div style="display:inline-block; padding: 0.5em; margin-bottom: 0.5em; border: 1px solid {{ info_color }}; border-radius: 5px;">
+            <div class="pad-lr" style="display:inline-block; margin-bottom: 0.5em; border: 1px solid {{ info_color }}; border-radius: 5px;">
             {% if version.added %}
                 Added in <strong>{{ version.added }}</strong>
             {% endif %}
@@ -60,7 +60,7 @@
 {% if function[type_name] and function[type_name].meta %}
     {% if function[type_name].meta %}
         {% for meta_item in function[type_name].meta %}
-            <div style="padding-left: 1em; margin-top: 1em; border: 1px solid #aaa; border-radius: 5px; background-color: rgba(255, 255, 255, 0.1);">
+            <div class="pad-lr" style="margin-bottom: 0.5em; border: 1px solid #aaa; border-radius: 5px; background-color: rgba(255, 255, 255, 0.1);">
             {% if meta_item.needs_checking %}
                     <p><strong>Needs checking:</strong> {{ meta_item.needs_checking }}</p>
                 {% endif %}
@@ -75,7 +75,7 @@
     {% if function[type_name] %}
         {% if function[type_name].issues %}
         {% for issue in function[type_name].issues %}
-            <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px; background-color: rgba(255, 255, 0, 0.1);">
+            <div class="pad-lr" style="margin-bottom: 0.5em; border: 1px solid {{ info_color }}; border-radius: 5px; background-color: rgba(255, 255, 0, 0.1);">
                 <p><a target="_blank" href="https://github.com/multitheftauto/mtasa-blue/issues/{{ issue.id }}">Issue #{{ issue.id }} (mtasa-blue):</a> {{  issue.description_html }}</p>
             </div>
         {% endfor %}
@@ -89,7 +89,7 @@
     
         {% if function[type_name].notes %}
             {% for note in function[type_name].notes %}
-                <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px; background-color: rgba(0, 255, 0, 0.1);">
+                <div class="pad-lr" style="margin-bottom: 0.5em; border: 1px solid {{ info_color }}; border-radius: 5px; background-color: rgba(0, 255, 0, 0.1);">
                     <p>{{ note }}</p>
                 </div>
             {% endfor %}

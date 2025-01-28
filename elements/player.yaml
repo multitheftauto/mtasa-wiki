@@ -1,0 +1,10 @@
+name: 'Player'
+description: |
+  The player class represents pedestrians controlled by clients. A player element is created when a client connects to the server and destroyed when that client quits. Players cannot be created or destroyed otherwise.
+
+  The element type of this class is **"player"**. 
+
+  TODO
+see_also:
+  - 'category:Player functions'
+  - 'category:Player events'

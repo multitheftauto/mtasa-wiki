@@ -245,3 +245,8 @@ header {
   margin: 0;
   color: #9F9FA2;
 }
+
+.pad-lr {
+  padding-left: 1em;
+  padding-right: 1em;
+}
