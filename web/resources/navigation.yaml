@@ -1,22 +1,19 @@
 - name: Introduction
   path_html: "/"
-  article:
-    name: introduction
-    folder: ''
-- name: Articles
+- name: Guides
   subitems:
-  - name: Official articles
-    path_html: "/official"
+  - name: Official guides
+    path_html: "/official-guides"
     category:
-      name: Official articles
+      name: Official guides
       articles:
-        path: official
-  - name: Community articles
-    path_html: "/community"
+        path: official-guides
+  - name: Community guides
+    path_html: "/community-guides"
     category:
-      name: Community articles
+      name: Community guides
       articles:
-        path: community
+        path: community-guides
 - name: Functions
   subitems:
   - name: Client functions
