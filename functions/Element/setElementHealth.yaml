@@ -9,16 +9,12 @@ shared: &shared
     This function sets the health of a [player](/player), [ped](/ped), [vehicle](/vehicle), or [object](/object) element.
   notes:
     - |
-      info: In the case of the [vehicle](/vehicle) element, the health ranges from 0 to 1000.
-    - |
+      In the case of the [vehicle](/vehicle) element, the health ranges from 0 to 1000.
+      
       - *1000:* no damage at all
-    - |
       - *650:* white steam 0%, black smoke 0%
-    - |
       - *450:* white steam 100%, black smoke 50%
-    - |
       - *250:* white steam 0%, black smoke 100%
-    - |
       - *249:* fire with big black smoke (blowing up)
   parameters:
     - name: 'theElement'
