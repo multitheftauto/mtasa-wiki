@@ -51,6 +51,8 @@ class WikiBuilder:
     def load_schemas(self):
         try:
             self.schema_function = utils.load_schema(os.path.join(DOCS_REPO_PATH, 'schemas/function.yaml'))
+            # self.schema_event = utils.load_schema(os.path.join(DOCS_REPO_PATH, 'schemas/event.yaml'))
+            self.schema_element = utils.load_schema(os.path.join(DOCS_REPO_PATH, 'schemas/element.yaml'))
             self.schema_article = utils.load_schema(os.path.join(DOCS_REPO_PATH, 'schemas/article.yaml'))
         except Exception as e:
             raise WikiBuilderError(f'Error loading schemas: {e}')
@@ -63,7 +65,7 @@ class WikiBuilder:
                 if filename.endswith('.yaml'):
                     file_path = os.path.join(root, filename)
                     try:
-                        element = utils.load_yaml(file_path)
+                        element = utils.load_and_validate_yaml(file_path, self.schema_element)
 
                         element['real_path'] = file_path
                         element['description_html'] = utils.to_html(element['description'])
@@ -343,7 +345,7 @@ class WikiBuilder:
 
     def create_element_page(self, element):
         element_template = self.input_env.get_template('element.html')
-        html_content = self.render_page(element['name'], element_template.render(element=element))
+        html_content = self.render_page(element['name'].capitalize(), element_template.render(element=element))
 
         web_path = f"/{element['name']}/"
         element_folder = OUTPUT_HTML_PATH + web_path
@@ -483,7 +485,7 @@ class WikiBuilder:
     def create_404_page(self):
         path_template = '404.html'
         template = self.input_env.get_template(path_template)
-        html_content = self.render_page(path_template, template.render())
+        html_content = self.render_page('Page not found', template.render())
 
         output_path = os.path.join(OUTPUT_HTML_PATH, path_template)
         with open(output_path, 'w') as html_file:

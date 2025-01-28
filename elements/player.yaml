@@ -1,4 +1,4 @@
-name: 'Player'
+name: 'player'
 description: |
   The player class represents pedestrians controlled by clients. A player element is created when a client connects to the server and destroyed when that client quits. Players cannot be created or destroyed otherwise.
 

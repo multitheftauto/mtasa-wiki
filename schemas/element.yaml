@@ -1,0 +1,24 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: /schemas/element
+title: Element schema
+type: object
+required:
+  - name
+  - description
+properties:
+  name:
+    type: string
+    description: Lowercase name of the element.
+  description:
+    type: string
+    description: Description of the element.
+  see_also:
+    type: array
+    description: |
+      A list of other categories for further reading.
+      Every element will implicitly display it's own category in *See Also*, unless you
+      introduce this property, then you have to be explicit about it.
+    items:
+      type: string
+      pattern: "^(category):"
+      uniqueItems: true
