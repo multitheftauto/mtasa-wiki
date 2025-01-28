@@ -68,12 +68,35 @@ class WikiBuilder:
                         element = utils.load_and_validate_yaml(file_path, self.schema_element)
 
                         element['real_path'] = file_path
+                        element['path_html'] = f"/{element['name']}/"
                         element['description_html'] = utils.to_html(element['description'])
 
                         self.elements.append(element)
                     except Exception as e:
                         self.logger.exception(e)
                         raise WikiBuilderError(f'Error loading element {file_path}')
+
+    def parse_articles(self):
+        self.articles = []
+
+        for root, _, files in os.walk(os.path.join(DOCS_REPO_PATH, 'articles')):
+            for filename in files:
+                if filename.endswith('.yaml'):
+                    file_path = os.path.join(root, filename)
+                    try:
+                        article = utils.load_and_validate_yaml(file_path, self.schema_article)
+                        article_content_path = article['content']
+                        article["name"] = os.path.basename(os.path.dirname(file_path))
+                        
+                        content_real_path = self.resolve_relative_or_repo_absolute_path(
+                            os.path.dirname(file_path), article_content_path)
+                        with open(content_real_path, 'r') as content_file:
+                            article_content = content_file.read()
+                        article['content_html'] = utils.to_html(article_content)
+                        self.articles.append(article)
+                    except Exception as e:
+                        self.logger.exception(e)
+                        raise WikiBuilderError(f'Error loading article {file_path}')
 
     def parse_events(self):
         pass
@@ -262,10 +285,10 @@ class WikiBuilder:
 
         return function
 
-    def resolve_relative_or_repo_absolute_path(self, folder, path):
+    def resolve_relative_or_repo_absolute_path(self, path_to_folder, path):
         if path.startswith('/'):
             return os.path.join(DOCS_REPO_PATH, path[1:])
-        return os.path.join(folder, path)
+        return os.path.join(path_to_folder, path)
 
     def parse_function_examples(self, function):
         examples = {}
@@ -334,7 +357,7 @@ class WikiBuilder:
         return function
 
     def render_page(self, title, content):
-        return self.layout_template.render(
+        return self.input_env.get_template('layout.html').render(
             wiki_version = self.wiki_version,
             preview_mode = os.environ.get('CI_PREVIEW', True),
             year = date.today().year,
@@ -347,8 +370,7 @@ class WikiBuilder:
         element_template = self.input_env.get_template('element.html')
         html_content = self.render_page(element['name'].capitalize(), element_template.render(element=element))
 
-        web_path = f"/{element['name']}/"
-        element_folder = OUTPUT_HTML_PATH + web_path
+        element_folder = OUTPUT_HTML_PATH + element["path_html"]
 
         Path(element_folder).mkdir(parents=True, exist_ok=True)
 
@@ -356,16 +378,25 @@ class WikiBuilder:
         with open(output_path, 'w') as html_file:
             html_file.write(html_content)
 
-        element["path_html"] = web_path
-
         self.logger.info(f"Generated {output_path} for element {element['name']}")
+
+    def process_special_article_content(self, content):
+        specials = utils.get_special_strings(content)
+        for special in specials:
+            if special == 'elements_list':
+                html_list = "<ul>"
+                for element in self.elements:
+                    html_list += f"<li><a href='{element['path_html']}'>{element['name'].capitalize()}</a></li>"
+                html_list += "</ul>"
+                content = content.replace(f"$$special:{special}$$", html_list)
+
+        return content
     
     def create_function_page(self, function):
         function_template = self.input_env.get_template('function.html')
         html_content = self.render_page(function['name'], function_template.render(function=function))
 
-        web_path = function["path_html"]
-        function_folder = OUTPUT_HTML_PATH + web_path
+        function_folder = OUTPUT_HTML_PATH + function["path_html"]
 
         Path(function_folder).mkdir(parents=True, exist_ok=True)
 
@@ -375,25 +406,15 @@ class WikiBuilder:
 
         self.logger.info(f"Generated {output_path}")
 
-    def create_article(self, article_name, articles_folder='', custom_web_path=False):
-        article_real_path = os.path.join(DOCS_REPO_PATH, 'articles', articles_folder, article_name, f"article.yaml")
-        article = utils.load_and_validate_yaml(article_real_path, self.schema_article)
-        
-        content_path = article.get('content')
-        content_real_path = self.resolve_relative_or_repo_absolute_path(os.path.dirname(article_real_path), content_path)
-        with open(content_real_path, 'r') as content_file:
-            article['content'] = content_file.read()
-        
+    def create_article_page(self, article):
         article_template = self.input_env.get_template('article.html')
-        article["content_html"] = utils.to_html(article['content'])
-        html_content = self.render_page(
-            article['title'],
-            article_template.render(article=article)
-        )
-        if custom_web_path:
-            web_path = custom_web_path
+        article["content_html"] = self.process_special_article_content(article["content_html"])
+        html_content = self.render_page(article['title'], article_template.render(article=article))
+        
+        if article['name'] == 'introduction':
+            web_path = '/'
         else:
-            web_path = f"/{article_name}/"
+            web_path = f"/{article['name']}/"
         article_folder = OUTPUT_HTML_PATH + web_path
 
         Path(article_folder).mkdir(parents=True, exist_ok=True)
@@ -404,9 +425,7 @@ class WikiBuilder:
 
         article["path_html"] = web_path
         
-        self.logger.info(f"Generated {output_path} for article {article_name}")
-
-        return article
+        self.logger.info(f"Generated {output_path} for article {article['name']}")
 
     def create_category(self, web_path, category_data):
         if category_data.get('subcategories'):
@@ -431,30 +450,7 @@ class WikiBuilder:
         else:
             category_folder = OUTPUT_HTML_PATH + web_path
 
-        if 'articles' in category_data:
-            articles_folder = category_data['articles']['path']
-            # List folders in articles folder
-            articles_folder_path = os.path.join(DOCS_REPO_PATH, 'articles', articles_folder)
-            for article_name in os.listdir(articles_folder_path):
-                if not os.path.isdir(os.path.join(articles_folder_path, article_name)):
-                    continue
-                article = self.create_article(article_name, articles_folder)
-                items.append({
-                    'name': article['title'],
-                    'path_html': article['path_html']
-                })
-        elif 'functions' in category_data:
-            functions_folder = category_data['functions']['path']
-            functions_type = category_data['functions']['type']
-            functions_folder_path = os.path.join(DOCS_REPO_PATH, 'functions', functions_folder)
-            for function in self.functions:
-                if function['type_name'] == functions_type and function['folder'] == functions_folder:
-                    function["category"] = category_name
-                    items.append({
-                        'name': function['name'],
-                        'path_html': function['path_html']
-                    })
-        elif 'subcategories' in category_data:
+        if 'subcategories' in category_data:
             # List subcategories
             for subcategory in category_data['subcategories']:
                 subcat_name = subcategory['name']
@@ -535,9 +531,7 @@ class WikiBuilder:
         self.categories = {}
 
         def create_item(item):
-            if 'article' in item:
-                self.create_article(item['article']['name'], item['article']['folder'], item['path_html'])
-            elif 'category' in item:
+            if 'category' in item:
                 self.create_category(item['path_html'], item['category'])
         
         for item in self.navigation:
@@ -552,7 +546,11 @@ class WikiBuilder:
 
         # Populate see_also for elements
         # self.generate_element_relations()
-            
+
+        # Create article pages
+        for article in self.articles:
+            self.create_article_page(article)
+        
         # Create function pages
         for function in self.functions:
             self.create_function_page(function)
@@ -560,9 +558,6 @@ class WikiBuilder:
         # Create element pages
         for element in self.elements:
             self.create_element_page(element)
-
-        # Other articles
-        self.create_article('privacy')
 
         self.create_404_page()
 
@@ -585,10 +580,10 @@ class WikiBuilder:
     
     def generate_wiki(self):
         self.input_env = jinja2.Environment(loader=jinja2.FileSystemLoader(INPUT_RESOURCES_PATH))
-        self.layout_template = self.input_env.get_template('layout.html')
         
         self.load_schemas()
         
+        self.parse_articles()
         self.parse_functions()
         self.parse_events()
         self.parse_elements()
