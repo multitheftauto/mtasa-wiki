@@ -1,0 +1,43 @@
+- name: Introduction
+  path_html: "/"
+  article:
+    name: introduction
+    folder: ''
+- name: Articles
+  subitems:
+  - name: Official articles
+    path_html: "/official"
+    category:
+      name: Official articles
+      articles:
+        path: official
+  - name: Community articles
+    path_html: "/community"
+    category:
+      name: Community articles
+      articles:
+        path: community
+- name: Functions
+  subitems:
+  - name: Client functions
+    path_html: "/lua/functions/client"
+    category:
+      name: Client functions
+      subcategories:
+      - name: Client cursor functions
+        functions:
+          path: Cursor
+          type: client
+  - name: Shared functions
+    path_html: "/lua/functions/shared"
+    category:
+      name: Shared functions
+      subcategories:
+      - name: Shared cursor functions
+        functions:
+          path: Cursor
+          type: shared
+      - name: Shared element functions
+        functions:
+          path: Element
+          type: shared

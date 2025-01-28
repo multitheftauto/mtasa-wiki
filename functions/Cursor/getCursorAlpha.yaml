@@ -12,8 +12,6 @@ client:
     values:
       - type: 'int'
         name: 'alpha'
-  version:
-    added: '1.3.2'
   examples:
     - path: 'examples/getCursorAlpha.lua'
       description: |

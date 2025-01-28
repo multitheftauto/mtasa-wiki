@@ -59,15 +59,13 @@
 {% for type_name in ['shared', 'server', 'client'] %}
 {% if function[type_name] and function[type_name].meta %}
     {% if function[type_name].meta %}
-        <div style="padding-left: 1em; margin-top: 1em; border: 1px solid #aaa; border-radius: 5px; background-color: rgba(255, 255, 255, 0.1);">
-            <ul>
-            {% for meta_item in function[type_name].meta %}
-                {% if meta_item.needs_checking %}
-                    <li><p><strong>Needs checking:</strong> {{ meta_item.needs_checking }}</p></li>
+        {% for meta_item in function[type_name].meta %}
+            <div style="padding-left: 1em; margin-top: 1em; border: 1px solid #aaa; border-radius: 5px; background-color: rgba(255, 255, 255, 0.1);">
+            {% if meta_item.needs_checking %}
+                    <p><strong>Needs checking:</strong> {{ meta_item.needs_checking }}</p>
                 {% endif %}
-            {% endfor %}
-            </ul>
-        </div>
+            </div>
+        {% endfor %}
     {% endif %}
 {% endif %}
 {% endfor %}
@@ -75,21 +73,13 @@
 <!-- Issues -->
 {% for type_name in ['shared', 'client', 'server'] %}
     {% if function[type_name] %}
-    
         {% if function[type_name].issues %}
+        {% for issue in function[type_name].issues %}
             <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px; background-color: rgba(255, 255, 0, 0.1);">
-                <ul>
-                {% for issue in function[type_name].issues %}
-                    <li>
-                        <a target="_blank" href="https://github.com/multitheftauto/mtasa-blue/issues/{{ issue.id }}">
-                            Issue #{{ issue.id }} (mtasa-blue)
-                        </a>: {{  issue.description_html }}
-                    </li>
-                {% endfor %}
-                </ul>
+                <p><a target="_blank" href="https://github.com/multitheftauto/mtasa-blue/issues/{{ issue.id }}">Issue #{{ issue.id }} (mtasa-blue):</a> {{  issue.description_html }}</p>
             </div>
+        {% endfor %}
         {% endif %}
-
     {% endif %}
 {% endfor %}
 
@@ -98,20 +88,18 @@
     {% if function[type_name] %}
     
         {% if function[type_name].notes %}
-            <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px; background-color: rgba(0, 255, 0, 0.1);">
-                <ul>
-                {% for note in function[type_name].notes %}
-                    <li>{{ note }}</li>
-                {% endfor %}
-                </ul>
-            </div>
+            {% for note in function[type_name].notes %}
+                <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px; background-color: rgba(0, 255, 0, 0.1);">
+                    <p>{{ note }}</p>
+                </div>
+            {% endfor %}
         {% endif %}
-
     {% endif %}
 {% endfor %}
 
 <!-- Syntax -->
 <h2 id="syntax">Syntax <a href="#syntax"><i class="fa-solid fa-link"></i></a></h2>
+
 {% if function.syntaxes.single %}
     {% set syntax = function.syntaxes.single %}
     <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
@@ -122,7 +110,7 @@
         <h3>Required arguments:</h3>
         <ul>
         {% for item in syntax.arguments.required %}
-            <li>{{ item.type }} <strong>{{ item.name }}</strong> : {{ item.description_html }}</li>
+            <li>{{ item.type }} <strong>{{ item.name }}</strong>: {{ item.description_html }}</li>
         {% endfor %}
         </ul>
     {% endif %}
@@ -131,7 +119,7 @@
         <h3>Optional arguments:</h3>
         <ul>
             {% for item in syntax.arguments.optional %}
-            <li>{{ item.type }} <strong>{{ item.name }}</strong> (default: <em>{{ item.default }}</em>) : {{ item.description_html }}</li>
+            <li>{{ item.type }} <strong>{{ item.name }}</strong> (default: <em>{{ item.default }}</em>): {{ item.description_html }}</li>
         {% endfor %}
         </ul>
     {% endif %}
@@ -145,6 +133,8 @@
             <li>{{ item.type }} {{ item.name }}</li>
         {% endfor %}
     </ul>
+    
+    </div>
 {% else %}
     {% for type_name in ['server', 'client'] %}
         {% set syntax = function.syntaxes[type_name] %}
@@ -158,7 +148,7 @@
                 <h4>Required arguments:</h4>
                 <ul>
                 {% for item in syntax.arguments.required %}
-                    <li>{{ item.type }} <strong>{{ item.name }}</strong> : {{ item.description_html }}</li>
+                    <li>{{ item.type }} <strong>{{ item.name }}</strong>: {{ item.description_html }}</li>
                 {% endfor %}
                 </ul>
             {% endif %}
@@ -167,7 +157,7 @@
                 <h4>Optional arguments:</h4>
                 <ul>
                     {% for item in syntax.arguments.optional %}
-                    <li>{{ item.type }} <strong>{{ item.name }}</strong> (default: <em>{{ item.default }}</em>) : {{ item.description_html }}</li>
+                    <li>{{ item.type }} <strong>{{ item.name }}</strong> (default: <em>{{ item.default }}</em>): {{ item.description_html }}</li>
                 {% endfor %}
                 </ul>
             {% endif %}
@@ -185,35 +175,37 @@
         {% endif %}
     {% endfor %}
 {% endif %}
-    <!-- OOP Syntax -->
-    {% for type_name in ['shared', 'client', 'server'] %}
-        {% if function[type_name] %}
-            {% if function[type_name].oop %}
-                <h3>OOP syntax: <a href="/OOP_Introduction" ><i class="fa-regular fa-circle-question"></i></a></h3>
-                {% if function[type_name].oop.note %}
-                    <p>{{ function[type_name].oop.note }}</p>
-                {% endif %}
-                <!-- Method or constructor -->
-                <ul>
-                    {% if function[type_name].oop.constructor %}
-                        <li><strong>Constructor:</strong> <a href="/{{ function[type_name].oop.constructor|lower }}">{{ function[type_name].oop.constructor|capitalize }}</a>(...)</li>
-                    {% else %}
-                        {% if function[type_name].oop.static %}
-                            <li><strong>Method:</strong> <a href="/{{ function[type_name].oop.entity|capitalize }}">{{ function[type_name].oop.entity|capitalize }}</a>.{{ function[type_name].oop.method }}(...)</li>
-                        {% else %}
-                            <li><strong>Method:</strong>  <a href="/{{ function[type_name].oop.entity|lower }}">{{ function[type_name].oop.entity }}</a>:{{ function[type_name].oop.method }}(...)</li>
-                        {% endif %}
-                        {% if function[type_name].oop.variable %}
-                            <li><strong>Variable:</strong> <a href="/{{ function[type_name].oop.entity|lower }}">{{ function[type_name].oop.entity }}</a>.{{ function[type_name].oop.variable }}</li>
-                        {% endif %}
-                    {% endif %}
-                </ul>
-            {% endif %}
+
+
+
+<!-- OOP Syntax -->
+{% for type_name in ['shared', 'client', 'server'] %}
+    {% if function[type_name] %}
+    {% if function[type_name].oop %}
+        <h2>OOP syntax <a href="/OOP_Introduction" ><i class="fa-regular fa-circle-question"></i></a></h2>
+        
+        <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
+
+        {% if function[type_name].oop.note %}
+            <p>{{ function[type_name].oop.note }}</p>
         {% endif %}
-    {% endfor %}
-{% if function.syntaxes.single %}
-</div>
-{% endif %}
+        <!-- Method or constructor -->
+            {% if function[type_name].oop.constructor %}
+                <p><strong>Constructor:</strong> <a href="/{{ function[type_name].oop.constructor|lower }}">{{ function[type_name].oop.constructor|capitalize }}</a>(...)</p>
+            {% else %}
+                <p><strong>Method:</strong>
+                {% if function[type_name].oop.static %}<a href="/{{ function[type_name].oop.entity|capitalize }}">{{ function[type_name].oop.entity|capitalize }}</a>.{{ function[type_name].oop.method }}(...)
+                {% else %}<a href="/{{ function[type_name].oop.entity|lower }}">{{ function[type_name].oop.entity }}</a>:{{ function[type_name].oop.method }}(...)
+                {% endif %}</p>
+                {% if function[type_name].oop.variable %}
+                    <p><strong>Variable:</strong> <a href="/{{ function[type_name].oop.entity|lower }}">{{ function[type_name].oop.entity }}</a>.{{ function[type_name].oop.variable }}</p>
+                {% endif %}
+            {% endif %}
+
+        </div>
+    {% endif %}
+    {% endif %}
+{% endfor %}
 
 <!-- Preview Images -->
 {% for type_name in ['shared', 'client', 'server'] %}
@@ -227,7 +219,6 @@
                     {% endif %}
                     <img style="max-height: 150px;" src="{{ image.path_html }}">
                 {% endfor %}
-                </ul>
             </div>
         {% endif %}
     {% endif %}

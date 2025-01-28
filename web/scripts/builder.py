@@ -104,8 +104,8 @@ class WikiBuilder:
                                         issue['description_html'] = utils.to_html(issue['description'], single_paragraph=True)
 
                                 if 'notes' in type_info:
-                                    for note in type_info['notes']:
-                                        note = utils.to_html(note, single_paragraph=True)
+                                    for k, note in enumerate(type_info['notes']):
+                                        type_info['notes'][k] = utils.to_html(note, single_paragraph=True)
 
                                 if 'preview_images' in type_info:
                                     for preview_img in type_info['preview_images']:
@@ -219,14 +219,12 @@ class WikiBuilder:
                         self.logger.exception(e)
                         raise WikiBuilderError(f'Error loading function {file_path}')
 
-    def get_function_type(self, function):
-        return function.get('shared') or function.get('client') or function.get('server')
-    
     def get_function_type_name(self, function):
         return function.get('shared') and 'shared' or function.get('client') and 'client' or function.get('server') and 'server'
 
     def get_function_name(self, function):
-        return self.get_function_type(function).get('name')
+        type_info = function.get('shared') or function.get('client') or function.get('server')
+        return type_info.get('name')
 
     def remove_function_repeated_defs(self, function):
         # If a function is shared, remove client/server definitions that are the same as the shared one
@@ -445,105 +443,18 @@ class WikiBuilder:
         
         self.logger.info(f"Generated {output_path} for category {category_name}")
 
-    def create_pages(self):
-        self.navigation = [
-            {
-                'name': 'Introduction',
-                'path_html': '/',
-                'article': {
-                    'name': 'introduction',
-                    'folder': '',
-                },
-            },
-            {
-                'name': 'Articles',
-                'subitems': [
-                    {
-                        'name': 'Official articles',
-                        'path_html': '/official',
-                        'category': {
-                            'name': 'Official articles',
-                            'articles': {
-                                'path': 'official',
-                            },
-                        },
-                    },
-                    {
-                        'name': 'Community articles',
-                        'path_html': '/community',
-                        'category': {
-                            'name': 'Community articles',
-                            'articles': {
-                                'path': 'community',
-                            },
-                        },
-                    },
-                ],
-            },
-            {
-                'name': 'Functions',
-                'subitems': [
-                    {
-                        'name': 'Client functions',
-                        'path_html': '/lua/functions/client',
-                        'category': {
-                            'name': 'Client functions',
-                            'subcategories': [
-                                {
-                                    'name': 'Client cursor functions',
-                                    'functions': {
-                                        'path': 'Cursor',
-                                        'type': 'client',
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                    {
-                        'name': 'Shared functions',
-                        'path_html': '/lua/functions/shared',
-                        'category': {
-                            'name': 'Shared functions',
-                            'subcategories': [
-                                {
-                                    'name': 'Shared cursor functions',
-                                    'functions': {
-                                        'path': 'Cursor',
-                                        'type': 'shared',
-                                    },
-                                },
-                                {
-                                    'name': 'Shared element functions',
-                                    'functions': {
-                                        'path': 'Element',
-                                        'type': 'shared',
-                                    },
-                                },
-                            ],
-                        },
-                    }
-                ]
-            }
-        ]
+    def create_404_page(self):
+        path_template = '404.html'
+        template = self.input_env.get_template(path_template)
+        html_content = self.render_page(path_template, template.render())
 
-        with open(os.path.join(DOCS_REPO_PATH, 'VERSION'), 'r') as file:
-            self.wiki_version = file.read().strip()
+        output_path = os.path.join(OUTPUT_HTML_PATH, path_template)
+        with open(output_path, 'w') as html_file:
+            html_file.write(html_content)
 
-        self.categories = {}
+        self.logger.info(f"Generated {output_path}")
 
-        def create_item(item):
-            if 'article' in item:
-                self.create_article(item['article']['name'], item['article']['folder'], item['path_html'])
-            elif 'category' in item:
-                self.create_category(item['path_html'], item['category'])
-        
-        for item in self.navigation:
-            if 'subitems' in item:
-                for subitem in item['subitems']:
-                    create_item(subitem)
-            else:
-                create_item(item)
-            
+    def generate_function_relations(self):
         # Generate related pages for each function
         for function in self.functions:
             function['related'] = []
@@ -575,7 +486,28 @@ class WikiBuilder:
                                 'category': entry_name,
                                 'items': category_items
                             })
+    def parse_version(self):
+        with open(os.path.join(DOCS_REPO_PATH, 'VERSION'), 'r') as file:
+            self.wiki_version = file.read().strip()
 
+    def create_pages(self):
+        self.navigation = utils.load_yaml(os.path.join(INPUT_RESOURCES_PATH, 'navigation.yaml'))
+
+        self.categories = {}
+
+        def create_item(item):
+            if 'article' in item:
+                self.create_article(item['article']['name'], item['article']['folder'], item['path_html'])
+            elif 'category' in item:
+                self.create_category(item['path_html'], item['category'])
+        
+        for item in self.navigation:
+            if 'subitems' in item:
+                for subitem in item['subitems']:
+                    create_item(subitem)
+            else:
+                create_item(item)
+            
         # Create function pages
         for function in self.functions:
             self.create_function_page(function)
@@ -583,21 +515,7 @@ class WikiBuilder:
         # Other articles
         self.create_article('privacy')
 
-        other_pages = [
-            {
-                'path_html': '404.html',
-                'template': '404.html',
-            },
-        ]
-        for page in other_pages:
-            template = self.input_env.get_template(page['template'])
-            html_content = self.render_page(page['path_html'], template.render())
-
-            output_path = os.path.join(OUTPUT_HTML_PATH, page['path_html'])
-            with open(output_path, 'w') as html_file:
-                html_file.write(html_content)
-
-            self.logger.info(f"Generated {output_path} for {page['path_html']}")
+        self.create_404_page()
 
     def copy_assets(self):
 
@@ -617,13 +535,14 @@ class WikiBuilder:
             self.logger.info(f"Copied folder {folder}")
     
     def generate_wiki(self):
-        self.load_schemas()
-        self.parse_functions()
-
         self.input_env = jinja2.Environment(loader=jinja2.FileSystemLoader(INPUT_RESOURCES_PATH))
-        
         self.layout_template = self.input_env.get_template('layout.html')
-
+        
+        self.load_schemas()
+        
+        self.parse_functions()
+        self.parse_version()
+        
         self.create_pages()
 
         self.copy_assets()

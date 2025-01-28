@@ -16,8 +16,6 @@ client:
     values:
       - type: 'bool'
         name: 'result'
-  version:
-    added: '1.3.2'
   examples:
     - path: 'examples/setCursorAlpha.lua'
       description: |

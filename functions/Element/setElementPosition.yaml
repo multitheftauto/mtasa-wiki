@@ -1,7 +1,5 @@
 shared: &shared
   name: 'setElementPosition'
-  meta:
-    - needs_checking: 'This is just a placeholder message for this needs_checking meta-property.'
   oop:
     entity: element
     method: setPosition
