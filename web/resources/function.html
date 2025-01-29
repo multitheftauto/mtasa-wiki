@@ -1,20 +1,15 @@
-{% set type_colors = {
-    'shared': '#7575ff',
-    'client': '#FF0000',
-    'server': '#FF7F00'
-} %}
-{% set info_color = '#ccc' %}
+{% set info_color = "var(--text-color-secondary);" %}
 
 <!-- Title -->
-<div class="floating-right1" style="color: {{type_colors[function.type_name]}};">{{ function.type_name|capitalize }} function</div>
-<h1 style="border-bottom: 3px solid {{type_colors[function.type_name]}}; padding-bottom: 0.2em;">
+<div class="floating-right1" style="color: var(--ftype-color-{{function.type_name}});">{{ function.type_name|capitalize }} function</div>
+<h1 style="border-bottom: 3px solid var(--ftype-color-{{function.type_name}}); padding-bottom: 0.2em;">
     <span {% if function.disabled %}style="text-decoration: line-through;"{% endif %}>{{ function.name }}</span>
     <a class="small-fs" href="#" onclick="copyText('{{ function.name }}', 'copy-{{ function.name }}')"><i class="fa-regular fa-copy"></i> <span id="copy-{{ function.name }}"></span> </a>
 </h1>
 
 <!-- Disabled Warning -->
 {% if function.disabled %}
-    <div style="padding-left: 1em; margin-top: 1em; border: 1px solid #FF0000; border-radius: 5px; background-color: rgba(255, 0, 0, 0.1);">
+    <div class="pad-lr" style="margin-top: 1em; border: 1px solid #FF0000; border-radius: 5px; background-color: rgba(255, 0, 0, 0.1);">
         <h2>This function is disabled!</h2>
         {% if function.disabled != true %}
             <h3>{{ function.disabled }}</h3>
@@ -102,7 +97,7 @@
 
 {% if function.syntaxes.single %}
     {% set syntax = function.syntaxes.single %}
-    <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
+    <div class="pad-lr" style="margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
 
     <pre><code class="language-lua">{{ syntax.returns.values_type or 'void' }} {{ function.name }} ( {% for parameter in syntax.arguments.required %}{{ parameter.type }} {{ parameter.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% for parameter in syntax.arguments.optional %}{% if syntax.arguments.required %}, {% endif %}{% if loop.first %}[ {% endif %}{{ parameter.type }} {{ parameter.name }} = {{ parameter.default }}{% if loop.last %} ]{% endif %}{% endfor %} )</code></pre>
 
@@ -139,8 +134,8 @@
     {% for type_name in ['server', 'client'] %}
         {% set syntax = function.syntaxes[type_name] %}
         {% if syntax %}
-        <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ type_colors[type_name] }}; border-radius: 5px;">
-            <h3 style="color: {{ type_colors[type_name] }};">{{ type_name|capitalize }}:</h3>
+        <div class="pad-lr" style="margin-top: 1em; border: 1px solid var(--ftype-color-{{type_name}}); border-radius: 5px;">
+            <h3 style="color: var(--ftype-color-{{type_name}});">{{ type_name|capitalize }}:</h3>
 
             <pre><code class="language-lua">{{ syntax.returns.values_type or 'void' }} {{ function.name }} ( {% for parameter in syntax.arguments.required %}{{ parameter.type }} {{ parameter.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% for parameter in syntax.arguments.optional %}{% if syntax.arguments.required %}, {% endif %}{% if loop.first %}[ {% endif %}{{ parameter.type }} {{ parameter.name }} = {{ parameter.default }}{% if loop.last %} ]{% endif %}{% endfor %} )</code></pre>
 
@@ -184,7 +179,7 @@
     {% if function[type_name].oop %}
         <h2>OOP syntax <a href="/OOP_Introduction" ><i class="fa-regular fa-circle-question"></i></a></h2>
         
-        <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
+        <div class="pad-lr" style="margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
 
         {% if function[type_name].oop.note %}
             <p>{{ function[type_name].oop.note }}</p>
@@ -212,12 +207,12 @@
     {% if function[type_name] %}
 
         {% if function[type_name].preview_images %}
-            <div style="padding-left: 1em; padding-bottom: 1em; margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
+            <div class="pad-lr" style="margin-top: 1em; border: 1px solid {{ info_color }}; border-radius: 5px;">
                 {% for image in function[type_name].preview_images %}
                     {% if image.description_html %}
                         <p>{{ image.description_html }}</p>
                     {% endif %}
-                    <img style="max-height: 150px;" src="{{ image.path_html }}">
+                    <p><img style="max-height: 150px;" src="{{ image.path_html }}"></p>
                 {% endfor %}
             </div>
         {% endif %}
@@ -231,8 +226,8 @@
 
         {% if function[type_name].examples %}
             {% for example in function[type_name].examples %}
-                <div style="padding-left: 1em; margin-top: 1em; border: 1px solid {{ type_colors[type_name] }}; border-radius: 5px;">
-                    <h3 id="example-{{ example.number }}">Example {{ example.number }} <span style="color: {{ type_colors[type_name] }};">({{ type_name|capitalize }})</span> <a href="#example-{{ example.number }}"><i class="fa-solid fa-link"></i></a></h3>
+                <div class="pad-lr" style="margin-top: 1em; border: 1px solid var(--ftype-color-{{type_name}}); border-radius: 5px;">
+                    <h3 id="example-{{ example.number }}">Example {{ example.number }} <span style="color: var(--ftype-color-{{type_name}});">({{ type_name|capitalize }})</span> <a href="#example-{{ example.number }}"><i class="fa-solid fa-link"></i></a></h3>
                     {% if example.description_html %}
                         {{ example.description_html }}
                     {% endif %}

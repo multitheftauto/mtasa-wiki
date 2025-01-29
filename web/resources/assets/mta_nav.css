@@ -1,0 +1,69 @@
+/* Stylesheet for the MTA Navbar shared across multiple sites */
+
+:root {
+    --mtanav-bg-color: #0B0B0F;
+    --mtanav-text-color: #9F9FA2;
+    --mtanav-text-color-hover: #fff;
+    --mtanav-green-color: lightgreen;
+}
+.light_mode {
+    --mtanav-bg-color: #d1d1d1;
+    --mtanav-text-color: #414141;
+    --mtanav-text-color-hover: #000000;
+    --mtanav-green-color: #00a21b;
+}
+
+#mta-global-navbar {
+    align-items: center;
+    background: var(--mtanav-bg-color);
+    color: var(--mtanav-text-color);
+    display: flex;
+    gap: 20px;
+    height: 40px;
+    padding: 0 1em;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#mta-global-navbar::-webkit-scrollbar {
+    display: none;
+}
+
+#mta-global-navbar a {
+    color: var(--mtanav-text-color);
+    padding: 7px 0;
+}
+
+#mta-global-navbar a:hover {
+    color: var(--mtanav-text-color-hover);
+}
+
+#onlinePlayers {
+    margin-left: auto;
+    position: relative;
+}
+
+@keyframes onlinePlayers {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#onlinePlayers:not(:empty)::before {
+    animation: onlinePlayers 1s infinite forwards alternate;
+    background: var(--mtanav-green-color);
+    border-radius: 100px;
+    content: " ";
+    display: inline-block;
+    height: 6px;
+    top: 50%;
+    left: -6px;
+    margin-left: 10px;
+    opacity: 0;
+    position: relative;
+    transform: translate(-50%, -50%);
+    width: 6px;
+}
+
