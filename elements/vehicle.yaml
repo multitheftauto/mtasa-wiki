@@ -1,0 +1,10 @@
+name: 'vehicle'
+description: |
+  The vehicle class represents vehicles in the GTA world. Vehicles can be occupied and controlled by players and peds.
+
+  The element type of this class is **"vehicle"**. 
+
+  TODO
+see_also:
+  - 'category:Vehicle functions'
+  - 'category:Vehicle events'

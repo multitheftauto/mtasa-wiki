@@ -1,0 +1,10 @@
+name: 'collision_shape'
+description: |
+  The collision shape class represents invisible collision detection shapes that can be created in the GTA world. Collision shapes are typically used to detect physical entities moving through them and perform actions when they do.
+
+  The element type for this class is **"colshape"**. 
+
+  TODO
+see_also:
+  - 'category:Collision_shape functions'
+  - 'category:Collision_shape events'

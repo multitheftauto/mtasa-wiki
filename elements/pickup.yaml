@@ -1,0 +1,10 @@
+name: 'pickup'
+description: |
+  The pickup class represents weapon, health, or armor pickups in the GTA world. Pickups can be picked up by players when they are walked over. Players will not be given health or armor pickups if their health or armor is already full.
+
+  The element type of this class is **"pickup"**. 
+
+  TODO
+see_also:
+  - 'category:Pickup functions'
+  - 'category:Pickup events'

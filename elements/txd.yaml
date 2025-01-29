@@ -1,0 +1,10 @@
+name: 'txd'
+description: |
+  The TXD class represents a RenderWare Texture Dictionary (TXD) loaded by the client, which can be imported into a custom model to texture it.
+
+  The element type of this class is **"txd"**. 
+
+  TODO
+see_also:
+  - 'category:Txd functions'
+  - 'category:Txd events'

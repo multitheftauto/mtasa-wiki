@@ -1,0 +1,10 @@
+name: 'marker'
+description: |
+  The marker class represents colored, 3D shapes in the GTA world. There are several types of markers, including cylinders and checkpoints. In scripts, markers are often used to mark spots and trigger some sort of action when a player goes into them.
+
+  The element type of this class is **"marker"**. 
+
+  TODO
+see_also:
+  - 'category:Marker functions'
+  - 'category:Marker events'

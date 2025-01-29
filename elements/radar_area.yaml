@@ -1,0 +1,10 @@
+name: 'radar_area'
+description: |
+  The radar area class represents coloured areas that can be displayed on a player's radar.
+
+  The element type of this class is **"radararea"**. 
+
+  TODO
+see_also:
+  - 'category:Radar_area functions'
+  - 'category:Radar_area events'

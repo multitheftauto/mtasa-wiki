@@ -1,0 +1,23 @@
+name: 'building'
+description: |
+  The building class represents static 3D models in the GTA world.
+
+  The element type of this class is **"building"**. 
+
+  TODO
+notes:
+    - |
+      There is a distinction in GTA: San Andreas between static and dynamic models (these use a separate streaming system). Examples of buildings include building models, roads, and terrain. Objects created as [Buildings](/building) can contain **glass** and **shadows**, unlike those created as [Objects](/building) (which are missing these features).
+    - |
+      Buildings can be created with dynamic object model IDs, but they won't have any physical interaction. For example, [object ID 1502 (Gen_doorINT04)](https://dev.prineside.com/en/gtasa_samp_model_id/model/1502-Gen_doorINT04/) is a door that can only be opened if created with [createObject](/createObject).
+    - |
+      Using buildings for mapping is more optimized than using objects. Gains in FPS can be noticed in areas where a lot of objects were replaced with buildings of this new system.
+    - |
+      Buildings can only be created inside regular GTA:SA Map Boundaries (X between -3000 and 3000; Y between -3000 and 3000). Use [createObject](/createObject) to spawn objects outside these normal limits. **This limitation is probably going to stop existing in the near future.**
+    - |
+      Created buildings can have **LOD models**. The procedure is as follows: spawn the LOD building using [createBuilding](/createBuilding), then use [setLowLODElement](/setLowLODElement) to associate it with the non-LOD building element you created beforehand. LOD model distance changed with [engineSetModelLODDistance](/engineSetModelLODDistance) works for buildings.
+    - |
+      Buildings cannot appear in certain a [dimension](/dimension), and not show in others. Function [setElementDimension](/setElementDimension) returns false on any building. A building is created in a specific [interior world](/interior) (such as 0, the main world), like the default GTA:SA landscape objects. **All buildings appear in EVERY DIMENSION.**
+see_also:
+  - 'category:Building functions'
+  - 'category:Building events'

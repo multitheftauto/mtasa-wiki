@@ -1,0 +1,14 @@
+name: 'sound'
+description: |
+  The sound element represents a custom sound sent to the client via the use of the file parameter inside the meta file and created either by [playSound](/playSound) or [playSound3D](/playSound3D). 
+
+  A sound element can be manipulated in the GTA 3D world via [setElementPosition](/setElementPosition) and [setElementDimension](/setElementDimension).
+
+  Sound elements can also be manipulated using the other [Client audio functions](/client_audio_functions). 
+
+  The element type of this class is **"sound"**. 
+
+  TODO
+see_also:
+  - 'category:Sound functions'
+  - 'category:Sound events'

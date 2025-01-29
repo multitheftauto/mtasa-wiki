@@ -1,0 +1,27 @@
+name: 'projectile'
+description: |
+  The projectile class represents the projectiles of certain weapons that are created when the weapon is fired. Alternatively these can be created using [createProjectile](/createProjectile).
+
+  The element type of this class is **"projectile"**. 
+
+  TODO
+notes:
+    - |
+      **16: Grenade**
+    - |
+      **17: Tear Gas Grenade**
+    - |
+      **18: Molotov**
+    - |
+      **19: Rocket (simple)**
+    - |
+      **20: Rocket (heat seeking)**
+    - |
+      **21: Air Bomb**
+    - |
+      **39: Satchel Charge**
+    - |
+      **58: Flare from Hydra**
+see_also:
+  - 'category:Projectile functions'
+  - 'category:Projectile events'

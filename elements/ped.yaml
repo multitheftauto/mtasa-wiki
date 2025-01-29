@@ -1,0 +1,12 @@
+name: 'ped'
+description: |
+  The word "ped" is short for "pedestrian" and describes any person in GTA, be it a player or an NPC character. (And even though "pedestrian" doesn't technically apply to people that drive, they still fall under this name) 
+
+  The [createPed](/createPed) function specifically creates an NPC, but all other ped functions work on both players and NPC's as they're pretty much the same thing to San Andreas. 
+
+  The element type of a NPC is **"ped"**. 
+
+  TODO
+see_also:
+  - 'category:Ped functions'
+  - 'category:Ped events'

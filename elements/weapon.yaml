@@ -1,0 +1,10 @@
+name: 'weapon'
+description: |
+  The Weapon class represents a custom static weapon. Weapon elements created by [createWeapon](/createWeapon) can be manipulated with the following scripting functions.
+
+  The element type of this class is **"weapon"**. 
+
+  TODO
+see_also:
+  - 'category:Weapon functions'
+  - 'category:Weapon events'

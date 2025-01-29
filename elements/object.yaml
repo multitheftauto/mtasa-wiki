@@ -1,0 +1,17 @@
+name: 'object'
+description: |
+  The object class represents dynamic and static 3D models placed in the GTA world.
+
+  The element type of this class is **"object"**. 
+
+  TODO
+notes:
+    - |
+      Objects only represent models **created by a script**, they do not represent objects that are part of GTA's default landscape (these belong to the "building pool").
+    - |
+      There is a distinction in GTA: San Andreas between static and dynamic models. The alternative [createBuilding](/createBuilding) function allows you to create objects that are non-dynamic, utilizing the GTA Building pool, which makes better use of memory.
+    - |
+      The [createObject](/createObject) function can also create non-dynamic objects, but for optimization reasons **it is recommended to spawn [Buildings](/building) when creating static objects that don't rely on the [Dimension](/dimension) system** (buildings don't use the same MTA object-streaming system).
+see_also:
+  - 'category:Object functions'
+  - 'category:Object events'

@@ -1,0 +1,12 @@
+name: 'team'
+description: |
+  The team class represents player teams. Players on the same team can use team features such as teamchat or friendly fire.
+
+  A common misconception is that players would be child elements of team elements. This is wrong. Being part of a team is merely a relational connection rather than a change in element hierarchy. To perform logic on all the players of a team you have to use the [getPlayersInTeam](/getPlayersInTeam) function. 
+
+  The element type of this class is **"team"**. 
+
+  TODO
+see_also:
+  - 'category:Team functions'
+  - 'category:Team events'

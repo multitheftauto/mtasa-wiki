@@ -1,0 +1,10 @@
+name: 'effect'
+description: |
+  The Effect class represents custom effect elements in the game world such as smoke, sparks, fire etc.
+
+  The element type of this class is **"effect"**. 
+
+  TODO: add all the effects as a table...
+see_also:
+  - 'category:Effect functions'
+  - 'category:Effect events'

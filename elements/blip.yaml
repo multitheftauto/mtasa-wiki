@@ -1,0 +1,12 @@
+name: 'blip'
+description: |
+  The blip class represents small icons or blips that can be shown on a player's radar.
+
+  The element type of this class is **"blip"**.
+
+  The list of blip icons are available on the [Radar Blips](/radar_blips) page. 
+
+  TODO
+see_also:
+  - 'category:Blip functions'
+  - 'category:Blip events'

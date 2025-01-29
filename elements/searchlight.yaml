@@ -1,0 +1,10 @@
+name: 'searchlight'
+description: |
+  The searchlight class represents special spotlights in the GTA world. They are different to common spotlights because their visual effects.
+
+  The element type of this class is **"searchlight"**. 
+
+  TODO
+see_also:
+  - 'category:Searchlight functions'
+  - 'category:Searchlight events'
