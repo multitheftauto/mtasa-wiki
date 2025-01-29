@@ -30,6 +30,7 @@
     --prismjs_color-10: #d1740a;
 }
 
+
  code[class*="language-"],
  pre[class*="language-"] {
      color: var(--prismjs_color-1);
