@@ -1,6 +1,7 @@
 {
     "yaml.schemas": {
         "schemas/function.yaml": "/functions/**/*",
-        "schemas/article.yaml": "/article/**/*",
+        "schemas/element.yaml": "/elements/**/*",
+        // "schemas/event.yaml": "/events/**/*",
     }
 }

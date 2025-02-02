@@ -8,6 +8,6 @@ for /r "elements" %%f in (*.yaml) do (
     .\tools\yajsv.exe -s schemas/element.yaml "%%f"
 )
 
-for /r "articles" %%f in (*.yaml) do (
-    .\tools\yajsv.exe -s schemas/article.yaml "%%f"
-)
+@REM for /r "events" %%f in (*.yaml) do (
+@REM     .\tools\yajsv.exe -s schemas/events.yaml "%%f"
+@REM )

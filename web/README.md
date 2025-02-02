@@ -1,4 +1,4 @@
-## Multi Theft Auto: Wiki [Generator]
+# Multi Theft Auto: Wiki [Web]
 
 ## License
 
@@ -8,44 +8,15 @@ The source code in this directory [(/web)](/web) is licensed under the GPLv3 lic
 
 This static site is served with CloudFlare pages (this is not managed on this repository).
 
-CloudFlare Pages handles custom error pages. it serves `404.html` when a page is not found. CloudFlare Pages also has a custom redirections system defined via [_redirects](./resources/_redirects).
-
 ## Development
 
-### Prerequisites
+All commands are run from the root of the project (this folder), from a terminal:
 
-- Python 3.5+
-
-### Installation
-
-Ensure you have installed the required dependencies by running the following command:
-
-```bash
-pip install -r requirements.txt
-```
-
-### Usage
-
-Depending on your operating system, you can run the following commands to build and serve the wiki website.
-
-You may keep `server_web` running in the background (in another terminal) and rebuild the website with `build_web` whenever you make changes.
-
-#### Linux
-
-```bash
-# Build the wiki website
-./tools/build_web.sh
-
-# Serve the website locally
-./tools/serve_web.sh
-```
-
-#### Windows
-
-```bash
-# Build the wiki website
-./tools/build_web.cmd
-
-# Serve the website locally
-./tools/serve_web.cmd
-```
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
