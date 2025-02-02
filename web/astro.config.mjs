@@ -11,15 +11,20 @@ export default defineConfig({
 			title: 'Multi Theft Auto: Wiki',
 			sidebar: [
 				{
-					label: 'Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
-					],
+					slug: 'introduction',
 				},
 				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: 'Lua API Reference',
+					items: [
+						{slug: 'Client_Scripting_Functions'},
+						{slug: 'Client_Scripting_Events'},
+						{slug: 'Server_Scripting_Functions'},
+						{slug: 'Server_Scripting_Events'},
+						{slug: 'Shared_Scripting_Functions'},
+						// {slug: 'Useful_Functions'},
+						{slug: 'Element'},
+						{slug: 'Element_tree'},
+					]
 				},
 			],
 		}),
