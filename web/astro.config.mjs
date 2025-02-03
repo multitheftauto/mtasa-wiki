@@ -56,7 +56,10 @@ export default defineConfig({
 						{
 							label: 'Elements',
 							items: [
-								{label: 'Element types', link: '/Element'},
+								{label: 'Element types', link: '/Element', badge:{
+									text: 'New',
+									variant: 'tip',
+								}},
 								{slug: 'Element_tree'},
 							]
 						},
