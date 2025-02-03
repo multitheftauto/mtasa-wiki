@@ -23,6 +23,7 @@ export default defineConfig({
 				// Override some default components
 				Pagination: './src/overrides/Pagination.astro',
 			},
+			disable404Route: true,
 			sidebar: [
 				{
 					label: 'Start here',
