@@ -56,7 +56,7 @@ export default defineConfig({
 						{
 							label: 'Elements',
 							items: [
-								{slug: 'Element'},
+								{label: 'Element types', link: '/Element'},
 								{slug: 'Element_tree'},
 							]
 						},
