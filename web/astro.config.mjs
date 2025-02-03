@@ -5,9 +5,6 @@ import mtasaStarlightThemePlugin from '@multitheftauto/starlight-theme-mtasa';
 
 // https://astro.build/config
 export default defineConfig({
-	redirects: {
-		"/wiki/[...slug]": "/[...slug]"
-	},
 	integrations: [
 		starlight({
 			plugins: [ mtasaStarlightThemePlugin() ],
