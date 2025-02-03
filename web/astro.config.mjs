@@ -8,6 +8,7 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			plugins: [ mtasaStarlightThemePlugin() ],
+			favicon: 'favicon.ico',
 			title: 'Multi Theft Auto: Wiki',
 			logo: {
 				replacesTitle: true,
