@@ -1,5 +1,5 @@
 ---
-title: Element Tree
+title: Element tree
 slug: Element_tree
 ---
 

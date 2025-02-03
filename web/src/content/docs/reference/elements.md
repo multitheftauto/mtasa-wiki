@@ -1,6 +1,5 @@
 ---
-title: MTA Elements
-description: Learn about the element system in MTA
+title: Element types
 slug: Element
 ---
 
