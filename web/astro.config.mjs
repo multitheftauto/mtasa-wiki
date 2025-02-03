@@ -14,6 +14,10 @@ export default defineConfig({
 				light: './src/assets/logo-black.png',
 				dark: './src/assets/logo-white.png',
 			},
+			components: {
+				// Override some default components
+				Pagination: './src/overrides/Pagination.astro',
+			},
 			sidebar: [
 				{
 					label: 'Start here',
