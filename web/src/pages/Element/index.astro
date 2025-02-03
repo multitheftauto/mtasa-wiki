@@ -1,0 +1,13 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getCollection } from 'astro:content';
+const elements = await getCollection('elements');
+---
+<StarlightPage frontmatter={{ title: 'Element types' }}>
+  <p>An <strong>element</strong> is a generic class that can represent almost all in-game entities. The built-in element types are:</p>
+  <ul>
+    {elements.map(element => (
+      <li><a href={`/Element/${element.id}`}>{element.data.name}</a></li>
+    ))}
+  </ul>
+</StarlightPage>
