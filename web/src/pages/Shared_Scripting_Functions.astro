@@ -1,0 +1,27 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getFunctionsByTypeByCategory } from '@src/utils/functions';
+
+const functionsByTypeByCategory = getFunctionsByTypeByCategory();
+const theseFunctions = functionsByTypeByCategory.shared;
+---
+<StarlightPage frontmatter={{
+    template: 'doc',
+    title: 'Shared functions',
+}}>
+
+<p>This page lists all <strong>shared</strong> functions available in the <a href="/lua-api">Lua API</a> organized by category.</p>
+
+{Object.entries(theseFunctions).map(([category, funcs]) => (
+    <section>
+        <details>
+            <summary>{category} functions</summary>
+            <ul>
+                {funcs.map(func => (
+                    <li><a href={`/${func.id}`}>{func.id}</a></li>
+                ))}
+            </ul>
+        </details>
+    </section>
+))}
+</StarlightPage>

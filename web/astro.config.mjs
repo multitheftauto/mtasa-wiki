@@ -37,21 +37,22 @@ export default defineConfig({
 					label: 'Reference',
 					items: [
 						{
-							slug: 'Lua_API',
+							slug: 'lua-api',
 						},
 						{
 							label: 'Functions',
 							items: [
-								{slug: 'Client_Scripting_Functions'},
-								{slug: 'Server_Scripting_Functions'},
-								{slug: 'Shared_Scripting_Functions'},
+								{label: 'All functions', link: '/functions'},
+								{label: 'Shared functions', link: 'Shared_Scripting_Functions'},
+								{label: 'Client functions', link: 'Client_Scripting_Functions'},
+								{label: 'Server functions', link: 'Server_Scripting_Functions'},
 							]
 						},
 						{
 							label: 'Events',
 							items: [
-								{slug: 'Client_Scripting_Events'},
-								{slug: 'Server_Scripting_Events'},
+								// {slug: 'Client_Scripting_Events'},
+								// {slug: 'Server_Scripting_Events'},
 							]
 						},
 						{

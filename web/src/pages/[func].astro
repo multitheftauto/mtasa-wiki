@@ -1,0 +1,23 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getAllFunctions, getFunctionType } from '@src/utils/functions';
+
+export function getStaticPaths() {
+    const functions = getAllFunctions();
+    return functions.map(func => ({ params: { func: func.id } }));
+}
+
+const { func } = Astro.params;
+const theFunc = getAllFunctions().find(f => f.id === func);
+if (!theFunc) {
+    return
+}
+---
+<StarlightPage frontmatter={{
+    template: 'doc',
+    title: func
+}}>
+    <div>
+        {getFunctionType(theFunc.data)}
+    </div>
+</StarlightPage>
