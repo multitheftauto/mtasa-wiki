@@ -2,7 +2,6 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import mtasaStarlightThemePlugin from '@multitheftauto/starlight-theme-mtasa';
-import starlightLinksValidator from 'starlight-links-validator'
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,7 +9,6 @@ export default defineConfig({
 		starlight({
 			plugins: [
 				mtasaStarlightThemePlugin(),
-				starlightLinksValidator(),
 			],
 			favicon: 'favicon.ico',
 			title: 'Multi Theft Auto: Wiki',
