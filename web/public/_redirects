@@ -1,0 +1,10 @@
+/wiki/ /
+/wiki/* /:splat
+
+/element /Element
+/element/* /:splat
+
+/Element/ /Element
+/Element/* /:splat
+
+/GetElementPosition /getElementPosition
