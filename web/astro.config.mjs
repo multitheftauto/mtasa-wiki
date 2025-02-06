@@ -5,6 +5,17 @@ import mtasaStarlightThemePlugin from '@multitheftauto/starlight-theme-mtasa';
 
 // https://astro.build/config
 export default defineConfig({
+	i18n: {
+		locales: ["en", "es", "fr"],
+		defaultLocale: "en",
+		routing: {
+			prefixDefaultLocale: false,
+		},
+		fallback: {
+			"es": "en",
+			"fr": "en",
+		}
+	},
 	integrations: [
 		starlight({
 			plugins: [
@@ -25,9 +36,17 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'Start here',
+					translations: {
+						es: 'Empeza aquí',
+						fr: 'Commence ici',
+					},
 					items: [
 						{
 							label: 'Introduction', link: 'Introduction',
+							translations: {
+								es: 'Introducción',
+								fr: 'Introduction',
+							},
 						},
 					]
 				},
