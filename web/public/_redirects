@@ -1,4 +1,4 @@
 /wiki/ /
 /wiki/* /:splat
 
-/Element/* /:splat
+/Element/:element_name /:element_name
