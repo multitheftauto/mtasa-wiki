@@ -17,7 +17,6 @@ const funcInfo = getFunctionInfo(func.data);
 
 const funcType = funcInfo.type;
 const funcTypePretty = funcInfo.typePretty;
-const funcTypeClass = `side-${funcType}`;
 
 const funcPair = funcInfo.pair;
 ---
@@ -27,7 +26,7 @@ const funcPair = funcInfo.pair;
     title: func.id,
     tableOfContents: false,
 }}>
-    <p><strong>Type:</strong> <span class={funcTypeClass}>{funcTypePretty}</span></p>
+    <p><strong>Type:</strong> <span class={"side-"+funcType}>{funcTypePretty}</span></p>
 
     {funcPair && (
         <p>Pair: <a href={ funcPair }>{ funcPair }</a></p>
