@@ -40,17 +40,18 @@ export default defineConfig({
 						{
 							label: 'Functions',
 							items: [
-								{label: 'All functions', link: '/functions'},
-								{label: 'Shared functions', link: 'Shared_Scripting_Functions'},
-								{label: 'Client functions', link: 'Client_Scripting_Functions'},
-								{label: 'Server functions', link: 'Server_Scripting_Functions'},
+								{label: 'All functions', link: '/Scripting_Functions'},
+								{label: 'Shared functions', link: '/Shared_Scripting_Functions'},
+								{label: 'Client functions', link: '/Client_Scripting_Functions'},
+								{label: 'Server functions', link: '/Server_Scripting_Functions'},
 							]
 						},
 						{
 							label: 'Events',
 							items: [
-								// {slug: 'Client_Scripting_Events'},
-								// {slug: 'Server_Scripting_Events'},
+								{label: 'All events', link: '/Scripting_Events'},
+								{label: 'Client events', link: '/Client_Scripting_Events'},
+								{label: 'Server events', link: '/Server_Scripting_Events'},
 							]
 						},
 						{

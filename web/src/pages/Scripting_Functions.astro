@@ -9,21 +9,20 @@ const functionsByCategory = getFunctionsByCategory();
     title: 'All functions',
     tableOfContents: false,
 }}>
+    <p>This page lists all <strong>client-side</strong>, <strong>server-side</strong> and <strong>shared</strong> functions available in the <a href="/lua-api">Lua API</a> organized by category.</p>
 
-<p>This page lists all functions available in the <a href="/lua-api">Lua API</a> organized by category.</p>
-
-{Object.entries(functionsByCategory).map(([category, funcs]) => (
-    <section>
-        <details>
-            <summary>{category} functions</summary>
-            <ul>
-                {funcs.map(func => (
-                    <li><a href={`/${func.id}`}>{func.id}</a> (<span class="side-type-color">{getFunctionType(func.data)}</span>)</li>
-                ))}
-            </ul>
-        </details>
-    </section>
-))}
+    {Object.entries(functionsByCategory).map(([category, funcs]) => (
+        <section>
+            <details>
+                <summary>{category} functions</summary>
+                <ul>
+                    {funcs.map(func => (
+                        <li><a href={`/${func.id}`}>{func.id}</a> (<span class="side-type-color">{getFunctionType(func.data)}</span>)</li>
+                    ))}
+                </ul>
+            </details>
+        </section>
+    ))}
 </StarlightPage>
 
 <style>

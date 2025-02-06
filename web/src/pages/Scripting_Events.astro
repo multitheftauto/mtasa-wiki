@@ -1,0 +1,32 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+---
+<StarlightPage frontmatter={{
+    template: 'doc',
+    title: 'All events',
+    tableOfContents: false,
+}}>
+    <p>This page lists all <strong>client-side</strong> and <strong>server-side</strong> events available in the <a href="/lua-api">Lua API</a> organized by category.</p>
+
+    TODO
+</StarlightPage>
+
+<style>
+.side-shared {
+    color: rgb(117, 117, 255);
+}
+.side-client {
+    color: rgb(255, 50, 50);
+}
+.side-server {
+    color: rgb(232, 115, 0);
+}
+</style>
+
+<script>
+    document.querySelectorAll('.side-type-color').forEach(el => {
+        const type = el.textContent || '';
+        el.classList.add(`side-${type.toLowerCase()}`);
+    });
+
+</script>
