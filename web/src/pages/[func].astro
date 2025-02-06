@@ -2,6 +2,7 @@
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { getCollection } from 'astro:content';
 import { getFunctionInfo } from '@src/utils/functions';
+import { marked } from 'marked';
 
 export async function getStaticPaths() {
     const functions = await getCollection('functions');
@@ -32,5 +33,6 @@ const funcPair = funcInfo.pair;
         <p>Pair: <a href={ funcPair }>{ funcPair }</a></p>
     )}
 
-    <p>{ funcInfo.description }</p>
+    <!-- Description -->
+    <Fragment set:html={marked(funcInfo.description)} />
 </StarlightPage>
