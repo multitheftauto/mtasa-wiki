@@ -12,16 +12,31 @@ type FunctionsByTypeByCategory = {
     server: FunctionsByCategory;
 };
 
-type FunctionData = {
-    shared?: object;
-    client?: object;
-    server?: object;
+export type FunctionData = {
+    shared?: any;
+    client?: any;
+    server?: any;
 };
 
-export function getFunctionType(data: FunctionData): 'shared' | 'client' | 'server' {
+function getFunctionType(data: FunctionData): 'shared' | 'client' | 'server' {
     if (data.shared) return 'shared';
     if (data.client) return 'client';
     return 'server';
+}
+function getFunctionTypePretty(data: FunctionData): string {
+    const funcType = getFunctionType(data);
+    if (funcType === 'shared') return 'Shared';
+    if (funcType === 'client') return 'Client-side';
+    return 'Server-side';
+}
+
+export function getFunctionInfo(data: FunctionData): any {
+    return {
+        description: data.shared?.description || data.client?.description || data.server?.description || '',
+        type: getFunctionType(data),
+        typePretty: getFunctionTypePretty(data),
+        pair: data.shared?.pair || data.client?.pair || data.server?.pair || false,
+    };
 }
 
 const functionsCollection = await getCollection('functions');

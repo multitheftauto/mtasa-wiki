@@ -1,6 +1,6 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import { getFunctionsByCategory, getFunctionType } from '@src/utils/functions';
+import { getFunctionsByCategory, getFunctionInfo } from '@src/utils/functions';
 
 const functionsByCategory = getFunctionsByCategory();
 ---
@@ -17,30 +17,10 @@ const functionsByCategory = getFunctionsByCategory();
                 <summary>{category} functions</summary>
                 <ul>
                     {funcs.map(func => (
-                        <li><a href={`/${func.id}`}>{func.id}</a> (<span class="side-type-color">{getFunctionType(func.data)}</span>)</li>
+                        <li><a href={`/${func.id}`}>{func.id}</a> (<span class={"side-"+getFunctionInfo(func.data).type}>{getFunctionInfo(func.data).typePretty}</span>)</li>
                     ))}
                 </ul>
             </details>
         </section>
     ))}
 </StarlightPage>
-
-<style>
-.side-shared {
-    color: rgb(117, 117, 255);
-}
-.side-client {
-    color: rgb(255, 50, 50);
-}
-.side-server {
-    color: rgb(232, 115, 0);
-}
-</style>
-
-<script>
-    document.querySelectorAll('.side-type-color').forEach(el => {
-        const type = el.textContent || '';
-        el.classList.add(`side-${type.toLowerCase()}`);
-    });
-
-</script>

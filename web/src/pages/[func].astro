@@ -1,7 +1,7 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { getCollection } from 'astro:content';
-import { getFunctionType } from '@src/utils/functions';
+import { getFunctionInfo } from '@src/utils/functions';
 
 export async function getStaticPaths() {
     const functions = await getCollection('functions');
@@ -12,13 +12,26 @@ export async function getStaticPaths() {
 }
 
 const { func } = Astro.props;
+
+const funcInfo = getFunctionInfo(func.data);
+
+const funcType = funcInfo.type;
+const funcTypePretty = funcInfo.typePretty;
+const funcTypeClass = `side-${funcType}`;
+
+const funcPair = funcInfo.pair;
 ---
+
 <StarlightPage frontmatter={{
     template: 'doc',
     title: func.id,
     tableOfContents: false,
 }}>
-    <div>
-        {getFunctionType(func.data)}
-    </div>
+    <p><strong>Type:</strong> <span class={funcTypeClass}>{funcTypePretty}</span></p>
+
+    {funcPair && (
+        <p>Pair: <a href={ funcPair }>{ funcPair }</a></p>
+    )}
+
+    <p>{ funcInfo.description }</p>
 </StarlightPage>

@@ -11,18 +11,6 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
     TODO
 </StarlightPage>
 
-<style>
-.side-shared {
-    color: rgb(117, 117, 255);
-}
-.side-client {
-    color: rgb(255, 50, 50);
-}
-.side-server {
-    color: rgb(232, 115, 0);
-}
-</style>
-
 <script>
     document.querySelectorAll('.side-type-color').forEach(el => {
         const type = el.textContent || '';

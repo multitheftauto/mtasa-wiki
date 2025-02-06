@@ -1,0 +1,12 @@
+/* Custom MTA Wiki CSS */
+
+/* Styling for "Client-side / Server-side / Shared" */
+.side-shared {
+    color: rgb(117, 117, 255);
+}
+.side-client {
+    color: rgb(255, 50, 50);
+}
+.side-server {
+    color: rgb(232, 115, 0);
+}

@@ -28,6 +28,7 @@ export default defineConfig({
 				// Override some default components
 				Pagination: './src/overrides/Pagination.astro',
 			},
+			customCss: [ './src/styles/custom.css' ],
 			disable404Route: true,
 			sidebar: [
 				{
