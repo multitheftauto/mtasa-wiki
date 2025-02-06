@@ -1,6 +1,7 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { getCollection } from 'astro:content';
+import { marked } from 'marked';
 
 export async function getStaticPaths() {
   const elements = await getCollection('elements');
@@ -17,5 +18,6 @@ const { element } = Astro.props;
   title: element.data.name,
   tableOfContents: false,
 }}>
-  <p>TODO</p>
+  <Fragment set:html={marked(element.data.description)} />
 </StarlightPage>
+
