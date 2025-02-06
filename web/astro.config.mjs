@@ -38,7 +38,7 @@ export default defineConfig({
 					},
 					items: [
 						{
-							label: 'Introduction', link: 'Introduction',
+							label: 'Introduction', link: '/',
 							translations: {
 								es: 'Introducción',
 								fr: 'Introduction',
