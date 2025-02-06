@@ -50,9 +50,6 @@ for (let func of functionsCollection) {
 export function getFunctionsByCategory(): FunctionsByCategory {
     return functionsByCategory;
 }
-export function getAllFunctions(): FunctionItem[] {
-    return functionsCollection;
-}
 
 export function getFunctionsByTypeByCategory(): FunctionsByTypeByCategory {
     return functionsByTypeByCategory;
