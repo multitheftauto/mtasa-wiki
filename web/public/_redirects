@@ -2,9 +2,7 @@
 /wiki/* /:splat
 
 /element /Element
-/element/* /:splat
-
-/Element/ /Element
-/Element/* /:splat
+/element/:elementname /:elementname
+/Element/:elementname /:elementname
 
 /GetElementPosition /getElementPosition
