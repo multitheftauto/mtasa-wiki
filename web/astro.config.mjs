@@ -10,12 +10,7 @@ export default defineConfig({
 		defaultLocale: "en",
 		routing: {
 			prefixDefaultLocale: false,
-			fallbackType: "redirect"
 		},
-		fallback: {
-			"es": "en",
-			"fr": "en",
-		}
 	},
 	integrations: [
 		starlight({
