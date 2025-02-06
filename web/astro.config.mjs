@@ -27,7 +27,7 @@ export default defineConfig({
 					label: 'Start here',
 					items: [
 						{
-							slug: 'introduction',
+							label: 'Introduction', link: 'Introduction',
 						},
 					]
 				},
@@ -35,33 +35,33 @@ export default defineConfig({
 					label: 'Reference',
 					items: [
 						{
-							slug: 'lua-api',
+							label: 'Lua API', link: 'Lua_API',
 						},
 						{
 							label: 'Functions',
 							items: [
-								{label: 'All functions', link: '/Scripting_Functions'},
-								{label: 'Shared functions', link: '/Shared_Scripting_Functions'},
-								{label: 'Client functions', link: '/Client_Scripting_Functions'},
-								{label: 'Server functions', link: '/Server_Scripting_Functions'},
+								{label: 'All functions', link: 'Scripting_Functions'},
+								{label: 'Shared functions', link: 'Shared_Scripting_Functions'},
+								{label: 'Client functions', link: 'Client_Scripting_Functions'},
+								{label: 'Server functions', link: 'Server_Scripting_Functions'},
 							]
 						},
 						{
 							label: 'Events',
 							items: [
-								{label: 'All events', link: '/Scripting_Events'},
-								{label: 'Client events', link: '/Client_Scripting_Events'},
-								{label: 'Server events', link: '/Server_Scripting_Events'},
+								{label: 'All events', link: 'Scripting_Events'},
+								{label: 'Client events', link: 'Client_Scripting_Events'},
+								{label: 'Server events', link: 'Server_Scripting_Events'},
 							]
 						},
 						{
 							label: 'Elements',
 							items: [
-								{label: 'Element types', link: '/Element', badge:{
+								{label: 'Element types', link: 'Element', badge:{
 									text: 'New',
 									variant: 'tip',
 								}},
-								{slug: 'Element_tree'},
+								{label: 'Element tree', link: 'Element_tree'},
 							]
 						},
 					]

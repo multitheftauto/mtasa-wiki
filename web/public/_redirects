@@ -1,2 +1,4 @@
 /wiki/ /
 /wiki/* /:splat
+
+/Element/* /:splat

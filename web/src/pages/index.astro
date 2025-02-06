@@ -1,0 +1,28 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+---
+<StarlightPage frontmatter={{
+    template: 'splash',
+    title: 'Welcome',
+    description: 'The new knowledge base of Multi Theft Auto',
+    hero: {
+        tagline: 'The new Multi Theft Auto: Wiki is currently under construction!',
+        actions: [
+            {
+                link: 'Introduction',
+                text: 'Get Started',
+                icon: 'right-arrow'
+            },
+            {
+                link: 'https://github.com/multitheftauto/wiki.multitheftauto.com',
+                text: 'Contribute on GitHub',
+                icon: 'github',
+                variant: 'minimal',
+                attrs: {
+                    target: '_blank',
+                    rel: 'noopener'
+                }
+            }
+        ]
+    }
+}} />
