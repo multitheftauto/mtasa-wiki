@@ -2,9 +2,10 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import mtasaStarlightThemePlugin from '@multitheftauto/starlight-theme-mtasa';
+import { SITE_TITLE, SITE_URL } from './src/content.constants';
 
-// https://astro.build/config
 export default defineConfig({
+	site: SITE_URL,
 	i18n: {
 		locales: ["en", "es", "fr"],
 		defaultLocale: "en",
@@ -18,7 +19,7 @@ export default defineConfig({
 				mtasaStarlightThemePlugin(),
 			],
 			favicon: 'favicon.ico',
-			title: 'Multi Theft Auto: Wiki',
+			title: SITE_TITLE,
 			logo: {
 				replacesTitle: true,
 				light: './src/assets/logo-black.png',
